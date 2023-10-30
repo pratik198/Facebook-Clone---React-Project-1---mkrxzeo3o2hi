@@ -1,0 +1,148 @@
+.wht-is-on-your-mind {
+  /* position: relative;
+  top: 14px;
+  margin-top: 174px;
+  height: 30em;
+  width: 80%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  flex-direction: column; */
+  position: relative;
+    top: 14px;
+    margin-top: 174px;
+    height: 30em;
+    width: 41%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    flex-direction: column;
+}
+
+.mind-box {
+  position: relative;
+  height: 9em;
+  width: 454px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+  /* margin: 11px; */
+  right: 93px;
+}
+
+.parent-avtar {
+  position: relative;
+  right: 315px;
+  bottom: 27px;
+  cursor: pointer;
+}
+.box__name {
+  height: 37px;
+  width: 26em;
+  margin-bottom: 32px;
+  outline: none;
+  border: none;
+  background-color: #e9ebee;
+  border-radius: 19px;
+  margin-left: 82px;
+  position: relative;
+  left: 91px;
+  bottom: 11px;
+}
+.box__name::placeholder {
+  padding-left: 10px;
+}
+.parent-footer {
+  display: flex;
+  width: 67%;
+  position: relative;
+  top: 40px;
+  right: 257px;
+  align-self: center;
+  gap: 75px;
+  margin: -64px;
+}
+.cam {
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 32px;
+}
+
+.cam2 {
+  font-size: x-small;
+  font-weight: bold;
+}
+
+.bar {
+  height: 1px;
+  width: 90%;
+  position: absolute;
+  top: 58%;
+  background-color: #cfc6c6;
+}
+.reel-box {
+  /* height: 197px;
+  width: 104px;
+  background-color: white;
+  border-radius: 11px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+   */
+   position: relative;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 111px;
+    height: 200px;
+    box-shadow: 0px 5px 17px -7px rgba(0,0,0,0.75);
+
+    border-radius: 10px;
+    margin-right: 10px;
+    transition: transform 100ms ease-in;
+    cursor: pointer;
+}
+
+.parent-mind-box {
+  width: 50%;
+  margin-top: 1em;
+}
+
+.parent-reel-section {
+  display: flex;
+  height: 201px;
+  background-color: #e9ebee;
+  gap: 9px;
+  margin-top: 21px;
+}
+
+.reel-box {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.story-img {
+  height: 200px;
+  border-radius: 10px;
+  width: 120px;
+  object-fit: cover;
+}
+
+.story_avatar{
+  margin: 10px;
+  border: 5px solid #2e81f4;
+}
+
+.reel-box:hover{
+  transform:  scale(1.07);
+}
+

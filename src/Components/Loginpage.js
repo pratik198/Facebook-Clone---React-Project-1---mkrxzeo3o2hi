@@ -1,14 +1,9 @@
-
 import React, { useState } from "react";
 import "../Styles/Loginpage.css";
 import Button from "@mui/material/Button";
-import { useNavigate} from "react-router";
+import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-
-
-
-// import { getBearerToken,setBearerToken } from "./Datastore";
-
+import { setBearerToken, UserMap } from "./Datastore";
 
 function Loginpage() {
   const projectID = "f104bi07c490";
@@ -17,7 +12,7 @@ function Loginpage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  
+
   function mailInput(e) {
     const mailSet = e.target.value;
     setEmail(mailSet);
@@ -30,7 +25,7 @@ function Loginpage() {
 
   async function handleLogin() {
     try {
-      console.log("xxxx")
+      console.log("xxxx");
       const response = await fetch(
         "https://academics.newtonschool.co/api/v1/user/login",
         {
@@ -50,8 +45,16 @@ function Loginpage() {
         console.log("Successfully logged in");
         setIsLoggedIn(true);
         let json = await response.json();
-        // setBearerToken(json["token"]);
-        localStorage.setItem('token',json.token);
+        setBearerToken(json["token"]);
+        console.log(json);
+        localStorage.setItem("token", json.token);
+        UserMap.set(json.data._id, {
+          name: json.data.name,
+          img: "https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg",
+        });
+        // console.log(UserMap.keys);
+        // console.log(UserMap.values);
+        console.log(UserMap.get("652e8f8c64d7830e72354ff6"));
         navigate("/main");
       } else {
         const errorData = await response.json();
@@ -108,7 +111,6 @@ function Loginpage() {
               ></input>
             </div>
             <div className="login-button">
-            
               <Button
                 variant="contained"
                 className="Button"
@@ -119,15 +121,17 @@ function Loginpage() {
             </div>
             <div className="Forgot-text">
               <Link to={"/update"}>
-              <p>Forgotten password?</p>
+                <p>Forgotten password?</p>
               </Link>
             </div>
             <div className="line"></div>
 
             <div className="create-button">
-              <button type="button" className="C-A-Button">
-                Create new account
-              </button>
+              <Link to={"/signup"}>
+                <button type="button" className="C-A-Button">
+                  Create new account
+                </button>
+              </Link>
             </div>
           </div>
         </div>

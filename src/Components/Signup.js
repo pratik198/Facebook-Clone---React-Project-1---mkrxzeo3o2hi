@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../Styles/Signup.css";
-
+import { Link } from "react-router-dom";
 function Signup() {
   const projectID = "f104bi07c490";
   const [email, setEmail] = useState("");
@@ -63,11 +63,12 @@ function Signup() {
 
   return (
     <div className="register">
+      <Link to={"/"}>
       <img
         src="https://static.xx.fbcdn.net/rsrc.php/y8/r/dF5SId3UHWd.svg"
         alt="Facebook Logo"
         className="register__logo"
-      />
+      /></Link>
       <div className="register__container">
         <h1>Create a new account</h1>
         <p>It's quick and easy.</p>
@@ -308,7 +309,8 @@ function Signup() {
               Sign Up?
             </button>
           </div>
-          <p className="register__login">Already have an account?</p>
+          <Link to={"/"}>
+          <p className="register__login">Already have an account?</p></Link>
         </form>
       </div>
     </div>

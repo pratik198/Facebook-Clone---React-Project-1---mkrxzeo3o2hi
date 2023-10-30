@@ -1,0 +1,25 @@
+/* .names-right {
+    width: 15%;
+} */
+
+/* .main-right {
+    width: 2px;
+    position: absolute;
+    right: 16em;
+    top: 79px;
+} */
+
+.right-sidebar {
+       /* margin-top: -21em; */
+       position: relative;
+       width: 20%;
+       /* background-color: red; */
+       height: 100vh;
+       position: absolute;
+       left: 60em;
+       position: fixed;
+       margin-top: 67px;
+}
+.widgets {
+    height: 100vh;
+}

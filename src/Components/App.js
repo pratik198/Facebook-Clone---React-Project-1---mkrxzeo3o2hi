@@ -12,6 +12,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Loginpage />} />
+        {/* <Route path="/" element={<CreatePage />} /> */}
         <Route path="/update" element={<Updatepassword />} />
         <Route path="/signup" element={<Signup />} />
         <Route element={<Pratik />}>

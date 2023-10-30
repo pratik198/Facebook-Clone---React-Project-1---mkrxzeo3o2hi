@@ -48,7 +48,7 @@ function Profile(props) {
                 <MoreVertIcon />
               </IconButton>
             }
-            title={post.author.name}
+            title={post.author.name} 
             subheader="September 14, 2016"
           />
             <CardContent>
