@@ -6,7 +6,7 @@ export function getBearerToken() {
 }
 
 export function setBearerToken(newToken) {
-  if (tokenset == false) {
+  if (tokenset === false) {
     tokenset = true;
     bearerToken = bearerToken + newToken;
   }
@@ -43,8 +43,8 @@ UserMap.set("65296bb6a1ea4d2294755723", {
   img: "https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg",
 });
 UserMap.set("65296bb6a1ea4d2294755723", {
-  name: "Arun",
-  img: "https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg",
+  name: "Anku",
+  img: "http://t1.gstatic.com/images?q=tbn:ANd9GcQO9uxMB1FX2AzaVz_S2H42Gjnm-g925Q1cKF8RClf_P54zoW_DSmtrqcyuyUoqrzNp82Hy",
 });
 UserMap.set("65392efd65bb52b90c8fac67", {
   name: "Sejal",
@@ -55,8 +55,3 @@ UserMap.set("65392efd65bb52b90c8fac67", {
   img: "https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg",
 });
 
-// console.log(UserMap.get("65392efd65bb52b90c8fac67"));
-
-// console.log(UserMap.get("65392efd65bb52b90c8fac67").img)
-
-// console.log(UserMap.get("65392efd65bb52b90c8fac67").name)

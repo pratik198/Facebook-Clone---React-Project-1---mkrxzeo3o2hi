@@ -13,6 +13,8 @@
     display: flex;
     justify-content: space-between;
     /* margin-bottom: 11px; */
+    height: 23px;
+    margin-top: -8px;
 }
 
 body {
@@ -21,7 +23,7 @@ body {
 
 .like-post-like-btn {
     cursor: pointer;
-    margin-left: 51px
+    margin-left: 16px;
 
 }
 
@@ -148,12 +150,13 @@ body {
     line-height: 5px;
     font-family: system-ui;
     font-size: 13px;
-    margin-bottom: 24px;
+    margin-bottom: 9px;
     position: relative;
 }
 .scroll-container{
     overflow-y: scroll;
-    height: 222px;
+    height: 186px;
+    margin-top: 14px;
 }
 .l-r-s{
     font-family: system-ui;
@@ -170,4 +173,74 @@ body {
     margin-bottom: 11px;
     margin-left: 67px;
     gap: 10px;
+}
+.commentInputDiv{
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    margin-top: 21px;
+    right: 6px;
+  }
+
+  .commentInputDiv input{
+    position: relative;
+    width: 322px;
+    border-radius: 25px 0px 0px 25px;
+    outline: none;
+    border: 1px #a1a8b1 solid;
+    padding-left: 13px;
+    margin-left: -4px;
+    
+  }
+
+  .commentInputDiv button {
+    border-radius: 0px 25px 25px 0px;
+    border: 1px #8191a5 solid;
+    /* padding-left: 5px; */
+    margin-left: -10px;
+  }
+
+  .editCommentDiv {
+    margin-left: 40%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .l-r-s {
+    display: flex;
+    position: relative;
+    top: -19px;
+  }
+
+ 
+
+ .edit-comment-after-clicked {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+ } 
+
+.comment-edit-input {
+    display: flex;
+    justify-content: center;
+    height: 30px;
+    position: relative;
+    top: -9px;
+    left: -35px;
+    border: none;
+    border-radius: 55px;
+    width: 18em;
+    padding-left: 13px;
+    /* background-color: #ebebeb; */
+    background-color: #fff;
+    border: 1px black solid;
+    outline: none;
+}
+
+.editCommentBtn{
+    position: relative;
+    top: -4px;
+    cursor: pointer;
 }

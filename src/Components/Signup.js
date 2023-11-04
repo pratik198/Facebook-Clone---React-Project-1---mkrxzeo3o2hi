@@ -306,11 +306,11 @@ function Signup() {
 
           <div className="center-input">
             <button type="submit" className="register__register">
-              Sign Up?
+              Sign Up
             </button>
           </div>
           <Link to={"/"}>
-          <p className="register__login">Already have an account?</p></Link>
+          <p className="register__login">Now go to LogIn</p></Link>
         </form>
       </div>
     </div>

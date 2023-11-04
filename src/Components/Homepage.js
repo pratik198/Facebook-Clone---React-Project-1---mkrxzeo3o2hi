@@ -9,143 +9,107 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { getBearerToken } from "./Datastore";
 import like from "../Images/like.png";
 import love from "../Images/thumbs-up (1).png";
 import chat from "../Images/chat.png";
 import like2 from "../Images/like 2.png";
 import comment from "../Images/comment.png";
 import send from "../Images/send.png";
+import { Button } from "@mui/material";
+import { Delete, ThumbUpAltOutlined } from "@mui/icons-material";
+import { Send } from "@mui/icons-material";
+import { UserMap, getBearerToken, setBearerToken } from "./Datastore";
+import { Edit } from "@mui/icons-material";
+
 function Homepage() {
   const [Data, setData] = useState([]);
+  const [comments, setComments] = useState({});
+  const [likeCounts, setLikeCounts] = useState({});
   const [isPostLiked, setPostLiked] = useState(false);
-  const [commentData, setCommentData] = useState([]);
+  const [Click, SetClick] = useState(false);
   const bearerToken = localStorage.getItem("token");
-  const [comments, setComments] = useState([]);
-  let api1 =
-    'https://academics.newtonschool.co/api/v1/facebook/post?search={"author.name":"Carmen Shanahan"}';
-  let api = "https://academics.newtonschool.co/api/v1/facebook/post";
+  const [apiData, setApiData] = useState(null);
+  const [commentInput, setCommentInput] = useState("");
+  const [editedComment, setEditedComment] = useState("");
+  const [editedCommentId, setEditedCommentId] = useState("");
+  const loggedInUserId = localStorage.getItem("userId");
   useEffect(() => {
-    // getComment();
-    // setCommentData();
     GetData();
-    setPostLiked(false);
-  }, [isPostLiked]);
+    setLikeCounts(false);
+  }, [likeCounts]);
 
-  const getComment = async (postId) => {
-    console.log("inside get comment");
-    console.log(postId);
-    const token = localStorage.getItem("token");
-    const token_ = "Bearer " + token;
-    console.log(token_);
-    const response = await fetch(
-      `https://academics.newtonschool.co/api/v1/facebook/post/${postId}/comments`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: token_,
-          projectID: "f104bi07c490",
-        },
-      }
-    );
-    console.log("Anurag Sir");
-    console.log(response);
-    const d = await response.json();
-    console.log(d);
-    // setCommentData(d.data);
-    commentData[postId] = d.data;
-  };
+  /* fetching post*/
 
   const GetData = async () => {
-    const response = await fetch(api, {
-      headers: {
-        projectID: "f104bi07c490",
-      },
-    });
-    const r = await response.json();
-    console.log(r);
-    setData(r["data"]);
-    console.log(Data);
-
-    var delayInMilliseconds = 5000; //1 second
-
-    setTimeout(function () {
-      Data.forEach((i) => {
-        console.log(i._id);
-        getComment(i._id);
-      });
-      //your code to be executed after 1 second
-    }, delayInMilliseconds);
-  };
-
- 
-  console.log(Data);
-  Data.forEach((i) => {
-    console.log(i._id);
-    getComment(i._id);
-  });
-  const likePost = async (postId) => {
-    // const token = getBearerToken();
-    const token = localStorage.getItem("token");
-    const token_ = "Bearer " + token;
-    console.log(token_);
-
-    console.log(postId);
-    const response = await fetch(
-      `https://academics.newtonschool.co/api/v1/facebook/like/${postId}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: token_,
-          projectID: "f104bi07c490",
-        },
-      }
-    );
-    console.log(response);
-    const d = await response.json();
-    console.log(d);
-    if (response.ok) {
-      setPostLiked(true);
-    }
-  };
-
-  //updating comment//
-
-  const createCommentForPost = async (postId, content) => {
     try {
       const response = await fetch(
-        `https://academics.newtonschool.co/api/v1/facebook/comment/${postId}`,
+        "https://academics.newtonschool.co/api/v1/facebook/post",
         {
-          method: "POST",
           headers: {
-            Authorization: `Bearer ${bearerToken}`,
             projectID: "f104bi07c490",
-            "Content-Type": "application/json",
           },
-          body: JSON.stringify({ content }),
         }
       );
-
       if (response.ok) {
-        console.log("Comment created successfully");
         const data = await response.json();
-        setComments([...comments, data.comment]);
+        setData(data.data);
+
+        data.data.forEach((post) => {
+          // Fetch comments for each post when the component loads
+          handleFetchComments(post._id);
+        });
       } else {
-        const errorData = await response.json();
-        console.error("Error while creating a comment:", errorData);
+        console.error("Error while fetching data.");
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
-  const handleComment = (e) => {
-    setComments(e.target.value);
+  /*like post*/
+
+  const handleLikePost = async (postId) => {
+    const isLiked = Click;
+    SetClick(!isLiked);
+
+    const response = await fetch(
+      `https://academics.newtonschool.co/api/v1/facebook/like/${postId}`,
+      {
+        method: isLiked ? "DELETE" : "POST",
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+          projectID: "f104bi07c490",
+        },
+      }
+    );
+
+    if (response.ok) {
+      console.log(isLiked ? "Unlike is clicked" : "Like is clicked");
+      setLikeCounts((prevCounts) => ({
+        ...prevCounts,
+        [postId]: isLiked ? prevCounts[postId] - 1 : prevCounts[postId] + 1,
+      }));
+    } else {
+      const errorData = await response.json();
+      console.error("Error while liking the post:", errorData);
+    }
   };
 
-  //
+  useEffect(() => {
+    const counts = {};
+    const commentsData = {};
+    if (apiData) {
+      apiData.forEach((post) => {
+        counts[post._id] = post.likeCount;
+        commentsData[post._id] = [];
+        handleFetchComments(post._id);
+      });
+      setLikeCounts(counts);
+      setComments(commentsData);
+    }
+  }, [apiData]);
 
-  ///fecting comments
+  /*fetching comments*/
 
   const handleFetchComments = async (postId) => {
     try {
@@ -160,10 +124,11 @@ function Homepage() {
         }
       );
       if (response.ok) {
-        console.log("Comment is click");
         const data = await response.json();
-        setComments(data.comments);
-        console.log(data);
+        setComments((prevComments) => ({
+          ...prevComments,
+          [postId]: data.data,
+        }));
       } else {
         const errorData = await response.json();
         console.error("Error while fetching comments:", errorData);
@@ -173,13 +138,141 @@ function Homepage() {
     }
   };
 
-  ////////////////////////
+  /*adding comments */
+
+  const createCommentForPost = async (postId) => {
+    console.log("create comment function is called ");
+    try {
+      const response = await fetch(
+        `https://academics.newtonschool.co/api/v1/facebook/comment/${postId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+            projectID: "f104bi07c490",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ content: commentInput }),
+        }
+      );
+
+      if (response.ok) {
+        console.log("Comment created successfully");
+        const data = await response.json();
+
+        // Increment the comment count for the current post
+        const updatedData = Data.map((post) => {
+          if (post._id === postId) {
+            return {
+              ...post,
+              commentCount: post.commentCount + 1,
+            };
+          }
+          return post;
+        });
+        setData(updatedData);
+
+        // Update the comments state
+        setComments((prevComments) => ({
+          ...prevComments,
+          [postId]: [...prevComments[postId], data.data.content],
+        }));
+
+        setCommentInput("");
+        handleFetchComments(postId);
+      } else {
+        const errorData = await response.json();
+        console.error("Error while creating a comment:", errorData);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleComment = (e) => {
+    setCommentInput(e.target.value);
+  };
+
+  /**edit comments */
+
+  const updateCommentForPost = async (postId, commentId, updatedComment) => {
+    try {
+      const response = await fetch(
+        `https://academics.newtonschool.co/api/v1/facebook/comment/${commentId}`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+            projectID: "f104bi07c490",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ content: updatedComment }),
+        }
+      );
+
+      if (response.ok) {
+        console.log("Comment updated successfully");
+      } else {
+        const errorData = await response.json();
+        console.error("Error while updating a comment:", errorData);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  const handleEditComment = (postId, commentId, commentContent) => {
+    setEditedComment(commentContent);
+    setEditedCommentId(commentId);
+  };
+  const handleSaveEditedComment = async (postId) => {
+    await updateCommentForPost(postId, editedCommentId, editedComment);
+    setEditedComment("");
+    setEditedCommentId("");
+
+    handleFetchComments(postId);
+  };
+  const isEditingComment = (commentId) => commentId === editedCommentId;
+
+  //delete comment
+
+  const deleteCommentForPost = async (postId, commentId) => {
+    try {
+      const response = await fetch(
+        `https://academics.newtonschool.co/api/v1/facebook/comment/${commentId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+            projectID: "f104bi07c490",
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("Comment deleted successfully");
+        setComments((prevComments) => ({
+          ...prevComments,
+          [postId]: prevComments[postId].filter(
+            (comment) => comment._id !== commentId
+          ),
+        }));
+      } else {
+        const errorData = await response.json();
+        console.error("Error while deleting a comment:", errorData);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <div className="post-box">
       {Data &&
         Data.map((post) => (
-          <Card sx={{ maxWidth: 450, maxHeight: 800, height: "50em" }}>
+          <Card
+            sx={{ maxWidth: 450, maxHeight: 800, height: "50em" }}
+            key={post._id}
+          >
             <CardHeader
               avatar={
                 <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -223,75 +316,74 @@ function Homepage() {
             <div className="line"></div>
 
             <div className="footer">
-              <div className="like-post-like-btn">
-                <span>
-                  <img
-                    src={like2}
-                    alt="..."
-                    onClick={() => likePost(post._id)}
-                    style={{
-                      cursor: "pointer",
-                      height: "21px",
-                      marginTop: "-4px",
-                    }}
-                  />
-                  <span id="S-comment">Like</span>
-                </span>
+              <div
+                className="like-post-like-btn"
+                onClick={() => handleLikePost(post._id)}
+              >
+                <Button
+                  style={{
+                    textTransform: "none",
+                    color: "black",
+                    width: "115px",
+                    background: "none",
+                  }}
+                  className="Like_-button"
+                >
+                  <span>
+                    <img
+                      src={like2}
+                      alt="..."
+                      style={{
+                        cursor: "pointer",
+                        height: "21px",
+                        marginTop: "-4px",
+                      }}
+                    />
+                    <span id="S-comment">Like</span>
+                  </span>
+                </Button>
               </div>
 
               <div
                 className="like-post-like-btn"
                 style={{ marginRight: "31px", marginTop: "-3px" }}
               >
-                <img
-                  src={comment}
-                  alt="..."
-                  // onClick={() => getComment(post._id)}
-                  onClick={() => handleFetchComments(post._id)}
-                />
-                <span id="S-comment">Comment</span>
+                <Button
+                  style={{
+                    textTransform: "none",
+                    color: "black",
+                    width: "115px",
+                    background: "none",
+                  }}
+                  className="Like_-button"
+                >
+                  <img src={comment} alt="..." />
+                  <span id="S-comment">Comment</span>
+                </Button>
               </div>
             </div>
             <div className="line2"></div>
-            <div className="chat-container">
-              <div className="C-input-container">
-                <div
-                  className="input-items"
-                  style={{ display: "flex", alignItems: "center" }}
-                >
-                  <Avatar
-                    style={{
-                      height: "35px",
-                      width: "35px",
-                      marginLeft: "12px",
-                      marginRight: "4px",
-                    }}
-                  />
-                  <input
-                    type="text"
-                    class="text-field-input"
-                    placeholder="Write a public comment..."
-                    value={comments}
-                    onChange={handleComment}
-                    style={{ border: "none" }}
-                  />
-                  <span>
-                    <div id="send-container">
-                      <img
-                        src={send}
-                        alt="..."
-                        style={{ height: "22px", marginRight: "11px" }}
-                        onClick={() => createCommentForPost(post._id, comments)}
-                      />
-                    </div>
-                  </span>
-                </div>
-              </div>
 
-              <div className="scroll-container">
-                {commentData[post._id] &&
-                  commentData[post._id].map((comment) => (
-                    <div>
+            <div className="commentInputDiv">
+              <Avatar sx={{ width: 35, height: 35 }}></Avatar>
+
+              <input
+                type="text"
+                id="inputBoxComment"
+                placeholder="Write a comment..."
+                value={commentInput}
+                onChange={handleComment}
+              />
+              <button onClick={() => createCommentForPost(post._id)}>
+                <Send />
+              </button>
+            </div>
+
+            <div className="chat-container">
+              {comments[post._id] && (
+                <div className="scroll-container">
+                  {comments[post._id].map((comment, index) => (
+                    <div key={index} className="comment">
                       <div
                         className="add-commnet-section"
                         style={{ display: "flex" }}
@@ -304,24 +396,73 @@ function Homepage() {
                             marginRight: "4px",
                             cursor: "pointer",
                           }}
-                        />
+                          src={UserMap.get(comment.author)?.img}
+                        ></Avatar>
+
                         <div className="added-comment">
                           <p>
-                            <strong style={{ fontSize: "12px" }}>
-                              Harry Potter
-                            </strong>
+                            {comment.author && (
+                              <strong style={{ fontSize: "12px" }}>
+                                {UserMap.get(comment.author)?.name}
+                              </strong>
+                            )}
                           </p>
-                          <p style={{ fontSize: "15px" }}>{comment.content}</p>
+                          {isEditingComment(comment._id) ? (
+                            <div className="edit-comment-after-clicked">
+                              <input
+                                type="text"
+                                id="inputBoxCommentEdit"
+                                placeholder="Edit your comment..."
+                                value={editedComment}
+                                onChange={(e) =>
+                                  setEditedComment(e.target.value)
+                                }
+                                className="comment-edit-input" // Apply the CSS class here
+                              />
+                              <Send
+                                className="editCommentBtn"
+                                onClick={() =>
+                                  handleSaveEditedComment(post._id)
+                                }
+                              >
+                                <Send />
+                              </Send>
+                            </div>
+                          ) : (
+                            <p style={{ fontSize: "15px" }}>
+                              {comment.content}
+                            </p>
+                          )}
                         </div>
                       </div>
-                      <div style={{ display: "flex" }} className="l-r-s">
-                        <p>like</p>
-                        <p>Reply</p>
-                        <p>Share</p>
-                      </div>
+
+                      {comment.author === loggedInUserId && (
+                        <div style={{ display: "flex" }} className="l-r-s">
+                          <p
+                            onClick={() =>
+                              handleEditComment(
+                                post._id,
+                                comment._id,
+                                comment.content
+                              )
+                            }
+                          >
+                            Edit
+                          </p>
+                          <p
+                            onClick={() =>
+                              deleteCommentForPost(post._id, comment._id)
+                            }
+                          >
+                            Delete
+                          </p>
+                          <p>Share</p>
+                        </div>
+                      )}
                     </div>
                   ))}
-              </div>
+                </div>
+              )}
             </div>
           </Card>
         ))}
