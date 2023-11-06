@@ -161,3 +161,9 @@ input:focus {
     width: 197px;
     border-radius: 5px;
 }
+
+.warning {
+    color: red;
+    margin-left: 155px;
+    font-weight: bolder;
+}

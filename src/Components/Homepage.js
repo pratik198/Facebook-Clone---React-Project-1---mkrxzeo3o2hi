@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+
 import like from "../Images/like.png";
 import love from "../Images/thumbs-up (1).png";
 import chat from "../Images/chat.png";
@@ -20,6 +21,7 @@ import { Delete, ThumbUpAltOutlined } from "@mui/icons-material";
 import { Send } from "@mui/icons-material";
 import { UserMap, getBearerToken, setBearerToken } from "./Datastore";
 import { Edit } from "@mui/icons-material";
+import { useAuth } from "./Context";
 
 function Homepage() {
   const [Data, setData] = useState([]);
@@ -33,6 +35,7 @@ function Homepage() {
   const [editedComment, setEditedComment] = useState("");
   const [editedCommentId, setEditedCommentId] = useState("");
   const loggedInUserId = localStorage.getItem("userId");
+  const loggedInUserName = localStorage.getItem("userName");
   useEffect(() => {
     GetData();
     setLikeCounts(false);
@@ -232,6 +235,47 @@ function Homepage() {
     handleFetchComments(postId);
   };
   const isEditingComment = (commentId) => commentId === editedCommentId;
+
+
+  // const updateCommentForPost = async (postId, commentId, updatedComment) => {
+
+  //   try {
+  //     const response = await fetch(
+  //       `https://academics.newtonschool.co/api/v1/facebook/comment/${commentId}`,
+  //       {
+  //         method: "PATCH",
+  //         headers: {
+  //           Authorization: `Bearer ${bearerToken}`,
+  //           projectID: "f104bi07c490",
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ content: updatedComment }),
+  //       }
+  //     );
+
+  //     if (response.ok) {
+  //       console.log("Comment updated successfully");
+  //     } else {
+  //       const errorData = await response.json();
+  //       console.error("Error while updating a comment:", errorData);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
+  // const handleEditComment = (postId, commentId, commentContent) => {
+  //   console.log("Edit button clicked");
+  //   setEditedComment(commentContent);
+  //   setEditedCommentId(commentId);
+  // };
+  // const handleSaveEditedComment = async (postId) => {
+  //   await updateCommentForPost(postId, editedCommentId, editedComment);
+  //   setEditedComment("");
+  //   setEditedCommentId("");
+
+  //   handleFetchComments(postId);
+  // };
+  // const isEditingComment = (commentId) => commentId === editedCommentId;
 
   //delete comment
 
@@ -435,7 +479,8 @@ function Homepage() {
                           )}
                         </div>
                       </div>
-
+                      {console.log("Comment author:", comment.author, "Logged-in user:", loggedInUserId)}
+                      {console.log("Is user's comment:", comment.author === loggedInUserId)}
                       {comment.author === loggedInUserId && (
                         <div style={{ display: "flex" }} className="l-r-s">
                           <p

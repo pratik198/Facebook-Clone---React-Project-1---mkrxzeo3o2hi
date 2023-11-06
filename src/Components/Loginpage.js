@@ -11,6 +11,7 @@ function Loginpage() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [unAuthorized, setUnAuthorized] = useState(false);
   const navigate = useNavigate();
 
   function mailInput(e) {
@@ -41,6 +42,11 @@ function Loginpage() {
           }),
         }
       );
+      if(response.status===401){
+        setUnAuthorized(true);
+      }else if(response.status===500){
+
+      }
       if (response.ok) {
         console.log("Successfully logged in");
         setIsLoggedIn(true);
@@ -48,6 +54,8 @@ function Loginpage() {
         setBearerToken(json["token"]);
         console.log(json);
         localStorage.setItem("token", json.token);
+      console.log(json.data._id);
+        localStorage.setItem("userId",json.data._id);
         UserMap.set(json.data._id, {
           name: json.data.name,
           img: "https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg",
@@ -95,6 +103,7 @@ function Loginpage() {
         <div className="card-container">
           <div className="card-details">
             <div className="input-filed">
+              {unAuthorized && <p className="warning">wrong email id password</p>}
               <input
                 type="text"
                 name="text"
