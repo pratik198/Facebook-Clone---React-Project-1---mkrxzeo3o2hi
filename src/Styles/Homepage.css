@@ -244,3 +244,46 @@ body {
     top: -4px;
     cursor: pointer;
 }
+.date-time-static{
+
+}
+
+.accountPost-img{
+    /* display: flex; */
+    padding-left: 15px;
+    /* padding-top: 1px; */
+    position: relative;
+    top: 13px;
+}
+.userProfile-img-name{
+
+}
+
+.naem-autor{
+    position: relative;
+    bottom: 14px;
+    left: 18px;
+    font-size: 15px;
+}
+
+.naem-author-date{
+    /* position: relative; */
+    right: 109px;
+    color: black;
+    font-size: 15px;
+    top: 7px;
+}
+.author-name-name{
+    position: relative;
+    bottom: 3px;
+}
+
+
+.author-name-name-name{
+    position: relative;
+    /* display: flex; */
+    justify-content: center;
+    right: 82px;
+    top: 8px;
+    font-weight: 100;
+}

@@ -247,4 +247,13 @@ h5{
     color: #71767c;
 }
 
+.error-message {
+  position: relative;
+  bottom: 30px;
+  color: red;
+  font-weight: 600;
+}
 
+.error-input-data {
+  color: red;
+}

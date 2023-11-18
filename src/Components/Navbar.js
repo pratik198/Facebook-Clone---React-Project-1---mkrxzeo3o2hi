@@ -1,38 +1,43 @@
-
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import FeedbackIcon from "@mui/icons-material/Feedback";
+import { Modal } from "@mui/material";
+import ReactDOM from "react-dom";
 import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-// import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import {
-  BrowserRouter,
-  Link,
-  NavLink,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "../Styles/Navbar.css";
 import HomeIcon from "@mui/icons-material/Home";
 import FlagIcon from "@mui/icons-material/Flag";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
-import { StorefrontOutlined, SupervisedUserCircle } from "@mui/icons-material";
 import { useAuth } from "./Context";
-import { toBeChecked } from "@testing-library/jest-dom/matchers";
-// import SearchIcon from '@mui/icons-material/Search';
+import {
+  Logout,
+  StorefrontOutlined,
+  SupervisedUserCircle,
+} from "@mui/icons-material";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import HelpIcon from "@mui/icons-material/Help";
+import SettingsIcon from "@mui/icons-material/Settings";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { Avatar } from "@mui/material";
+import ListItemButton from "@mui/material";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+
+import { Typography } from "@mui/material";
+
+import Divider from "@mui/material";
+import { Settings } from "@mui/icons-material";
+import { EmojiFlagsRounded, FeedbackRounded } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -43,10 +48,11 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-function handleLogout() {
-  console.log("clicked");
-  localStorage.removeItem("token");
-}
+// function handleLogout() {
+//   console.log("clicked");
+//   localStorage.removeItem("token");
+//   navigate("/");
+// }
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -62,7 +68,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -73,104 +78,64 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const username = localStorage.getItem("userName");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchPerformed, setSearchPerformed] = useState(false);
+  const {setApiSearchData}=useAuth();
+  const navigate = useNavigate();
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  const habdleLoginLogout = () => {
+    if (isLoggedIn) {
+      setIsLoggedIn(false);
+      localStorage.removeItem("token");
+    }
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
+  const myAvtarr = {
+    photoURL:
+      "https://images.unsplash.com/photo-1505628346881-b72b27e84530?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FydG9vbiUyMGFuaW1hbHxlbnwwfHwwfHx8MA%3D%3D",
+    displayName: "Pratik",
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
+
+  const handleSearch = async () => {
+    console.log("inside the search function")
+    const searchUrl2 = `https://academics.newtonschool.co/api/v1/facebook/post?search={"author.name":"${searchQuery}"}`;
+    if (searchQuery.trim() === "") {
+      // If searchTerm is empty or contains only whitespace, do not make the API call
+      setApiSearchData([]);
+      setSearchPerformed(false);
+      return;
+    }
+    try {
+      const response = await fetch(searchUrl2, {
+        headers: {
+          projectID: "f104bi07c490",
+        },
+      });
+      const searchData = await response.json();
+      setApiSearchData(searchData["data"]);
+      setSearchPerformed(true);
+    } catch (error) {
+      console.log("Error fetching search data", error);
+    }
+    navigate("/search");
   };
-
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
-    </Menu>
-  );
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <Link to="/">
-          <button onClick={handleLogout}>Profile</button>
-        </Link>
-      </MenuItem>
-    </Menu>
-  );
+  const handleInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+  const userIdForNav = localStorage.getItem("userId");
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -185,29 +150,37 @@ export default function PrimarySearchAppBar() {
           </Link>
           <Search className="miu-search-bar">
             <SearchIconWrapper>
-              <SearchIcon />
+            <SearchIcon onClick={handleSearch} />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search facebook"
+              className="seachInput"
+              placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              value={searchQuery}
+              onChange={handleInputChange}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSearch();
+                }
+              }}
             />
           </Search>
           <div className="header_center">
-            <div className="header_option header_option--active">
+            <Link to={"/main"} className="header_option header_option--active">
               <HomeIcon fontSize="large" />
-            </div>
-            <div className="header_option">
+            </Link>
+            <Link to={"/commingsoon"} className="header_option">
               <FlagIcon fontSize="large" />
-            </div>
-            <div className="header_option">
+            </Link>
+            <Link to={"/commingsoon"} className="header_option">
               <SubscriptionsIcon fontSize="large" />
-            </div>
-            <div className="header_option">
+            </Link>
+            <Link to={"/commingsoon"} className="header_option">
               <StorefrontOutlined fontSize="large" />
-            </div>
-            <div className="header_option">
+            </Link>
+            <Link to={"/commingsoon"} className="header_option">
               <SupervisedUserCircle fontSize="large" />
-            </div>
+            </Link>
           </div>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -216,37 +189,96 @@ export default function PrimarySearchAppBar() {
               aria-label="show 4 new mails"
               color="#0866FF"
             >
-              <Badge  color="error">
-                <MailIcon />
-              </Badge>
+              <Link to={"/commingsoon"}>
+                <Badge color="error">
+                  <MailIcon />
+                </Badge>
+              </Link>
             </IconButton>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="#0866FF"
             >
-              <Badge color="error">
-                <NotificationsIcon />
-              </Badge>
+              <Link to={"/commingsoon"}>
+                <Badge color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </Link>
             </IconButton>
             <IconButton
               size="large"
               edge="end"
               aria-label="account of current user"
-              aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="#0866FF"
             >
-              <Link to="/">
-                <AccountCircle onClick={handleLogout} />
-              </Link>
+              <Avatar src={myAvtarr.photoURL} onClick={handleOpen} />
             </IconButton>
+
+            <section className="modalSection">
+              <Modal
+                className="modalAcountIcon"
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box className="modalBox">
+                  <Link to={"/profile"}>
+                    <Box className="boxUser">
+                      <Link to={"/profile"} className="user-name-modal-a">
+                        <Avatar src={myAvtarr.photoURL} />
+                      </Link>
+                      <Link to={"/profile"}>
+                        <h3 className="author-name-modal">{username}</h3>
+                      </Link>
+                      <p className="see-all-profile">See all profile</p>
+                      <div className="line-modal-box"></div>
+                    </Box>
+                  </Link>
+                  <div className="options-modal">
+                    <div className="icons-modal">
+                      <SettingsIcon />
+                      <p>Settings & privacy</p>
+                    
+                    </div>
+                    <div className="icons-modal">
+                      <HelpIcon />
+                      <p>Help and support</p>
+                     
+                    </div>
+                    <div className="icons-modal">
+                      <DarkModeIcon />
+                      <p>Display & accessibility</p>
+                      
+                    </div>
+                    <div className="icons-modal">
+                      <FeedbackIcon />
+                      <p>Give feedback</p>
+                    </div>
+                    <Link to="/" className="black-link">
+                      <div className="icons-modal" onClick={habdleLoginLogout}>
+                        <Logout />
+                        <p
+                          id="modal-modal-title"
+                          variant="h6"
+                          component="h2"
+                          role="button"
+                        >
+                          {isLoggedIn ? "Logout" : "Login"}
+                        </p>
+                        {/* <p>Log out</p> */}
+                      </div>
+                    </Link>
+                  </div>
+                </Box>
+              </Modal>
+            </section>
           </Box>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
     </Box>
   );
 }
