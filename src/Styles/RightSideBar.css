@@ -23,3 +23,9 @@
 .widgets {
     height: 100vh;
 }
+
+@media only screen and (max-width : 900px) {
+    .right-sidebar {
+     display: none;
+ }
+}

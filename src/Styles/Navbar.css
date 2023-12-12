@@ -174,8 +174,36 @@
   left: 149px;
   top: 2px;
 }
-.right-arrow-3{
-position: relative;
-left: 123px;
-top: 2px;
+.right-arrow-3 {
+  position: relative;
+  left: 123px;
+  top: 2px;
+}
+
+@media only screen and (max-width: 600px) {
+  .mui-nav-bar {
+    position: sticky;
+    width: 40%;
+  }
+  .header_center {
+    display: flex;
+    width: 20%;
+    justify-content: space-evenly;
+    gap: 50px;
+    cursor: pointer;
+  }
+  .modalBox {
+    position: relative;
+    border: 2px solid black;
+    height: 65vh;
+    width: 22em;
+    margin: -30px 20px 0px 0px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 1px 1px 8px black;
+    left: 0;
+    top: 6em;
+    opacity: 1;
+  }
+  
 }

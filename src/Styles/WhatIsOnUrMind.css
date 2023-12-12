@@ -125,6 +125,10 @@
   background-color: #e9ebee;
   gap: 9px;
   margin-top: 21px;
+  /* @media(max-width : 320px) {
+     
+} */
+
 }
 
 .reel-box {
@@ -148,3 +152,67 @@
   transform:  scale(1.07);
 }
 
+/* .parent-reel-section {
+  display: flex;
+  height: 201px;
+  background-color: #e9ebee;
+  gap: 9px;
+  margin-top: 21px;
+
+} */
+
+.parent-reel-section {
+  display: flex;
+  height: 201px;
+  background-color: #e9ebee;
+  gap: 9px;
+  margin-top: 21px;
+}
+
+@media only screen 
+   and (max-width : 1200px) {
+   /* Styles here */
+   .parent-reel-section {
+    display: flex;
+    height: 201px;
+    background-color: #e9ebee;
+    gap: 9px;
+    margin-top: 21px;
+  }
+  
+}
+
+
+
+@media only screen and (max-width: 768px) {
+  .wht-is-on-your-mind {
+    height: 20em;
+  }
+
+  .mind-box {
+    height: 6em;
+  }
+
+  .box__name {
+    height: 25px;
+    width: 20em;
+  }
+
+  .parent-footer {
+    top: 20px;
+  }
+
+  .reel-box {
+    height: 150px;
+    width: 90px;
+  }
+
+  .story-img {
+    height: 150px;
+    width: 90px;
+  }
+
+  .parent-reel-section {
+    height: 150px;
+  }
+}

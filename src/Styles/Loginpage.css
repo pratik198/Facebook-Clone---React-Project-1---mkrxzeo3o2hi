@@ -170,42 +170,15 @@ input:focus {
     top: 10px;
 }
 
-@media only screen 
-   and (max-width : 390px) {
-   /* Styles here */
-   .container{
-    /* display: flex; */
-    flex-direction: column;
-}
-
-.card-details{
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    /* justify-content: center; */
-    height: 368px;
-    width: 478px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
-    position: relative;
-    bottom: 45em;
-}
-
-}
-
-@media only screen 
-   and (max-width : 1200px) {
+@media screen and (max-width: 600px) {
     .container{
         display: flex;
         flex-direction: column;
     }
+    .card-container {
+        position: relative;
+        /* bottom: 63em; */
+    }
 }
-@media only screen 
-   and (max-width : 768px) {
-   /* Styles here */
-   .container{
-    display: flex;
-    flex-direction: column;
-}
-}
+
+
