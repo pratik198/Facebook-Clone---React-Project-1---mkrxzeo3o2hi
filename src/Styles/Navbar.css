@@ -186,7 +186,7 @@
     width: 40%;
   }
   .header_center {
-    display: flex;
+    display: none;
     width: 20%;
     justify-content: space-evenly;
     gap: 50px;
@@ -204,6 +204,26 @@
     left: 0;
     top: 6em;
     opacity: 1;
+    
+  }
+  .modalBox p{
+    cursor: pointer;
   }
   
+}
+.css-1guk29 {
+}
+
+
+
+@media only screen and (max-width: 600px) {
+  /* Styles here */
+  .css-1guk29 {
+    left: 50%;
+  }
+  
+}
+
+.update__pass{
+  color: black;
 }

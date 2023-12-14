@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/Updatepassword.css";
 import { getBearerToken, setBearerToken } from "./Datastore";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 function Updatepassword() {
+  const navigate = useNavigate(); 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
@@ -40,9 +41,7 @@ function Updatepassword() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          // email: "rohan@gmail.com",
-          // password: "rohan",
-          // appType: "facebook",
+       
           email: email,
           password: currentPassword,
           appType: "facebook",
@@ -72,11 +71,7 @@ function Updatepassword() {
         },
 
         body: JSON.stringify({
-          // name: "rohan",
-          // email: "rohan@gmail.com",
-          // passwordCurrent: "rohan",
-          // password: "rohan",
-          // appType: "facebook",
+       
           name: name,
           email: email,
           passwordCurrent: currentPassword,
@@ -85,20 +80,23 @@ function Updatepassword() {
         }),
       }
     );
-    //console.log(response);
+
     const json = await response.json();
     console.log(json);
     console.log("token after update call " + json["token"]);
+
+    if(response.ok){
+      console.log("password updated successfully");
+      setUpdatePasswordError(null);
+      window.alert("Password updated successfully");
+      navigate("/");
+    }else{
+      console.log("password update failed");
+      setUpdatePasswordError("password update failed");
+      window.alert("Password update failed")
+    }
   }
 
-  /////changes///
-
-
-  // useEffect(() => {
-
-  //   makeAPICall();
-
-  //   },[])
 
   const handleSubmit = async (e) => {
     console.log("inside handleSubmit");
@@ -164,8 +162,11 @@ function Updatepassword() {
       console.log(updatePassData);
       if (updatePasswordResponse.ok) {
         console.log("Password updated successfully");
+        window.alert("Password updated successfully");
+        navigate("/");
       } else {
         console.error("Password update failed");
+        window.alert("Password update failed");
       }
     } catch (error) {
       console.error("An error occurred", error);
@@ -231,3 +232,5 @@ function Updatepassword() {
 }
 
 export default Updatepassword;
+
+

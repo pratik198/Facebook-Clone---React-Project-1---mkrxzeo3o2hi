@@ -186,7 +186,10 @@
 
 @media only screen and (max-width: 768px) {
   .wht-is-on-your-mind {
-    height: 20em;
+    height: 7em;
+    position: relative;
+    right: 167px;
+    display: none;
   }
 
   .mind-box {

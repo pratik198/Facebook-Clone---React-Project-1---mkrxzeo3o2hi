@@ -48,12 +48,6 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-// function handleLogout() {
-//   console.log("clicked");
-//   localStorage.removeItem("token");
-//   navigate("/");
-// }
-
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: "100%",
@@ -113,7 +107,6 @@ export default function PrimarySearchAppBar() {
     console.log("inside the search function")
     const searchUrl2 = `https://academics.newtonschool.co/api/v1/facebook/post?search={"author.name":"${searchQuery}"}`;
     if (searchQuery.trim() === "") {
-      // If searchTerm is empty or contains only whitespace, do not make the API call
       setApiSearchData([]);
       setSearchPerformed(false);
       return;
@@ -206,6 +199,7 @@ export default function PrimarySearchAppBar() {
                 </Badge>
               </Link>
             </IconButton>
+            <div className="log-out-btn">
             <IconButton
               size="large"
               edge="end"
@@ -215,7 +209,7 @@ export default function PrimarySearchAppBar() {
               color="#0866FF"
             >
               <Avatar src={myAvtarr.photoURL} onClick={handleOpen} />
-            </IconButton>
+            </IconButton></div>
 
             <section className="modalSection">
               <Modal
@@ -246,7 +240,8 @@ export default function PrimarySearchAppBar() {
                     </div>
                     <div className="icons-modal">
                       <HelpIcon />
-                      <p>Help and support</p>
+                     
+                      <p className="update__pass">Help & support</p>
                      
                     </div>
                     <div className="icons-modal">
