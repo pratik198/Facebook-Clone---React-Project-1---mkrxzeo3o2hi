@@ -1,5 +1,4 @@
 import "../Styles/RightSideBar.css";
-const appId = "1:118964172556:web:55ce63a3ff2a4fec6cfb29";
 function RightSideBar() {
   return (
     <div className="right-sidebar">

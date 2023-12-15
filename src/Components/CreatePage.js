@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
 import "../Styles/CreatePage.css";
-import { useState } from "react";
 import { getBearerToken } from "./Datastore";
 function CreatePage() {
   async function CreatePageApi() {
-    const token = getBearerToken();
-    // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MmU4ZjhjNjRkNzgzMGU3MjM1NGZmNiIsImlhdCI6MTY5ODA2NDcwMywiZXhwIjoxNzI5NjAwNzAzfQ.C0XfgXC7JHoWw8DFFwJivEus6fkn4u9afjhpBxwBIT8";
-    
+    const token = getBearerToken();    
     console.log(token);
     try {
       console.log("xxxx");

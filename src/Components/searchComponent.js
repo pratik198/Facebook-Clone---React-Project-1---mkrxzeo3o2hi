@@ -1,6 +1,6 @@
 import React from "react";
 import "../Styles/search.css";
-import { Box, IconButton } from "@mui/material";
+import { Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
@@ -23,7 +23,7 @@ function SearchComponent({ apiSearchData }) {
               <img
                 src={post.channel.image}
                 className="imgPost"
-                alt="Image of post"
+                alt="Imageofpost"
               />
             </section>
             <section className="countLikeComment">

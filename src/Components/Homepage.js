@@ -1,26 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/Homepage.css";
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Link } from "react-router-dom";
 import like from "../Images/like.png";
 import love from "../Images/thumbs-up (1).png";
 import chat from "../Images/chat.png";
 import like2 from "../Images/like 2.png";
 import comment from "../Images/comment.png";
-import send from "../Images/send.png";
 import { Button } from "@mui/material";
-import { Delete, ThumbUpAltOutlined } from "@mui/icons-material";
 import { Send } from "@mui/icons-material";
-import { UserMap, getBearerToken, setBearerToken } from "./Datastore";
-import { Edit } from "@mui/icons-material";
+import { UserMap } from "./Datastore";
 import { useAuth } from "./Context";
 
 function Homepage() {
@@ -28,15 +21,13 @@ function Homepage() {
   const [Data, setData] = useState([]);
   const [comments, setComments] = useState({});
   const [likeCounts, setLikeCounts] = useState({});
-  const [isPostLiked, setPostLiked] = useState(false);
   const [Click, SetClick] = useState(false);
   const bearerToken = localStorage.getItem("token");
-  const [apiData, setApiData] = useState(null);
+  const [apiData] = useState(null);
   const [commentInput, setCommentInput] = useState("");
   const [editedComment, setEditedComment] = useState("");
   const [editedCommentId, setEditedCommentId] = useState("");
   const loggedInUserId = localStorage.getItem("userId");
-  const loggedInUserName = localStorage.getItem("userName");
   useEffect(() => {
     GetData();
     setLikeCounts(false);
@@ -163,7 +154,6 @@ function Homepage() {
       if (response.ok) {
         console.log("Comment created successfully");
         const data = await response.json();
-
         // Increment the comment count for the current post
         const updatedData = Data.map((post) => {
           if (post._id === postId) {
@@ -237,8 +227,6 @@ function Homepage() {
   };
   const isEditingComment = (commentId) => commentId === editedCommentId;
 
-  
-
   const deleteCommentForPost = async (postId, commentId) => {
     try {
       const response = await fetch(
@@ -277,7 +265,6 @@ function Homepage() {
             sx={{ maxWidth: 450, maxHeight: 800, height: "50em" }}
             key={post._id}
           >
-          
             <Link className="userProfile-img-name" to="/userprofile">
               <div
                 className="accountPost-img"

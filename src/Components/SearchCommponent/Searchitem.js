@@ -1,10 +1,7 @@
 import React from "react";
-import './searchitem.css'
-import { Box, IconButton } from "@mui/material";
+import "./searchitem.css";
+import { Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
-import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useAuth } from "../Context";
 import Navbar from "../Navbar";
@@ -14,10 +11,7 @@ import CardMedia from "@mui/material/CardMedia";
 import like from "../../Images/like.png";
 import love from "../../Images/thumbs-up (1).png";
 import chat from "../../Images/chat.png";
-import like2 from "../../Images/like 2.png";
-import comment from "../../Images/comment.png";
-import Card from "@mui/material/Card";
-// import Box from "@mui/material";
+
 function SearchComponent() {
   const { apiSearch } = useAuth();
   return (
@@ -71,11 +65,10 @@ function SearchComponent() {
                     }}
                   />
                 </div>
-              
               </div>
             </Box>
           ))}
-      <div className="empty-div"></div>
+        <div className="empty-div"></div>
       </div>
     </div>
   );

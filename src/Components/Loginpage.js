@@ -6,10 +6,8 @@ import { Link } from "react-router-dom";
 import { setBearerToken, UserMap } from "./Datastore";
 
 function Loginpage() {
-  // const projectID = "f104bi07c490";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [unAuthorized, setUnAuthorized] = useState(false);
   const [apiDown, setAPiDown] = useState(false);
   const navigate = useNavigate();
@@ -62,10 +60,6 @@ function Loginpage() {
         console.log(json.name);
         console.log(json.data._id);
         localStorage.setItem("userId",json.data._id);
-        // UserMap.set(json.data._id, {
-        //   name: json.data.name,
-        //   photo: "https://scontent.fbbi4-1.fna.fbcdn.net/v/t39.30808-6/384470156_621637833475535_5680275089051804810_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=hAceM4VMwKMAX_mV2pN&_nc_ht=scontent.fbbi4-1.fna&oh=00_AfA0t1N7_IgPHFr-wkBDtnRylfpFZsrEKwOSPXZ-QcOpfA&oe=655A21FB",
-        // });
         if(UserMap.has(json.data._id)===false){
           console.log("user Value is not found in map");
         UserMap.set(json.data._id,{name:json.data.name,photo:"https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/995.jpg"})
@@ -75,15 +69,12 @@ function Loginpage() {
         navigate("/main");
       } else {
         console.log(response.status);
-       
       }
     } catch (error) {
       console.error("Error:", error);
      
     }
   }
-
-
 
   return (
     <div className="container">

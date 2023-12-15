@@ -1,7 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import FeedbackIcon from "@mui/icons-material/Feedback";
 import { Modal } from "@mui/material";
-import ReactDOM from "react-dom";
 import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -13,30 +12,17 @@ import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { Link, Navigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import "../Styles/Navbar.css";
 import HomeIcon from "@mui/icons-material/Home";
 import FlagIcon from "@mui/icons-material/Flag";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import { useAuth } from "./Context";
-import {
-  Logout,
-  StorefrontOutlined,
-  SupervisedUserCircle,
-} from "@mui/icons-material";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import { Logout, StorefrontOutlined, SupervisedUserCircle} from "@mui/icons-material";
 import HelpIcon from "@mui/icons-material/Help";
 import SettingsIcon from "@mui/icons-material/Settings";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { Avatar } from "@mui/material";
-import ListItemButton from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-
-import { Typography } from "@mui/material";
-
-import Divider from "@mui/material";
-import { Settings } from "@mui/icons-material";
-import { EmojiFlagsRounded, FeedbackRounded } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
@@ -80,33 +66,27 @@ export default function PrimarySearchAppBar() {
   const [searchPerformed, setSearchPerformed] = useState(false);
   const {setApiSearchData}=useAuth();
   const navigate = useNavigate();
-
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-
   const habdleLoginLogout = () => {
     if (isLoggedIn) {
       setIsLoggedIn(false);
       localStorage.removeItem("token");
     }
   };
-
   const myAvtarr = {
     photoURL:
       "https://images.unsplash.com/photo-1505628346881-b72b27e84530?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FydG9vbiUyMGFuaW1hbHxlbnwwfHwwfHx8MA%3D%3D",
     displayName: "Pratik",
   };
-
-
   const handleSearch = async () => {
     console.log("inside the search function")
     const searchUrl2 = `https://academics.newtonschool.co/api/v1/facebook/post?search={"author.name":"${searchQuery}"}`;
     if (searchQuery.trim() === "") {
+      // If searchTerm is empty or contains only whitespace, do not make the API call
       setApiSearchData([]);
       setSearchPerformed(false);
       return;
@@ -128,8 +108,6 @@ export default function PrimarySearchAppBar() {
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
   };
-  const userIdForNav = localStorage.getItem("userId");
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar className="mui-nav-bar" style={{ backgroundColor: "white" }}>
@@ -199,7 +177,6 @@ export default function PrimarySearchAppBar() {
                 </Badge>
               </Link>
             </IconButton>
-            <div className="log-out-btn">
             <IconButton
               size="large"
               edge="end"
@@ -209,7 +186,7 @@ export default function PrimarySearchAppBar() {
               color="#0866FF"
             >
               <Avatar src={myAvtarr.photoURL} onClick={handleOpen} />
-            </IconButton></div>
+            </IconButton>
 
             <section className="modalSection">
               <Modal
@@ -240,8 +217,7 @@ export default function PrimarySearchAppBar() {
                     </div>
                     <div className="icons-modal">
                       <HelpIcon />
-                     
-                      <p className="update__pass">Help & support</p>
+                      <p>Help and support</p>
                      
                     </div>
                     <div className="icons-modal">

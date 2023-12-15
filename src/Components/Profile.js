@@ -14,7 +14,6 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 function Profile(props) {
   const [Data, setData] = useState([]);
-  const [searchQuery, setSearchQuery ] = useState('');
   let api =
     'https://academics.newtonschool.co/api/v1/facebook/post?search={"author.name":$searchQuery}';
   useEffect(() => {
@@ -28,7 +27,6 @@ function Profile(props) {
       },
     });
     const r = await response.json();
-    // console.log(r)
     setData(r["data"]);
   };
   console.log(Data);

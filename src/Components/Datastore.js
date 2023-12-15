@@ -54,8 +54,6 @@ UserMap.set("65392efd65bb52b90c8fac67", {
   name: "Ankita",
   img: "https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg",
 });
-
-
 UserMap.set("65032b7628babc1110191f62",{"name":"Smith","photo":"https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/4.jpg"});
 UserMap.set("650ae52798e8a1dfeaf8e444",{"name":"David","photo":"https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/462.jpg"});
 UserMap.set("650e894081acb6d2f0d1a6c7",{"name":"Ken","photo":"https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/46.jpg"});
