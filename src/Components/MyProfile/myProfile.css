@@ -7,12 +7,14 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 
 }
 .myProfileContent{
     background-color: #f0f2f5;
-    height: 100vh;
+    /* height: 100vh; */
     margin-top: 4px;
+    height: 79vh;
 }
 #profileimg{
     display: flex;
@@ -63,9 +65,24 @@
 
 
 .user_user_info {
-    /* height: 27em; */
     position: relative;
-    width: 100%;
-    bottom: 123px;
+    width: 57%;
+    /* bottom: 108px; */
+    top: 19px;
     background-color: #f0f2f5;
+    background-color: white;
+    border-radius: 10px;
+    left: 21%;
+    padding: 38px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+   
+    
+}
+
+strong{
+    color: #787070;
+}
+
+li{
+    color: #787070;
 }

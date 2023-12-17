@@ -69,6 +69,8 @@ function UserProfile() {
 
   useEffect(() => {
     fetchData();
+    window.scrollTo(0, 0);
+
   }, []);
 
   function isNullOrUndefinedorFalse(flag) {
@@ -123,6 +125,7 @@ function UserProfile() {
       </section>
 
       <div className="user_user_info">
+
         <h2>About</h2>
 
         {/* Displaying user details */}
@@ -140,7 +143,7 @@ function UserProfile() {
         </p>
 
         {/* Displaying address details */}
-        <h3>Address:</h3>
+        <h3>Address</h3>
         {userProfile?.address &&
           userProfile?.address.map((address, index) => (
             <p key={index}>
@@ -150,7 +153,7 @@ function UserProfile() {
           ))}
 
         {/* Displaying work experience */}
-        <h3>Work Experience:</h3>
+        <h3>Work Experience</h3>
         {userProfile?.workExperience &&
           userProfile?.workExperience.map((experience, index) => (
             <div key={index}>
@@ -178,7 +181,7 @@ function UserProfile() {
           ))}
 
         {/* Displaying education details */}
-        <h3>Education:</h3>
+        <h3>Education</h3>
         {userProfile?.education &&
           userProfile?.education.map((education, index) => (
             <div key={index}>
@@ -203,7 +206,7 @@ function UserProfile() {
           ))}
 
         {/* Displaying skills */}
-        <h3>Skills:</h3>
+        <h3>Skills</h3>
         {userProfile?.skills && (
           <ul>
             {userProfile.skills.map((skill, index) => (
