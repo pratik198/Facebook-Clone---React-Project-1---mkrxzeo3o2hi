@@ -107,18 +107,111 @@ function UserProfile() {
                   variant="contained"
                   className="Button-follow"
                   onClick={toggleFollow}
-                  style={{ textTransform: "none",width: "100px",fontWeight: "bold" }}
+                  style={{
+                    textTransform: "none",
+                    width: "100px",
+                    fontWeight: "bold",
+                  }}
                 >
-                
-                  {(isFollowed) ? "Unfollow" : "Follow"}
+                  {isFollowed ? "Unfollow" : "Follow"}
                 </Button>
-                
-
               </section>
             </div>
           </section>
         </section>
+        {/* <div className="line_info"></div> */}
       </section>
+
+      <div className="user_user_info">
+        <h2>About</h2>
+
+        {/* Displaying user details */}
+        <p>
+          <strong>Name:</strong> {userProfile?.name}
+        </p>
+        <p>
+          <strong>Email:</strong> {userProfile?.email}
+        </p>
+        <p>
+          <strong>Gender:</strong> {userProfile?.gender}
+        </p>
+        <p>
+          <strong>Phone:</strong> {userProfile?.phone}
+        </p>
+
+        {/* Displaying address details */}
+        <h3>Address:</h3>
+        {userProfile?.address &&
+          userProfile?.address.map((address, index) => (
+            <p key={index}>
+              {address.street}, {address.city}, {address.state},{" "}
+              {address.country} - {address.zipCode}
+            </p>
+          ))}
+
+        {/* Displaying work experience */}
+        <h3>Work Experience:</h3>
+        {userProfile?.workExperience &&
+          userProfile?.workExperience.map((experience, index) => (
+            <div key={index}>
+              <p>
+                <strong>Company:</strong> {experience.companyName}
+              </p>
+              <p>
+                <strong>Designation:</strong> {experience.designation}
+              </p>
+              <p>
+                <strong>Location:</strong> {experience.location}
+              </p>
+              <p>
+                <strong>Start Date:</strong>{" "}
+                {new Date(experience.startDate).toLocaleDateString()}
+              </p>
+              <p>
+                <strong>End Date:</strong>{" "}
+                {new Date(experience.endDate).toLocaleDateString()}
+              </p>
+              <p>
+                <strong>Description:</strong> {experience.description}
+              </p>
+            </div>
+          ))}
+
+        {/* Displaying education details */}
+        <h3>Education:</h3>
+        {userProfile?.education &&
+          userProfile?.education.map((education, index) => (
+            <div key={index}>
+              <p>
+                <strong>School Name:</strong> {education.schoolName}
+              </p>
+              <p>
+                <strong>Degree:</strong> {education.degree}
+              </p>
+              <p>
+                <strong>Start Date:</strong>{" "}
+                {new Date(education.startDate).toLocaleDateString()}
+              </p>
+              <p>
+                <strong>End Date:</strong>{" "}
+                {new Date(education.endDate).toLocaleDateString()}
+              </p>
+              <p>
+                <strong>Description:</strong> {education.description}
+              </p>
+            </div>
+          ))}
+
+        {/* Displaying skills */}
+        <h3>Skills:</h3>
+        {userProfile?.skills && (
+          <ul>
+            {userProfile.skills.map((skill, index) => (
+              <li key={index}>{skill}</li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

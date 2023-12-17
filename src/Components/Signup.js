@@ -61,8 +61,8 @@ function Signup() {
         setIsSignUpSuccess(true);
       }
     } catch (error) {
-      console.error("Error:", error);
-      setErrorMessage("An error occurred. Please try again.");
+      // console.error("Error:", error);
+      // setErrorMessage("An error occurred. Please try again.");
     }
   }
 

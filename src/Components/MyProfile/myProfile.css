@@ -46,10 +46,10 @@
 }
 .avtarProfile{
     margin-top: -60px;
-    width: 150px; /* Width of the circular container */
-  height: 150px; /* Height of the circular container */
-  background-color: white; /* White background color for the circle */
-  border-radius: 50%; /* Make the container circular */
+    width: 150px; 
+  height: 150px; 
+  background-color: white; 
+  border-radius: 50%; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,7 +58,14 @@
 .userProfileName{
     font-size: 30px;
 }
-/* .btn-follow-mess{
+
+
+
+
+.user_user_info {
+    /* height: 27em; */
     position: relative;
-    left: 14em;
-} */
+    width: 100%;
+    bottom: 123px;
+    background-color: #f0f2f5;
+}
