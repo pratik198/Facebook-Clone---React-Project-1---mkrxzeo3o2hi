@@ -2,11 +2,19 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar";
 import Avatar from "@mui/material/Avatar";
 import { useAuth } from "../Context";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import CardMedia from "@mui/material/CardMedia";
+
 function UserProfile() {
-  const [userProfile, setUserProfile] = useState("");
+  // const [userProfile, setUserProfile] = useState("");
+  const [userProfile, setUserProfile] = useState({});
   const [isFollowed, setIsFollowed] = useState(false);
   const bearerToken = localStorage.getItem("token");
+  const [Data, setData] = useState([]);
+  const [comments, setComments] = useState({});
   const { puId } = useAuth();
   const fetchData = async () => {
     console.log("user id", puId);
@@ -67,12 +75,6 @@ function UserProfile() {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-    window.scrollTo(0, 0);
-
-  }, []);
-
   function isNullOrUndefinedorFalse(flag) {
     if (flag === null || flag === undefined || flag === false) {
       return true;
@@ -80,6 +82,38 @@ function UserProfile() {
     return false;
   }
 
+  // fetching users post
+
+  const GetData = async () => {
+    try {
+      const response = await fetch(
+        "https://academics.newtonschool.co/api/v1/facebook/post?",
+        {
+          headers: {
+            projectID: "f104bi07c490",
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        // const userPosts = data.data.filter(post => post.userId === puId);
+        setData(data.data);
+
+      } else {
+        console.error("Error while fetching data.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  // const userPosts = Data.filter(post => post.userId === puId);
+  useEffect(() => {
+    fetchData();
+    window.scrollTo(0, 0);
+    GetData();
+  }, []);
+  const userPosts = Data.filter((post) => post.author._id === puId);
   return (
     <div>
       <Navbar />
@@ -125,7 +159,7 @@ function UserProfile() {
       </section>
 
       <div className="user_user_info">
-
+      <div className="about_field">
         <h2>About</h2>
 
         {/* Displaying user details */}
@@ -141,8 +175,9 @@ function UserProfile() {
         <p>
           <strong>Phone:</strong> {userProfile?.phone}
         </p>
-
+</div>
         {/* Displaying address details */}
+        <div className="about_field">
         <h3>Address</h3>
         {userProfile?.address &&
           userProfile?.address.map((address, index) => (
@@ -151,8 +186,9 @@ function UserProfile() {
               {address.country} - {address.zipCode}
             </p>
           ))}
-
+</div>
         {/* Displaying work experience */}
+        <div className="about_field">
         <h3>Work Experience</h3>
         {userProfile?.workExperience &&
           userProfile?.workExperience.map((experience, index) => (
@@ -179,8 +215,9 @@ function UserProfile() {
               </p>
             </div>
           ))}
-
+</div>
         {/* Displaying education details */}
+        <div className="about_field">
         <h3>Education</h3>
         {userProfile?.education &&
           userProfile?.education.map((education, index) => (
@@ -204,8 +241,9 @@ function UserProfile() {
               </p>
             </div>
           ))}
-
+</div>
         {/* Displaying skills */}
+        <div className="about_field">
         <h3>Skills</h3>
         {userProfile?.skills && (
           <ul>
@@ -214,6 +252,43 @@ function UserProfile() {
             ))}
           </ul>
         )}
+        </div>
+      </div>
+
+      <div className="user_post">
+      
+        {userPosts.map((post, index) => (
+      <Box key={index} sx={{ maxWidth: 450, maxHeight: 800, height: "50em",backgroundColor:"white", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1)", borderRadius: 3}}>
+        <div className="userProfile-img-name" to="/userprofile">
+          <div className="accountPost-img">
+           
+            <Avatar src={post.author.profileImage} />
+            <div className="author-name-name">
+              <h4 className="naem-author">{post.author.name}</h4>
+            </div>
+          </div>
+        </div>
+        <CardContent>
+       
+          <Typography variant="body2" color="text.secondary">
+            {post.content}
+          </Typography>
+        </CardContent>
+        <CardMedia
+          component="img"
+          height="194"
+          src={post.channel.image}
+          alt="Post Image"
+         
+          sx={{
+            height: '362px',
+            borderRadius: '0px 0px 10px 10px',
+   
+  }}
+          
+        />
+      </Box>
+    ))}
       </div>
     </div>
   );
