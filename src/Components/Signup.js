@@ -7,8 +7,8 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [setErrorMessage] = useState("");
-  const [inCorrectDetails, setIncorrectDetails] = useState(false);
+  const [errorMasseage, setErrorMessage] = useState("");
+  const [inCorrectDetails, setIncorrectDetails] = useState(null);
   const [setIsSignUpSuccess] = useState(false);
   const navigate = useNavigate();
 
@@ -52,9 +52,9 @@ function Signup() {
       );
       console.log("handelsignup");
 
-      if (response.status === 400) {
+      if (response.status === 403) {
         // Handle specific error cases with status code 400
-        setIncorrectDetails(true);
+        setErrorMessage("User already exists");
       } else if (response.ok) {
         console.log("Successfully signed up");
         navigate("/");
@@ -80,7 +80,9 @@ function Signup() {
         <p>It's quick and easy.</p>
         <div className="hr3" />
         <div className="form-sign-up">
+       
           <form onSubmit={handlesignup}>
+          {errorMasseage && <p>{errorMasseage}</p>}
             {inCorrectDetails && (
               <p className="error-input-data">Please provide valid details!</p>
             )}
