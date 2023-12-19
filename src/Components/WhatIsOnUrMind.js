@@ -10,7 +10,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import closePNG from "../Images/close.png";
-
+import Button from "@mui/material/Button";
 function WhatIsOnUrMind() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -78,7 +78,7 @@ function WhatIsOnUrMind() {
             className="box__name"
             type="text"
             placeholder={`What's on your mind,${username}?`}
-            style={{outline:"none"}}
+            style={{ outline: "none" }}
           />
         </div>
         <div className="wht_line_sec"></div>
@@ -131,15 +131,25 @@ function WhatIsOnUrMind() {
                 <Avatar src={myAvtarr.photoURL} />
                 <strong>{username}</strong>
                 <div className="friend_div">
-                    <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yJ/r/zPcex_q0TM1.png" alt=".."/>
-                    <p>Friends</p>
+                  <img
+                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yJ/r/zPcex_q0TM1.png"
+                    alt=".."
+                  />
+                  <p>Friends</p>
                 </div>
-                
               </div>
               <div className="middle_div">
-              <input type="text" id="myInput" placeholder={`What's on your mind, ${username}?`} />
-
-                </div>
+                <input
+                  type="text"
+                  id="myInput"
+                  placeholder={`What's on your mind, ${username}?`}
+                />
+              </div>
+              <div className="add_tp_ur_post">hello</div>
+              {/* <button className="post__button">Post</button> */}
+              <Button variant="contained" className="post__button" style={{textTransform:"none",borderRadius:"8px"}}>
+                Post
+              </Button>
             </div>
           </Box>
         </Modal>

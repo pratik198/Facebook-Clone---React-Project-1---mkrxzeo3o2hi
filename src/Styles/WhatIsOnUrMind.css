@@ -348,7 +348,7 @@
 .line__modal{
   width: 100%;
   height: 1px;
-  background-color: #e5e5e5;
+  background-color: #cfcbcb;
 }
 
 .MuiBackdrop-root MuiModal-backdrop css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop{
@@ -384,7 +384,7 @@
   gap: 2px;
   position: relative;
   top: 17px;
-  right: 94px;
+  right: 70px;
   border-radius: 5px;
   padding: 2px;
   padding-right: 10px;
@@ -429,4 +429,28 @@
 }
 .test_{
   text-shadow: #fff 0px 1px 1px;
+}
+
+.add_tp_ur_post{
+  position: relative;
+  top: 24px;
+  height: 69px;
+  width: 94%;
+  margin-left: 15px;
+  border: 1px solid #cfcbcb;
+  border-radius: 10px;
+}
+
+.post__button{
+  position: relative;
+  top: 39px;
+  height: 38px;
+  width: 94%;
+  left: 15px;
+  border-radius: 8px;
+  background-color: #0866ff;
+  border: none;
+  color: white;
+  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+  text-transform: none;
 }
