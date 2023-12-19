@@ -45,10 +45,14 @@ function Homepage() {
           },
         }
       );
-      if (response.ok) {
-        const data = await response.json();
-        setData(data.data);
 
+      console.log(response)
+      if (response.ok) {
+        
+        const data = await response.json();
+        console.log(data)
+        setData(data.data);
+        // localStorage.setItem("guestId",data.data.author._id);
         data.data.forEach((post) => {
           // Fetch comments for each post when the component loads
           handleFetchComments(post._id);
@@ -265,7 +269,7 @@ function Homepage() {
             sx={{ maxWidth: 450, maxHeight: 800, height: "50em" }}
             key={post._id}
           >
-            <Link className="userProfile-img-name" to="/userprofile">
+            <Link className="userProfile-img-name" to={`/userprofile/${post?.author?._id}`}>
               <div
                 className="accountPost-img"
                 onClick={() => {

@@ -13,11 +13,14 @@ function UserProfile() {
   const [userProfile, setUserProfile] = useState({});
   const [isFollowed, setIsFollowed] = useState(false);
   const bearerToken = localStorage.getItem("token");
+  // const userId = localStorage.getItem("guestId");
   const [Data, setData] = useState([]);
-  const [comments, setComments] = useState({});
   const { puId } = useAuth();
+  console.log(bearerToken);
+
   const fetchData = async () => {
     console.log("user id", puId);
+    // console.log("user id", userId);
     try {
       const response = await fetch(
         `https://academics.newtonschool.co/api/v1/facebook/user/${puId}`,
@@ -37,7 +40,9 @@ function UserProfile() {
 
         if (data.data) {
           setIsFollowed(data.data.isFollowed);
+        
         }
+
       } else {
         console.error("Failed to fetch user profile data");
       }
@@ -99,7 +104,6 @@ function UserProfile() {
         console.log(data);
         // const userPosts = data.data.filter(post => post.userId === puId);
         setData(data.data);
-
       } else {
         console.error("Error while fetching data.");
       }
@@ -159,136 +163,141 @@ function UserProfile() {
       </section>
 
       <div className="user_user_info">
-      <div className="about_field">
-        <h2>About</h2>
+        <div className="about_field">
+          <h2>About</h2>
 
-        {/* Displaying user details */}
-        <p>
-          <strong>Name:</strong> {userProfile?.name}
-        </p>
-        <p>
-          <strong>Email:</strong> {userProfile?.email}
-        </p>
-        <p>
-          <strong>Gender:</strong> {userProfile?.gender}
-        </p>
-        <p>
-          <strong>Phone:</strong> {userProfile?.phone}
-        </p>
-</div>
+          {/* Displaying user details */}
+          <p>
+            <strong>Name:</strong> {userProfile?.name}
+          </p>
+          <p>
+            <strong>Email:</strong> {userProfile?.email}
+          </p>
+          <p>
+            <strong>Gender:</strong> {userProfile?.gender}
+          </p>
+          <p>
+            <strong>Phone:</strong> {userProfile?.phone}
+          </p>
+        </div>
         {/* Displaying address details */}
         <div className="about_field">
-        <h3>Address</h3>
-        {userProfile?.address &&
-          userProfile?.address.map((address, index) => (
-            <p key={index}>
-              {address.street}, {address.city}, {address.state},{" "}
-              {address.country} - {address.zipCode}
-            </p>
-          ))}
-</div>
+          <h3>Address</h3>
+          {userProfile?.address &&
+            userProfile?.address.map((address, index) => (
+              <p key={index}>
+                {address.street}, {address.city}, {address.state},{" "}
+                {address.country} - {address.zipCode}
+              </p>
+            ))}
+        </div>
         {/* Displaying work experience */}
         <div className="about_field">
-        <h3>Work Experience</h3>
-        {userProfile?.workExperience &&
-          userProfile?.workExperience.map((experience, index) => (
-            <div key={index}>
-              <p>
-                <strong>Company:</strong> {experience.companyName}
-              </p>
-              <p>
-                <strong>Designation:</strong> {experience.designation}
-              </p>
-              <p>
-                <strong>Location:</strong> {experience.location}
-              </p>
-              <p>
-                <strong>Start Date:</strong>{" "}
-                {new Date(experience.startDate).toLocaleDateString()}
-              </p>
-              <p>
-                <strong>End Date:</strong>{" "}
-                {new Date(experience.endDate).toLocaleDateString()}
-              </p>
-              <p>
-                <strong>Description:</strong> {experience.description}
-              </p>
-            </div>
-          ))}
-</div>
+          <h3>Work Experience</h3>
+          {userProfile?.workExperience &&
+            userProfile?.workExperience.map((experience, index) => (
+              <div key={index}>
+                <p>
+                  <strong>Company:</strong> {experience.companyName}
+                </p>
+                <p>
+                  <strong>Designation:</strong> {experience.designation}
+                </p>
+                <p>
+                  <strong>Location:</strong> {experience.location}
+                </p>
+                <p>
+                  <strong>Start Date:</strong>{" "}
+                  {new Date(experience.startDate).toLocaleDateString()}
+                </p>
+                <p>
+                  <strong>End Date:</strong>{" "}
+                  {new Date(experience.endDate).toLocaleDateString()}
+                </p>
+                <p>
+                  <strong>Description:</strong> {experience.description}
+                </p>
+              </div>
+            ))}
+        </div>
         {/* Displaying education details */}
         <div className="about_field">
-        <h3>Education</h3>
-        {userProfile?.education &&
-          userProfile?.education.map((education, index) => (
-            <div key={index}>
-              <p>
-                <strong>School Name:</strong> {education.schoolName}
-              </p>
-              <p>
-                <strong>Degree:</strong> {education.degree}
-              </p>
-              <p>
-                <strong>Start Date:</strong>{" "}
-                {new Date(education.startDate).toLocaleDateString()}
-              </p>
-              <p>
-                <strong>End Date:</strong>{" "}
-                {new Date(education.endDate).toLocaleDateString()}
-              </p>
-              <p>
-                <strong>Description:</strong> {education.description}
-              </p>
-            </div>
-          ))}
-</div>
+          <h3>Education</h3>
+          {userProfile?.education &&
+            userProfile?.education.map((education, index) => (
+              <div key={index}>
+                <p>
+                  <strong>School Name:</strong> {education.schoolName}
+                </p>
+                <p>
+                  <strong>Degree:</strong> {education.degree}
+                </p>
+                <p>
+                  <strong>Start Date:</strong>{" "}
+                  {new Date(education.startDate).toLocaleDateString()}
+                </p>
+                <p>
+                  <strong>End Date:</strong>{" "}
+                  {new Date(education.endDate).toLocaleDateString()}
+                </p>
+                <p>
+                  <strong>Description:</strong> {education.description}
+                </p>
+              </div>
+            ))}
+        </div>
         {/* Displaying skills */}
         <div className="about_field">
-        <h3>Skills</h3>
-        {userProfile?.skills && (
-          <ul>
-            {userProfile.skills.map((skill, index) => (
-              <li key={index}>{skill}</li>
-            ))}
-          </ul>
-        )}
+          <h3>Skills</h3>
+          {userProfile?.skills && (
+            <ul>
+              {userProfile.skills.map((skill, index) => (
+                <li key={index}>{skill}</li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
 
       <div className="user_post">
-      
         {userPosts.map((post, index) => (
-      <Box key={index} sx={{ maxWidth: 450, maxHeight: 800, height: "50em",backgroundColor:"white", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1)", borderRadius: 3}}>
-        <div className="userProfile-img-name" to="/userprofile">
-          <div className="accountPost-img">
-           
-            <Avatar src={post.author.profileImage} />
-            <div className="author-name-name">
-              <h4 className="naem-author">{post.author.name}</h4>
+          <Box
+            key={index}
+            sx={{
+              maxWidth: 450,
+              maxHeight: 800,
+              height: "50em",
+              backgroundColor: "white",
+              boxShadow:
+                "0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1)",
+              borderRadius: 3,
+            }}
+          >
+            <div className="userProfile-img-name" to="/userprofile">
+              <div className="accountPost-img">
+                <Avatar src={post.author.profileImage} />
+                <div className="author-name-name">
+                  <h4 className="naem-author">{post.author.name}</h4>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <CardContent>
-       
-          <Typography variant="body2" color="text.secondary">
-            {post.content}
-          </Typography>
-        </CardContent>
-        <CardMedia
-          component="img"
-          height="194"
-          src={post.channel.image}
-          alt="Post Image"
-         
-          sx={{
-            height: '362px',
-            borderRadius: '0px 0px 10px 10px',
-   
-  }}
-          
-        />
-      </Box>
-    ))}
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {post.content}
+              </Typography>
+            </CardContent>
+            <CardMedia
+              component="img"
+              height="194"
+              src={post.channel.image}
+              alt="Post Image"
+              sx={{
+                height: "362px",
+                borderRadius: "0px 0px 10px 10px",
+              }}
+            />
+          </Box>
+        ))}
       </div>
     </div>
   );

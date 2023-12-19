@@ -194,13 +194,13 @@
   }
   .modalBox {
     position: relative;
-    border: 2px solid black;
+    /* border: 1px solid black; */
     height: 65vh;
     width: 22em;
     margin: -30px 20px 0px 0px;
     background-color: white;
     border-radius: 8px;
-    box-shadow: 1px 1px 8px black;
+    box-shadow: 0px -1px 17px -7px rgba(0,0,0,0.75);
     left: 0;
     top: 6em;
     opacity: 1;

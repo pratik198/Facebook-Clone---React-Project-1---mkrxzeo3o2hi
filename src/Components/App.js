@@ -23,7 +23,7 @@ function App() {
         <Route element={<Pratik />}>
           <Route path="/createpage" element={<CreatePage />} />
           <Route path="/profile" element={<MyProfile/>}/>
-          <Route path="/userprofile" element={<UserProfile/>}/>
+          <Route path="/userprofile/:id" element={<UserProfile/>}/>
           <Route path="/main" element={<Main />} />
           <Route path="/search" element={<SearchComponent />}/>
           <Route path="/commingsoon" element={<Commingsoon />}/>

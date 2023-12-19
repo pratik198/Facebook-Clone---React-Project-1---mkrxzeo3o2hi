@@ -2,24 +2,10 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  /* background-color: red; */
   row-gap: 17px;
   margin-top: -25px;
-  /* padding-top: 5em; */
-  /* margin-top: 6px; */
-  /* @media only screen 
-    and (width: 414px) 
-    and (height: 896px) 
-    and (-webkit-device-pixel-ratio: 2) {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        row-gap: 17px;
-        margin-top: -25px;
-        width: 70px;
-        position: absolute;
-        left: 13%;
-     } */
+  position: relative;
+  bottom: 27px;
 }
 
 .footer {

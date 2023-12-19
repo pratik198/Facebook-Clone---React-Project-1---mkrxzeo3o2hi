@@ -28,7 +28,7 @@ function Loginpage() {
     setPassword('');
     setAPiDown(false);
     setUnAuthorized(false);
-    try {
+    // try {
       console.log("xxxx");
       const response = await fetch(
         "https://academics.newtonschool.co/api/v1/user/login",
@@ -57,6 +57,7 @@ function Loginpage() {
         localStorage.setItem("token", json.token);
         localStorage.setItem("userId", json.data._id);
         localStorage.setItem("userName",json.data.name);
+        // localStorage.
         console.log(json.name);
         console.log(json.data._id);
         localStorage.setItem("userId",json.data._id);
@@ -70,10 +71,11 @@ function Loginpage() {
       } else {
         console.log(response.status);
       }
-    } catch (error) {
-      console.error("Error:", error);
+    // }
+    // } catch (error) {
+    //   console.error("Error:", error);
      
-    }
+    // }
   }
 
   return (

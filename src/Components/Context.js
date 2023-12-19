@@ -7,6 +7,7 @@ export function useAuth() {
     const [apiSearch, setApiSearchData] = useState([]);
     const [puId, setpuId] = useState(null);
   
+  
     return (
       <AuthContext.Provider value={{setApiSearchData,apiSearch,puId, setpuId }}>
         {children}

@@ -6,15 +6,28 @@ import CollectionsIcon from "@mui/icons-material/Collections";
 import MoodIcon from "@mui/icons-material/Mood";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import closePNG from "../Images/close.png";
 
 function WhatIsOnUrMind() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const username = localStorage.getItem("userName");
+  const myAvtarr = {
+    photoURL:
+      "https://images.unsplash.com/photo-1505628346881-b72b27e84530?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FydG9vbiUyMGFuaW1hbHxlbnwwfHwwfHx8MA%3D%3D",
+    displayName: "Pratik",
+  };
   const myAvtar = {
     photoURL:
       "https://images.unsplash.com/photo-1505628346881-b72b27e84530?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FydG9vbiUyMGFuaW1hbHxlbnwwfHwwfHx8MA%3D%3D",
     displayName: "Pratik",
   };
   return (
-    <Link to={"/commingsoon"} className="wht-is-on-your-mind">
+    <div to={"/commingsoon"} className="wht-is-on-your-mind">
       {/* reels box */}
       <div className="parent-reel-section">
         <Link to={"/commingsoon"} className="reel-box">
@@ -54,61 +67,84 @@ function WhatIsOnUrMind() {
         </Link>
       </div>
       {/* mind box */}
-      <div className="parent-mind-box">
-        <div className="mind-box">
-          <div className="boxx">
-            <input
-              className="box__name"
-              type="text"
-              placeholder="What's on your mind..?"
-              style={{ border: "none", paddingLeft: "15px" }}
-            />
-          </div>
-          <div className="bar"></div>
+
+      <div className="wht_on_ur_mind">
+        <div className="first_st_div" onClick={handleOpen}>
           <div className="parent-avtar">
             <Avatar alt="Remy Sharp" src={myAvtar.photoURL} />
           </div>
-          <div className="parent-footer">
-            <div
-              className="cam"
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <VideocamIcon style={{ color: "red" }} />
-              <Typography
-                variant="button"
-                style={{ textTransform: "none", marginLeft: "2px" }}
-              >
-                Live
-              </Typography>
-            </div>
-            <div
-              className="cam2"
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <CollectionsIcon style={{ color: "green" }} />
-              <Typography
-                variant="button"
-                style={{ textTransform: "none", marginLeft: "2px" }}
-              >
-                Photos
-              </Typography>
-            </div>
-            <div
-              className="cam3"
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <MoodIcon style={{ color: " rgb(255 180 0)" }} />
-              <Typography
-                variant="button"
-                style={{ textTransform: "none", marginLeft: "2px" }}
-              >
-                Feelings
-              </Typography>
-            </div>
+
+          <input
+            className="box__name"
+            type="text"
+            placeholder={`What's on your mind,${username}?`}
+            style={{outline:"none"}}
+          />
+        </div>
+        <div className="wht_line_sec"></div>
+        <div className="second_nd_div">
+          <div className="icon_box">
+            <img
+              src="https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/v1iF2605Cb5.png"
+              alt=".."
+            />
+            <p>Live Video</p>
+          </div>
+          <div className="icon_box">
+            <img
+              src="https://static.xx.fbcdn.net/rsrc.php/v3/yC/r/a6OjkIIE-R0.png"
+              alt=".."
+            />
+            <p>Photos/Video</p>
+          </div>
+          <div className="icon_box">
+            <img
+              src="https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/yMDS19UDsWe.png"
+              alt=".."
+            />
+            <p>Feeling/Activity</p>
           </div>
         </div>
       </div>
-    </Link>
+
+      <section className="modal_for_create_post">
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box>
+            <div className="css-bhp9pd-MuiPaper-root-MuiCard-root">
+              <div className="header_post_modal">
+                <h3 className="test_">Create post</h3>
+
+                <img
+                  src={closePNG}
+                  alt=""
+                  onClick={handleClose}
+                  className="clickableImage"
+                />
+              </div>
+              <div className="line__modal"></div>
+              <div className="avatar__modal">
+                <Avatar src={myAvtarr.photoURL} />
+                <strong>{username}</strong>
+                <div className="friend_div">
+                    <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yJ/r/zPcex_q0TM1.png" alt=".."/>
+                    <p>Friends</p>
+                </div>
+                
+              </div>
+              <div className="middle_div">
+              <input type="text" id="myInput" placeholder={`What's on your mind, ${username}?`} />
+
+                </div>
+            </div>
+          </Box>
+        </Modal>
+      </section>
+    </div>
   );
 }
 
