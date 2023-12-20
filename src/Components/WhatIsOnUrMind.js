@@ -1,21 +1,37 @@
-import VideocamIcon from "@mui/icons-material/Videocam";
 import React from "react";
 import "../Styles/WhatIsOnUrMind.css";
 import Avatar from "@mui/material/Avatar";
-import CollectionsIcon from "@mui/icons-material/Collections";
-import MoodIcon from "@mui/icons-material/Mood";
-import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
 import closePNG from "../Images/close.png";
 import Button from "@mui/material/Button";
+import { useRef,useState } from "react";
+
 function WhatIsOnUrMind() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const username = localStorage.getItem("userName");
+  const fileInputRef = useRef(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const handleCloseModal = () => {
+    setOpen(false);
+    // Reset the selected file when the modal is closed
+    setSelectedFile(null);
+  };
+  const handleFileInputChange = (e) => {
+    // Handle the selected file here
+    const selectedFile = e.target.files[0];
+    console.log("Selected file:", selectedFile);
+
+    // Close the modal or perform any other actions
+    handleClose();
+  };
+  const triggerFileInput = () => {
+    // Trigger a click on the hidden file input
+    fileInputRef.current.click();
+  };
   const myAvtarr = {
     photoURL:
       "https://images.unsplash.com/photo-1505628346881-b72b27e84530?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FydG9vbiUyMGFuaW1hbHxlbnwwfHwwfHx8MA%3D%3D",
@@ -74,12 +90,9 @@ function WhatIsOnUrMind() {
             <Avatar alt="Remy Sharp" src={myAvtar.photoURL} />
           </div>
 
-          <input
-            className="box__name"
-            type="text"
-            placeholder={`What's on your mind,${username}?`}
-            style={{ outline: "none" }}
-          />
+          <div className="box__name">
+            <p>{`What's on your mind,${username}?`}</p>
+          </div>
         </div>
         <div className="wht_line_sec"></div>
         <div className="second_nd_div">
@@ -94,6 +107,7 @@ function WhatIsOnUrMind() {
             <img
               src="https://static.xx.fbcdn.net/rsrc.php/v3/yC/r/a6OjkIIE-R0.png"
               alt=".."
+              onClick={handleOpen}
             />
             <p>Photos/Video</p>
           </div>
@@ -145,9 +159,32 @@ function WhatIsOnUrMind() {
                   placeholder={`What's on your mind, ${username}?`}
                 />
               </div>
-              <div className="add_tp_ur_post">hello</div>
-              {/* <button className="post__button">Post</button> */}
-              <Button variant="contained" className="post__button" style={{textTransform:"none",borderRadius:"8px"}}>
+              <div className="add_tp_ur_post" onClick={triggerFileInput}>
+                <p>Add to your post</p>
+                {selectedFile && (
+                  <img
+                    src={URL.createObjectURL(selectedFile)}
+                    alt="selected_img"
+                    style={{ maxWidth: "100%", maxHeight: "100%" }}
+                  />
+                )}
+                <img
+                  src="https://static.xx.fbcdn.net/rsrc.php/v3/y7/r/Ivw7nhRtXyo.png"
+                  alt="select_img"
+                />
+              </div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                style={{ display: "none" }}
+                onChange={handleFileInputChange}
+              />
+              <Button
+                variant="contained"
+                className="post__button"
+                style={{ textTransform: "none", borderRadius: "8px" }}
+                onClick={handleCloseModal}
+              >
                 Post
               </Button>
             </div>

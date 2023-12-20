@@ -246,26 +246,27 @@
 
 .box__name {
   height: 37px;
-  width: 26em;
-
+  width: 23em;
   outline: none;
   border: none;
   background-color: #e9ebee;
   border-radius: 19px;
   padding: 2px;
   /* margin-left: 82px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 
 }
-.box__name::placeholder {
-  padding-left: 17px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.box__name p{
+  position: relative;
+  right: 52px;
+  font-size: 18px;
+  color: gray;
 }
-.box__name:focus {
- outline: none; /* Set the background color to transparent on focus */
-}
-.box__name:hover{
-  background-color: #f1eeee;
-}
+
+
 .icon_box{
   width: 127px;
     /* background-color: red; */
@@ -439,6 +440,10 @@
   margin-left: 15px;
   border: 1px solid #cfcbcb;
   border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .post__button{
@@ -453,4 +458,19 @@
   color: white;
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
   text-transform: none;
+
+}
+.add_tp_ur_post p{
+  font-size: large;
+  font-weight: 600;
+}
+.add_tp_ur_post img{
+  position: relative;
+    left: 19px;
+    cursor: pointer;
+  
+}
+
+.add_tp_ur_post img:active{
+  transform: scale(0.9); 
 }
