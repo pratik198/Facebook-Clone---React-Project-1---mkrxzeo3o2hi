@@ -9,8 +9,6 @@ import { Link } from "react-router-dom";
 import like from "../Images/like.png";
 import love from "../Images/thumbs-up (1).png";
 import chat from "../Images/chat.png";
-// import like2 from "../Images/like 2.png";
-import comment from "../Images/comment.png";
 import { Button } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { UserMap } from "./Datastore";
@@ -18,10 +16,11 @@ import { useAuth } from "./Context";
 
 import { BiSolidLike } from "react-icons/bi";
 import { FaComment } from "react-icons/fa6";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import { Toaster } from 'react-hot-toast';
 
-import { debounce } from 'lodash';
 
-// import { BiSolidLike } from "react-icons/bi";
 
 function Homepage() {
   const [likedStatus, setLikedStatus] = useState({});
@@ -38,6 +37,9 @@ function Homepage() {
   const [editedComment, setEditedComment] = useState("");
   const [editedCommentId, setEditedCommentId] = useState("");
   const loggedInUserId = localStorage.getItem("userId");
+
+
+  
   useEffect(() => {
     GetData();
     setLikeCounts(false);
@@ -93,6 +95,12 @@ const handleLikePost = async (postId) => {
     );
 
     if (response.ok) {
+   
+      toast.success(isLiked ? "Post Unliked!" : "Post Liked!", {
+        position: toast.POSITION.BOTTOM_LEFT,
+        iconTheme: { primary: "#0566ff" },
+         // Set your desired blue color for the tick
+      });
       console.log(isLiked ? "Unlike is clicked" : "Like is clicked");
       setLikedStatus((prevStatus) => ({
         ...prevStatus,
@@ -211,6 +219,7 @@ const handleLikePost = async (postId) => {
 
         setCommentInput("");
         handleFetchComments(postId);
+        toast.success("Comment added successfully", { position: toast.POSITION.BOTTOM_LEFT });
       } else {
         const errorData = await response.json();
         console.error("Error while creating a comment:", errorData);
@@ -243,9 +252,11 @@ const handleLikePost = async (postId) => {
 
       if (response.ok) {
         console.log("Comment updated successfully");
+        toast.success("Comment edited successfully", { position: toast.POSITION.BOTTOM_LEFT });
       } else {
         const errorData = await response.json();
         console.error("Error while updating a comment:", errorData);
+
       }
     } catch (error) {
       console.error("Error:", error);
@@ -285,6 +296,7 @@ const handleLikePost = async (postId) => {
             (comment) => comment._id !== commentId
           ),
         }));
+        toast.success("Comment deleted successfully", { position: toast.POSITION.BOTTOM_LEFT });
       } else {
         const errorData = await response.json();
         console.error("Error while deleting a comment:", errorData);
@@ -308,6 +320,7 @@ const handleLikePost = async (postId) => {
   
   return (
     <div className="post-box">
+     <ToastContainer />
      {Data &&
         Data.map((post) => {
           const buttonStyle = {
