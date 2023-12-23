@@ -31,7 +31,7 @@ function SidebarLeft() {
         <h4>{username}</h4></Link>
       </Link>
      {/* <Link to={"/commingsoon"}> */}
-      <Link to={"/commingsoon"} className="sidebarRow">
+      <Link to={"/createpage"} className="sidebarRow">
         <EmojiFlagsIcon />
         <p className="right-sec">Pages</p>
       </Link>

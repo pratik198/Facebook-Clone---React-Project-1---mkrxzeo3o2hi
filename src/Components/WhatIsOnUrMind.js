@@ -6,9 +6,18 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import closePNG from "../Images/close.png";
 import Button from "@mui/material/Button";
-import { useRef,useState } from "react";
+import { useRef,useState,useEffect } from "react";
+import Snackbar from '@mui/material/Snackbar';
 
-function WhatIsOnUrMind() {
+
+function WhatIsOnUrMind({ onPostCreated }) {   
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+const [playSound, setPlaySound] = useState(false);
+  const [postContent, setPostContent] = useState("");
+  const [postImage, setPostImage] = useState(null);
+  const [posts, setPosts] = useState([]);
+  const bearerToken = localStorage.getItem("token");
+  const [errorPost, setErrorPost] = useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -17,16 +26,21 @@ function WhatIsOnUrMind() {
   const [selectedFile, setSelectedFile] = useState(null);
   const handleCloseModal = () => {
     setOpen(false);
-    // Reset the selected file when the modal is closed
     setSelectedFile(null);
   };
+
+ 
+
+  const newPosts = [];
+  // const handleFileInputChange = (e) => {
+  //   const selectedFile = e.target.files[0];
+  //   console.log("Selected file:", selectedFile);
+  //   // handleClose();
+  // };
   const handleFileInputChange = (e) => {
-    // Handle the selected file here
     const selectedFile = e.target.files[0];
     console.log("Selected file:", selectedFile);
-
-    // Close the modal or perform any other actions
-    handleClose();
+    setSelectedFile(selectedFile);  // Add this line to update the selectedFile state
   };
   const triggerFileInput = () => {
     // Trigger a click on the hidden file input
@@ -42,6 +56,80 @@ function WhatIsOnUrMind() {
       "https://images.unsplash.com/photo-1505628346881-b72b27e84530?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FydG9vbiUyMGFuaW1hbHxlbnwwfHwwfHx8MA%3D%3D",
     displayName: "Pratik",
   };
+
+// create a post
+
+const handleCreatePost = async () => {
+  console.log("Function is called");
+
+  try {
+    const formData = new FormData();
+
+    formData.append("content", postContent);
+
+    if (postImage) {
+      formData.append("images", postImage);
+    }
+
+    const response = await fetch(
+      "https://academics.newtonschool.co/api/v1/facebook/post/",
+
+      {
+        method: "POST",
+
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+
+          projectID: "f104bi07c490",
+        },
+
+        body: formData,
+      }
+    );
+
+    if (response.ok) {
+      console.log("Succecfully Posted");
+      setSnackbarOpen(true);
+      // soundNotification.play();
+      // soundNotification.play();
+      setPlaySound(true);
+        setSnackbarOpen(true);
+      const data = await response.json();
+      setTimeout(() => {
+        setSnackbarOpen(false);
+      }, 2000);
+      // console.log("Post Data:", data);
+      handleCloseModal();
+      
+      // alert("Succecfully Posted")
+      onPostCreated(data);
+    
+    } else {
+      const errorData = await response.json();
+
+      setErrorPost(errorData.message);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+
+    setErrorPost("An error occurred. Please try again.");
+  }
+};
+
+const handleOpenImage = () => {
+  const fileInput = document.getElementById("imageInput");
+
+  fileInput.click();
+};
+
+const handleImageChange = (e) => {
+  const file = e.target.files[0];
+
+  setPostImage(file);
+};
+
+
+
   return (
     <div to={"/commingsoon"} className="wht-is-on-your-mind">
       {/* reels box */}
@@ -103,11 +191,11 @@ function WhatIsOnUrMind() {
             />
             <p>Live Video</p>
           </div>
-          <div className="icon_box">
+          <div className="icon_box" onClick={handleOpen}>
             <img
               src="https://static.xx.fbcdn.net/rsrc.php/v3/yC/r/a6OjkIIE-R0.png"
               alt=".."
-              onClick={handleOpen}
+             
             />
             <p>Photos/Video</p>
           </div>
@@ -120,6 +208,13 @@ function WhatIsOnUrMind() {
           </div>
         </div>
       </div>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={() => setSnackbarOpen(false)}
+        message="Post successfully created"
+        style={{backgroundColor:"white"}}
+      />
 
       <section className="modal_for_create_post">
         <Modal
@@ -132,6 +227,7 @@ function WhatIsOnUrMind() {
             <div className="css-bhp9pd-MuiPaper-root-MuiCard-root">
               <div className="header_post_modal">
                 <h3 className="test_">Create post</h3>
+
 
                 <img
                   src={closePNG}
@@ -169,6 +265,7 @@ function WhatIsOnUrMind() {
                   />
                 )}
                 <img
+                 onClick={triggerFileInput}
                   src="https://static.xx.fbcdn.net/rsrc.php/v3/y7/r/Ivw7nhRtXyo.png"
                   alt="select_img"
                 />
@@ -183,13 +280,16 @@ function WhatIsOnUrMind() {
                 variant="contained"
                 className="post__button"
                 style={{ textTransform: "none", borderRadius: "8px" }}
-                onClick={handleCloseModal}
+                // onClick={handleCloseModal}
+                
+                onClick={handleCreatePost}
               >
                 Post
               </Button>
             </div>
           </Box>
         </Modal>
+    
       </section>
     </div>
   );

@@ -251,7 +251,7 @@
   border: none;
   background-color: #e9ebee;
   border-radius: 19px;
-  padding: 2px;
+  padding-left: 12px;
   /* margin-left: 82px; */
   display: flex;
   justify-content: center;
@@ -385,7 +385,7 @@
   gap: 2px;
   position: relative;
   top: 17px;
-  right: 70px;
+  right: 17px;
   border-radius: 5px;
   padding: 2px;
   padding-right: 10px;
@@ -466,8 +466,8 @@
 }
 .add_tp_ur_post img{
   position: relative;
-    left: 19px;
-    cursor: pointer;
+  left: 19px;
+  cursor: pointer;
   
 }
 

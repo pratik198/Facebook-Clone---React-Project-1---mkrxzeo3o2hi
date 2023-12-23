@@ -91,23 +91,23 @@
 
 .modalBox {
   position: relative;
-  border: 2px solid black;
   height: 65vh;
-  width: 22em;
+  width: 20em;
   margin: -30px 20px 0px 0px;
   background-color: white;
   border-radius: 8px;
   box-shadow: 1px 1px 8px black;
-  left: 62em;
+  left: 63em;
   top: 6em;
   opacity: 1;
+  padding: 10px;
 }
 
 .boxUser {
   border: 2px solid black;
   box-shadow: 0px 0px 3px black;
   margin: 10px 20px 0px 20px;
-  height: 99px;
+  height: 85px;
   border: none;
   border-radius: 5px;
 }

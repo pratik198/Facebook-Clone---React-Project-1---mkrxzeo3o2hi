@@ -18,6 +18,7 @@ import { useAuth } from "./Context";
 
 function Homepage() {
   const { setpuId } = useAuth();
+  const [likedPosts, setLikedPosts] = useState([]);
   const [Data, setData] = useState([]);
   const [comments, setComments] = useState({});
   const [likeCounts, setLikeCounts] = useState({});
@@ -93,6 +94,12 @@ function Homepage() {
       console.error("Error while liking the post:", errorData);
     }
   };
+
+
+
+ 
+  
+
 
   useEffect(() => {
     const counts = {};

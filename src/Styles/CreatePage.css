@@ -4,6 +4,12 @@
     justify-content: center;
     background-color: #E9EBEE;
     align-items: center;
+    flex-direction: column;
+    margin-top: 36px;
+}
+.CreatePage img{
+    height: 113px;
+    cursor: pointer;
 }
 .page__container {
     background-color: #fff;
@@ -15,7 +21,7 @@
     /* text-align: center;
      */
      margin-left: 1em;
-     padding: 3em;
+     padding: 0px 24px 30px
 }
 
 .page-name-required {
@@ -23,6 +29,7 @@
     height: 3em;
     width: 100%;
     border-radius: 3px;
+    border: 1px solid gray;
 
 }
 

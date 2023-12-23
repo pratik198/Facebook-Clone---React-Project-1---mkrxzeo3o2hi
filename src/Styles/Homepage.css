@@ -291,3 +291,13 @@ body {
     /* margin-top: 6px; */
 }
 }
+
+/* Add these styles to change the color of the like button */
+.Like_-button {
+  color: black;
+}
+
+.Like_-button.liked {
+  color: blue; /* Change this to the color you want when the post is liked */
+}
+

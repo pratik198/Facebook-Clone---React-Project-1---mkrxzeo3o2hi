@@ -205,8 +205,7 @@ export default function PrimarySearchAppBar() {
                       <Link to={"/profile"}>
                         <h3 className="author-name-modal">{username}</h3>
                       </Link>
-                      <p className="see-all-profile">See all profile</p>
-                      <div className="line-modal-box"></div>
+                     
                     </Box>
                   </Link>
                   <div className="options-modal">
