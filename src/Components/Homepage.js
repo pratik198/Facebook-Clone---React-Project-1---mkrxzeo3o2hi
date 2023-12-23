@@ -18,8 +18,8 @@ import { useAuth } from "./Context";
 
 import { BiSolidLike } from "react-icons/bi";
 import { FaComment } from "react-icons/fa6";
-// ... (Your other import statements)
-import { useCallback } from "react";
+
+import { debounce } from 'lodash';
 
 // import { BiSolidLike } from "react-icons/bi";
 
@@ -42,7 +42,6 @@ function Homepage() {
     GetData();
     setLikeCounts(false);
   }, [likeCounts]);
-
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
