@@ -128,6 +128,7 @@
   position: relative;
   bottom: 12px;
   left: 11px;
+  font-weight: 600;
   font-family: 15px Arial, Helvetica, sans-serif;
 }
 .user-name-modal-a {

@@ -62,7 +62,7 @@ function MyProfile() {
                   className="Button-follow"
                   style={{
                     textTransform: "none",
-                    width: "100px",
+                    width: "140px",
                     fontWeight: "bold",
                   }}
                 >

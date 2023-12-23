@@ -239,7 +239,6 @@ export default function PrimarySearchAppBar() {
                         >
                           {isLoggedIn ? "Logout" : "Login"}
                         </p>
-                        {/* <p>Log out</p> */}
                       </div>
                     </Link>
                   </div>

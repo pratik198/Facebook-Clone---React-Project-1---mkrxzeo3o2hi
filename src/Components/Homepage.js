@@ -9,14 +9,23 @@ import { Link } from "react-router-dom";
 import like from "../Images/like.png";
 import love from "../Images/thumbs-up (1).png";
 import chat from "../Images/chat.png";
-import like2 from "../Images/like 2.png";
+// import like2 from "../Images/like 2.png";
 import comment from "../Images/comment.png";
 import { Button } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { UserMap } from "./Datastore";
 import { useAuth } from "./Context";
 
+import { BiSolidLike } from "react-icons/bi";
+import { FaComment } from "react-icons/fa6";
+// ... (Your other import statements)
+import { useCallback } from "react";
+
+// import { BiSolidLike } from "react-icons/bi";
+
 function Homepage() {
+  const [likedStatus, setLikedStatus] = useState({});
+  const [isLiked,setIsLiked]=useState(false)
   const { setpuId } = useAuth();
   const [likedPosts, setLikedPosts] = useState([]);
   const [Data, setData] = useState([]);
@@ -34,7 +43,8 @@ function Homepage() {
     setLikeCounts(false);
   }, [likeCounts]);
 
-  /* fetching post*/
+
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const GetData = async () => {
     try {
@@ -53,9 +63,9 @@ function Homepage() {
         const data = await response.json();
         console.log(data)
         setData(data.data);
-        // localStorage.setItem("guestId",data.data.author._id);
-        data.data.forEach((post) => {
-          // Fetch comments for each post when the component loads
+       
+        data.data.forEach(async (post) => {
+          await delay(1000); // Add a delay of 1 second between requests
           handleFetchComments(post._id);
         });
       } else {
@@ -68,10 +78,10 @@ function Homepage() {
 
   /*like post*/
 
-  const handleLikePost = async (postId) => {
-    const isLiked = Click;
-    SetClick(!isLiked);
+const handleLikePost = async (postId) => {
+  const isLiked = likedStatus[postId] || false;
 
+  try {
     const response = await fetch(
       `https://academics.newtonschool.co/api/v1/facebook/like/${postId}`,
       {
@@ -85,21 +95,38 @@ function Homepage() {
 
     if (response.ok) {
       console.log(isLiked ? "Unlike is clicked" : "Like is clicked");
+      setLikedStatus((prevStatus) => ({
+        ...prevStatus,
+        [postId]: !isLiked,
+      }));
+
       setLikeCounts((prevCounts) => ({
         ...prevCounts,
         [postId]: isLiked ? prevCounts[postId] - 1 : prevCounts[postId] + 1,
       }));
     } else {
       const errorData = await response.json();
-      console.error("Error while liking the post:", errorData);
+
+      // Check if the error is due to the post already being liked
+      if (response.status === 400 && errorData.message === 'You already liked this post') {
+        // Assume the user wants to unlike, so update the state accordingly
+        setLikedStatus((prevStatus) => ({
+          ...prevStatus,
+          [postId]: true, // Update the local state to simulate unliking
+        }));
+
+        setLikeCounts((prevCounts) => ({
+          ...prevCounts,
+          [postId]: prevCounts[postId] - 1,
+        }));
+      } else {
+        console.error("Error while liking/unliking the post:", errorData);
+      }
     }
-  };
-
-
-
- 
-  
-
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
 
   useEffect(() => {
     const counts = {};
@@ -268,12 +295,34 @@ function Homepage() {
     }
   };
 
+  const handleLikeClick = () => {
+    setIsLiked(!isLiked);
+  };
+
+  // const buttonStyle={
+  //   cursor: "pointer",
+  //   marginTop: "-4px",
+  //   fontSize:"22px",
+  //   textTransform: "lowercase",
+  //   color: isLiked ? "#0566ff":"gray",
+  // }
+  
   return (
     <div className="post-box">
-      {Data &&
-        Data.map((post) => (
+     {Data &&
+        Data.map((post) => {
+          const buttonStyle = {
+            cursor: "pointer",
+            marginTop: "-4px",
+            fontSize: "22px",
+            textTransform: "lowercase",
+            color: likedStatus[post._id] ? "#0566ff" : "gray",
+          };
+      {/* {Data &&
+        Data.map((post) => ( */}
+        return(
           <Card
-            sx={{ maxWidth: 450, maxHeight: 800, height: "50em" }}
+            sx={{ maxWidth: 450, maxHeight: 800, height: "100%",paddingBottom:"18px" }}
             key={post._id}
           >
             <Link className="userProfile-img-name" to={`/userprofile/${post?.author?._id}`}>
@@ -327,29 +376,20 @@ function Homepage() {
                 onClick={() => handleLikePost(post._id)}
               >
                 <Button
-                  style={{
-                    textTransform: "none",
-                    color: "black",
-                    width: "115px",
-                    background: "none",
-                  }}
+                onClick={handleLikeClick}
+                style={buttonStyle}
                   className="Like_-button"
+                  
                 >
                   <span>
-                    <img
-                      src={like2}
-                      alt="..."
-                      style={{
-                        cursor: "pointer",
-                        height: "21px",
-                        marginTop: "-4px",
-                      }}
-                    />
+                  
+                    <BiSolidLike 
+                    onClick={handleLikeClick}
+                     style={buttonStyle}/>
                     <span id="S-comment">Like</span>
                   </span>
                 </Button>
               </div>
-
               <div
                 className="like-post-like-btn"
                 style={{ marginRight: "31px", marginTop: "-3px" }}
@@ -363,8 +403,9 @@ function Homepage() {
                   }}
                   className="Like_-button"
                 >
-                  <img src={comment} alt="..." />
-                  <span id="S-comment">Comment</span>
+                  {/* <img src={comment} alt="..." /> */}
+                  <FaComment style={{fontSize:"20px",color:"gray"}}/>
+                  <span id="S-comment" style={{position:"relative",top:"-1px"}}>Comment</span>
                 </Button>
               </div>
             </div>
@@ -441,16 +482,8 @@ function Homepage() {
                           )}
                         </div>
                       </div>
-                      {console.log(
-                        "Comment author:",
-                        comment.author,
-                        "Logged-in user:",
-                        loggedInUserId
-                      )}
-                      {console.log(
-                        "Is user's comment:",
-                        comment.author === loggedInUserId
-                      )}
+                     
+                    
                       {comment.author === loggedInUserId && (
                         <div style={{ display: "flex" }} className="l-r-s">
                           <p
@@ -480,7 +513,8 @@ function Homepage() {
               )}
             </div>
           </Card>
-        ))}
+        );
+     })}
     </div>
   );
 }
