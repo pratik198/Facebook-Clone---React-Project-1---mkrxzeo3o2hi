@@ -23,10 +23,11 @@ function Profile(props) {
   const GetData = async () => {
     const response = await fetch(api, {
       headers: {
-        projectID: "f104bi07c490",
+        projectID: "mkrxzeo3o2hi",
       },
     });
     const r = await response.json();
+    console.log(r)
     setData(r["data"]);
   };
   console.log(Data);

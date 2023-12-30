@@ -6,13 +6,12 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import closePNG from "../Images/close.png";
 import Button from "@mui/material/Button";
-import { useRef,useState,useEffect } from "react";
-import Snackbar from '@mui/material/Snackbar';
+import { useRef, useState, useEffect } from "react";
+import Snackbar from "@mui/material/Snackbar";
 
-
-function WhatIsOnUrMind({ onPostCreated }) {   
+function WhatIsOnUrMind({ onPostCreated }) {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-const [playSound, setPlaySound] = useState(false);
+  const [playSound, setPlaySound] = useState(false);
   const [postContent, setPostContent] = useState("");
   const [postImage, setPostImage] = useState(null);
   const [posts, setPosts] = useState([]);
@@ -24,27 +23,50 @@ const [playSound, setPlaySound] = useState(false);
   const username = localStorage.getItem("userName");
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const response = await fetch(
+        "https://academics.newtonschool.co/api/v1/facebook/posts",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            projectID: "mkrxzeo3o2hi",
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setPosts(data);
+      } else {
+        const errorData = await response.json();
+        console.error("Error fetching posts:", errorData.message);
+      }
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
   const handleCloseModal = () => {
     setOpen(false);
     setSelectedFile(null);
   };
 
- 
-
-  const newPosts = [];
-  // const handleFileInputChange = (e) => {
-  //   const selectedFile = e.target.files[0];
-  //   console.log("Selected file:", selectedFile);
-  //   // handleClose();
-  // };
   const handleFileInputChange = (e) => {
     const selectedFile = e.target.files[0];
-    console.log("Selected file:", selectedFile);
-    setSelectedFile(selectedFile);  // Add this line to update the selectedFile state
+    setSelectedFile(selectedFile);
   };
+
   const triggerFileInput = () => {
-    // Trigger a click on the hidden file input
-    fileInputRef.current.click();
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
   const myAvtarr = {
     photoURL:
@@ -57,78 +79,66 @@ const [playSound, setPlaySound] = useState(false);
     displayName: "Pratik",
   };
 
-// create a post
+  // create a post
 
-const handleCreatePost = async () => {
-  console.log("Function is called");
+  const handleCreatePost = async () => {
+    console.log("Function is called");
 
-  try {
-    const formData = new FormData();
+    try {
+      const formData = new FormData();
 
-    formData.append("content", postContent);
+      formData.append("content", postContent);
 
-    if (postImage) {
-      formData.append("images", postImage);
-    }
+      formData.append("images", selectedFile);
 
-    const response = await fetch(
-      "https://academics.newtonschool.co/api/v1/facebook/post/",
+      const response = await fetch(
+        "https://academics.newtonschool.co/api/v1/facebook/post/",
 
-      {
-        method: "POST",
+        {
+          method: "POST",
 
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
 
-          projectID: "f104bi07c490",
-        },
+            projectID: "mkrxzeo3o2hi",
+          },
 
-        body: formData,
-      }
-    );
+          body: formData,
+        }
+      );
 
-    if (response.ok) {
-      console.log("Succecfully Posted");
-      setSnackbarOpen(true);
-      // soundNotification.play();
-      // soundNotification.play();
-      setPlaySound(true);
+      if (response.ok) {
+        console.log("Succecfully Posted");
         setSnackbarOpen(true);
-      const data = await response.json();
-      setTimeout(() => {
-        setSnackbarOpen(false);
-      }, 2000);
-      // console.log("Post Data:", data);
-      handleCloseModal();
-      
-      // alert("Succecfully Posted")
-      onPostCreated(data);
-    
-    } else {
-      const errorData = await response.json();
+        setPlaySound(true);
+        setSnackbarOpen(true);
+        const data = await response.json();
+        setTimeout(() => {
+          setSnackbarOpen(false);
+        }, 2000);
+        handleCloseModal();
 
-      setErrorPost(errorData.message);
+        onPostCreated(data);
+      } else {
+        const errorData = await response.json();
+        console.error("Error:", errorData.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+
+      setErrorPost("An error occurred. Please try again.");
     }
-  } catch (error) {
-    console.error("Error:", error);
+  };
 
-    setErrorPost("An error occurred. Please try again.");
-  }
-};
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setPostImage(file);
+    setSelectedFile(file);
+  };
 
-const handleOpenImage = () => {
-  const fileInput = document.getElementById("imageInput");
-
-  fileInput.click();
-};
-
-const handleImageChange = (e) => {
-  const file = e.target.files[0];
-
-  setPostImage(file);
-};
-
-
+  const handleOpenImage = () => {
+    triggerFileInput();
+  };
 
   return (
     <div to={"/commingsoon"} className="wht-is-on-your-mind">
@@ -173,7 +183,7 @@ const handleImageChange = (e) => {
       {/* mind box */}
 
       <div className="wht_on_ur_mind">
-        <div className="first_st_div" onClick={handleOpen}>
+        <div className="first_st_div" onClick={() => setOpen(true)}>
           <div className="parent-avtar">
             <Avatar alt="Remy Sharp" src={myAvtar.photoURL} />
           </div>
@@ -195,7 +205,6 @@ const handleImageChange = (e) => {
             <img
               src="https://static.xx.fbcdn.net/rsrc.php/v3/yC/r/a6OjkIIE-R0.png"
               alt=".."
-             
             />
             <p>Photos/Video</p>
           </div>
@@ -213,7 +222,7 @@ const handleImageChange = (e) => {
         autoHideDuration={2000}
         onClose={() => setSnackbarOpen(false)}
         message="Post successfully created"
-        style={{backgroundColor:"white"}}
+        style={{ backgroundColor: "white" }}
       />
 
       <section className="modal_for_create_post">
@@ -227,7 +236,6 @@ const handleImageChange = (e) => {
             <div className="css-bhp9pd-MuiPaper-root-MuiCard-root">
               <div className="header_post_modal">
                 <h3 className="test_">Create post</h3>
-
 
                 <img
                   src={closePNG}
@@ -253,9 +261,11 @@ const handleImageChange = (e) => {
                   type="text"
                   id="myInput"
                   placeholder={`What's on your mind, ${username}?`}
+                  value={postContent}
+                  onChange={(e) => setPostContent(e.target.value)}
                 />
               </div>
-              <div className="add_tp_ur_post" onClick={triggerFileInput}>
+              <div className="add_tp_ur_post" onClick={handleOpenImage}>
                 <p>Add to your post</p>
                 {selectedFile && (
                   <img
@@ -265,7 +275,7 @@ const handleImageChange = (e) => {
                   />
                 )}
                 <img
-                 onClick={triggerFileInput}
+                  onClick={triggerFileInput}
                   src="https://static.xx.fbcdn.net/rsrc.php/v3/y7/r/Ivw7nhRtXyo.png"
                   alt="select_img"
                 />
@@ -280,8 +290,6 @@ const handleImageChange = (e) => {
                 variant="contained"
                 className="post__button"
                 style={{ textTransform: "none", borderRadius: "8px" }}
-                // onClick={handleCloseModal}
-                
                 onClick={handleCreatePost}
               >
                 Post
@@ -289,7 +297,6 @@ const handleImageChange = (e) => {
             </div>
           </Box>
         </Modal>
-    
       </section>
     </div>
   );

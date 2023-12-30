@@ -52,7 +52,7 @@ function Updatepassword() {
       {
         method: "PATCH",
         headers: {
-          projectId: "f104bi07c490",
+          projectId: "mkrxzeo3o2hi",
           "Content-Type": "application/json",
           Authorization: token,
         },

@@ -13,18 +13,25 @@ function SearchComponent({ apiSearchData }) {
         {apiSearchData.map((post) => (
           <Box className="postBox" key={post._id}>
             <div className="accountPostBox">
+            {post.author && (
+              <>
               <Avatar alt={post.author.name} src={post.author.profileImage} />
               <Typography>{post.author.name}</Typography>
+              </>
+              )}
             </div>
+           
             <div className="captionForPost">
               <Typography id="captionPost">{post.content}</Typography>
             </div>
             <section className="imgPostBox">
+            {post.channel && (
               <img
-                src={post.channel.image}
+                  src={post.channel && post.channel.image ? post.channel.image : "defaultImageURL"}
                 className="imgPost"
                 alt="Imageofpost"
               />
+               )}
             </section>
             <section className="countLikeComment">
               <div className="countLike">

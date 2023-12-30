@@ -78,11 +78,11 @@
   padding: 20px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  outline: none; /* Remove the default focus outline */
+  outline: none; 
 }
 
 .ReactModal__Overlay {
-  z-index: 1000; /* Ensure the modal is above other elements on the page */
+  z-index: 1000; 
 }
 
 .custom-modal {
@@ -218,7 +218,7 @@
 
 
 @media only screen and (max-width: 600px) {
-  /* Styles here */
+ 
   .css-1guk29 {
     left: 50%;
   }

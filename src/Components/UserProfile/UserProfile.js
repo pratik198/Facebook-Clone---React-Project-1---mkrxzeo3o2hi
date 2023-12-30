@@ -28,7 +28,7 @@ function UserProfile() {
           method: "GET",
           headers: {
             Authorization: `Bearer ${bearerToken}`,
-            projectID: "f104bi07c490",
+            projectID: "mkrxzeo3o2hi",
           },
         }
       );
@@ -61,7 +61,7 @@ function UserProfile() {
           method: method,
           headers: {
             Authorization: `Bearer ${bearerToken}`,
-            projectID: "f104bi07c490",
+            projectID: "mkrxzeo3o2hi",
           },
         }
       );
@@ -92,10 +92,10 @@ function UserProfile() {
   const GetData = async () => {
     try {
       const response = await fetch(
-        "https://academics.newtonschool.co/api/v1/facebook/post?",
+        "https://academics.newtonschool.co/api/v1/facebook/post?limit=1000",
         {
           headers: {
-            projectID: "f104bi07c490",
+            projectID: "mkrxzeo3o2hi",
           },
         }
       );
@@ -126,7 +126,8 @@ function UserProfile() {
           <section className="profileImage">
             <img
               id="profileimg"
-              src={userProfile?.profileImage}
+              src={userProfile?.profileImage  || "defaultImageURL"}
+              // src={Data.images && Data.images.length > 0 ? Data.images[0] : "defaultImageURL"}
               alt="userImage"
             />
           </section>
@@ -135,7 +136,7 @@ function UserProfile() {
               <section className="avtarProfile">
                 <Avatar
                   sx={{ width: 135, height: 135 }}
-                  src={userProfile?.profileImage}
+                  src={userProfile?.profileImage || "de"}
                 ></Avatar>
               </section>
 
@@ -276,6 +277,8 @@ function UserProfile() {
             <div className="userProfile-img-name" to="/userprofile">
               <div className="accountPost-img">
                 <Avatar src={post.author.profileImage} />
+                
+               
                 <div className="author-name-name">
                   <h4 className="naem-author">{post.author.name}</h4>
                 </div>
@@ -289,7 +292,8 @@ function UserProfile() {
             <CardMedia
               component="img"
               height="194"
-              src={post.channel.image}
+              src={post.images && post.images.length > 0 ? post.images[0] : "defaultImageURL"}
+            
               alt="Post Image"
               sx={{
                 height: "362px",

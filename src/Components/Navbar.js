@@ -94,10 +94,11 @@ export default function PrimarySearchAppBar() {
     try {
       const response = await fetch(searchUrl2, {
         headers: {
-          projectID: "f104bi07c490",
+          projectID: "mkrxzeo3o2hi",
         },
       });
       const searchData = await response.json();
+      console.log(searchData)
       setApiSearchData(searchData["data"]);
       setSearchPerformed(true);
     } catch (error) {

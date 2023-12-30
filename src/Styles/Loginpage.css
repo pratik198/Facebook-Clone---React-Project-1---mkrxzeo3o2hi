@@ -16,13 +16,10 @@ body{
 }
 
 .right-container{
-    /* justify-content: center; */
     display: flex;
     align-items: center;
-    /* background-color: aqua; */
     height: 100vh;
     width: 50%;
-    /* flex-direction: unset; */
 }
 
 .logo{
@@ -30,16 +27,11 @@ body{
     left: 87px;
     top: 158px;
     height: 122px;
-    /* padding-bottom: 25px; */
-    /* margin-bottom: 55px; */
-    /* margin-right: 139px; */
 }
 
 .card-details{
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    /* justify-content: center; */
     height: 368px;
     width: 478px;
     background-color: white;
@@ -55,7 +47,6 @@ body{
     margin-bottom: 20px;
 }
 .input-filed input{
-    /* width: 10px; */
     margin: 20px 20px 0px 20px;
     height: 45px;
     border: .5px solid rgb(231, 227, 227);
@@ -71,10 +62,8 @@ input:focus {
 .input-filed input::placeholder{
     color: rgb(179, 176, 176);
     margin-left: 10px;
-    /* padding-left: 10px; */
     font-size: 16px;
     letter-spacing: 0.5px;
-    /* border: none; */
 }
 
 
@@ -98,7 +87,6 @@ input:focus {
 }
 
 .F-content{
-    /* padding-bottom: 36px; */
     position: absolute;
     top: 242px;
     left: 120px;
@@ -108,17 +96,13 @@ input:focus {
     font-size: 28px;
     line-height: 32px;
     font-weight: normal;
-    /* padding-right: 10px; */
-    /* margin-right: 22px; */
 }
 .f-logo{
-        /* margin-bottom: 12px; */
         height: 90px;
         padding-bottom: 99px;
 }
 
 .Forgot-text{
-    /* background-color: red; */
     position: relative;
     left: 38%;
     top: 5%;
@@ -177,7 +161,6 @@ input:focus {
     }
     .card-container {
         position: relative;
-        /* bottom: 63em; */
     }
     .card-details{
         position: absolute;
@@ -185,8 +168,6 @@ input:focus {
         bottom: 50em;
         display: flex;
         flex-direction: column;
-        /* align-items: center; */
-        /* justify-content: center; */
         height: 394px;
         width: 478px;
         background-color: white;
@@ -205,9 +186,6 @@ input:focus {
         font-size: 28px;
         line-height: 32px;
         font-weight: normal;
-        /* padding-right: 10px; */
-        /* margin-right: 22px; */
-        /* left: -46px; */
         right: 45px;
     }
 }
