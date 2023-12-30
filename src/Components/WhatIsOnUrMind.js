@@ -24,35 +24,6 @@ function WhatIsOnUrMind({ onPostCreated }) {
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch(
-        "https://academics.newtonschool.co/api/v1/facebook/posts",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            projectID: "mkrxzeo3o2hi",
-          },
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setPosts(data);
-      } else {
-        const errorData = await response.json();
-        console.error("Error fetching posts:", errorData.message);
-      }
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-    }
-  };
-
   const handleCloseModal = () => {
     setOpen(false);
     setSelectedFile(null);
@@ -115,7 +86,8 @@ function WhatIsOnUrMind({ onPostCreated }) {
         const data = await response.json();
         setTimeout(() => {
           setSnackbarOpen(false);
-        }, 2000);
+          window.location.reload();
+        }, 1000);
         handleCloseModal();
 
         onPostCreated(data);
