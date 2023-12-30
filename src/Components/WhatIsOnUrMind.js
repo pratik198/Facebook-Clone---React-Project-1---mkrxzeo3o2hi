@@ -11,10 +11,8 @@ import Snackbar from "@mui/material/Snackbar";
 
 function WhatIsOnUrMind({ onPostCreated }) {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [playSound, setPlaySound] = useState(false);
   const [postContent, setPostContent] = useState("");
   const [postImage, setPostImage] = useState(null);
-  const [posts, setPosts] = useState([]);
   const bearerToken = localStorage.getItem("token");
   const [errorPost, setErrorPost] = useState("");
   const [open, setOpen] = React.useState(false);
@@ -81,7 +79,7 @@ function WhatIsOnUrMind({ onPostCreated }) {
       if (response.ok) {
         console.log("Succecfully Posted");
         setSnackbarOpen(true);
-        setPlaySound(true);
+
         setSnackbarOpen(true);
         const data = await response.json();
         setTimeout(() => {
