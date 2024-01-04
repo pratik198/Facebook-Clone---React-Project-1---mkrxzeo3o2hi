@@ -3,19 +3,18 @@ import Navbar from "../Navbar";
 import Avatar from "@mui/material/Avatar";
 import { useAuth } from "../Context";
 import { Box, Button } from "@mui/material";
-import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
-
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import EditIcon from "@mui/icons-material/Edit";
 function UserProfile() {
-  // const [userProfile, setUserProfile] = useState("");
   const [userProfile, setUserProfile] = useState({});
   const [isFollowed, setIsFollowed] = useState(false);
   const bearerToken = localStorage.getItem("token");
-  // const userId = localStorage.getItem("guestId");
   const [Data, setData] = useState([]);
   const { puId } = useAuth();
+  const loggedInUserId = localStorage.getItem("userId");
   console.log(bearerToken);
 
   const fetchData = async () => {
@@ -40,9 +39,7 @@ function UserProfile() {
 
         if (data.data) {
           setIsFollowed(data.data.isFollowed);
-        
         }
-
       } else {
         console.error("Failed to fetch user profile data");
       }
@@ -111,6 +108,68 @@ function UserProfile() {
       console.error("Error:", error);
     }
   };
+
+  // dlt post//
+  // const handleDeletePost = async (postId) => {
+  //   try {
+  //     const response = await fetch(
+  //       `https://academics.newtonschool.co/api/v1/facebook/post/${postId}`,
+  //       {
+  //         method: "DELETE",
+  //         headers: {
+  //           Authorization: `Bearer ${bearerToken}`,
+  //           projectID: "mkrxzeo3o2hi",
+  //         },
+  //       }
+  //     );
+
+  //     if (response.ok) {
+  //       console.log(`Post with ID ${postId} deleted successfully`);
+  //       const updatedPosts = Data.filter((post) => post._id !== postId);
+  //       setData(updatedPosts);
+  //     } else {
+  //       console.error(`Failed to delete post with ID ${postId}`);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error deleting post", error);
+  //   }
+  // };
+  const handleDeletePost = async (postId) => {
+    // Assuming loggedInUserId is the ID of the currently logged-in user
+    const loggedInUserId = localStorage.getItem("userId");
+
+    // Find the post in Data array
+    const postToDelete = Data.find((post) => post._id === postId);
+
+    // Check if the post belongs to the currently logged-in user
+    if (postToDelete && postToDelete.author._id === loggedInUserId) {
+      try {
+        const response = await fetch(
+          `https://academics.newtonschool.co/api/v1/facebook/post/${postId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${bearerToken}`,
+              projectID: "mkrxzeo3o2hi",
+            },
+          }
+        );
+
+        if (response.ok) {
+          console.log(`Post with ID ${postId} deleted successfully`);
+          const updatedPosts = Data.filter((post) => post._id !== postId);
+          setData(updatedPosts);
+        } else {
+          console.error(`Failed to delete post with ID ${postId}`);
+        }
+      } catch (error) {
+        console.error("Error deleting post", error);
+      }
+    } else {
+      console.log("You are not authorized to delete this post.");
+      // Handle unauthorized deletion here (show an error message, etc.)
+    }
+  };
   // const userPosts = Data.filter(post => post.userId === puId);
   useEffect(() => {
     fetchData();
@@ -126,8 +185,7 @@ function UserProfile() {
           <section className="profileImage">
             <img
               id="profileimg"
-              src={userProfile?.profileImage  || "defaultImageURL"}
-              // src={Data.images && Data.images.length > 0 ? Data.images[0] : "defaultImageURL"}
+              src={userProfile?.profileImage || "defaultImageURL"}
               alt="userImage"
             />
           </section>
@@ -277,11 +335,23 @@ function UserProfile() {
             <div className="userProfile-img-name" to="/userprofile">
               <div className="accountPost-img">
                 <Avatar src={post.author.profileImage} />
-                
-               
+
                 <div className="author-name-name">
                   <h4 className="naem-author">{post.author.name}</h4>
                 </div>
+
+                <div
+                  className="dlt-fnc"
+                  style={{ position: "relative", left: "61%", top: "5px" }}
+                >
+                  {post.author._id === loggedInUserId && (
+                    <DeleteForeverIcon
+                      onClick={() => handleDeletePost(post._id)}
+                    />
+                  )}
+                </div>
+
+                {/* dlt function */}
               </div>
             </div>
             <CardContent>
@@ -292,8 +362,11 @@ function UserProfile() {
             <CardMedia
               component="img"
               height="194"
-              src={post.images && post.images.length > 0 ? post.images[0] : "defaultImageURL"}
-            
+              src={
+                post.images && post.images.length > 0
+                  ? post.images[0]
+                  : "defaultImageURL"
+              }
               alt="Post Image"
               sx={{
                 height: "362px",

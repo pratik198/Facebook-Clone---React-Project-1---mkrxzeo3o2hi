@@ -36,13 +36,12 @@ function Homepage() {
   const [editedCommentId, setEditedCommentId] = useState("");
   const loggedInUserId = localStorage.getItem("userId");
 
-  useEffect(() => {
-    GetData();
-    setLikeCounts(false);
-  }, [likeCounts]);
 
   useEffect(()=>{
-    GetData();
+ 
+      GetData();
+      setLikeCounts(false);
+  
     
   },[page,postsPerPage])
 
@@ -330,15 +329,6 @@ function Homepage() {
 
       if (response.ok) {
         console.log("Comment deleted successfully");
-        // setComments((prevComments) => ({
-        //   ...prevComments,
-        //   [postId]: prevComments[postId].filter(
-        //     (comment) => comment._id !== commentId
-        //   ),
-        // }));
-        // toast.success("Comment deleted successfully", {
-        //   position: toast.POSITION.BOTTOM_LEFT,
-        // });
         toast.success("Comment deleted successfully", {
           position: toast.POSITION.BOTTOM_LEFT,
         });
