@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/Homepage.css";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
@@ -13,15 +11,17 @@ import { Box, Button } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { UserMap } from "./Datastore";
 import { useAuth } from "./Context";
-
 import { BiSolidLike } from "react-icons/bi";
 import { FaComment } from "react-icons/fa6";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { Toaster } from "react-hot-toast";
+
 
 function Homepage() {
+  const [page, setPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(10);
   const [hasMore, setHasMore] = useState(true);
+ 
   const [likedStatus, setLikedStatus] = useState({});
   const [isLiked, setIsLiked] = useState(false);
   const { setpuId } = useAuth();
@@ -29,7 +29,6 @@ function Homepage() {
   const [Data, setData] = useState([]);
   const [comments, setComments] = useState({});
   const [likeCounts, setLikeCounts] = useState({});
-  const [Click, SetClick] = useState(false);
   const bearerToken = localStorage.getItem("token");
   const [apiData] = useState(null);
   const [commentInput, setCommentInput] = useState("");
@@ -42,13 +41,18 @@ function Homepage() {
     setLikeCounts(false);
   }, [likeCounts]);
 
+  useEffect(()=>{
+    GetData();
+    
+  },[page,postsPerPage])
+
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const GetData = async () => {
     try {
       const response = await fetch(
-        "https://academics.newtonschool.co/api/v1/facebook/post?limit=100",
+        `https://academics.newtonschool.co/api/v1/facebook/post?limit=${postsPerPage}&page=${page}`,
         {
           headers: {
             projectID: "mkrxzeo3o2hi",
@@ -60,12 +64,20 @@ function Homepage() {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        setData(data.data);
+        if (data.data.length === 0) {
+          // If there are no more posts, set hasMore to false
+          setHasMore(false);
+        } else {
+          // Append the new posts to the existing ones
+          setData((prevData) => [...prevData, ...data.data]);
+        // setData(data.data);
+     
 
         data.data.forEach(async (post) => {
-          await delay(1000); // Add a delay of 1 second between requests
-          handleFetchComments(post._id);
+          await delay(2000); // Add a delay of 1 second between requests
+          handleFetchComments(post._id,bearerToken);
         });
+      }
       } else {
         console.error("Error while fetching data.");
       }
@@ -73,6 +85,11 @@ function Homepage() {
       console.error("Error:", error);
     }
   };
+  const loadMorePosts = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
+
+
 
   /*like post*/
 
@@ -95,17 +112,21 @@ function Homepage() {
         toast.success(isLiked ? "Post Unliked!" : "Post Liked!", {
           position: toast.POSITION.BOTTOM_LEFT,
           iconTheme: { primary: "#0566ff" },
-          // Set your desired blue color for the tick
         });
-        console.log(isLiked ? "Unlike is clicked" : "Like is clicked");
+        const updatedData = Data.map((post) => {
+          if (post._id === postId) {
+            return {
+              ...post,
+              likeCount: isLiked ? post.likeCount - 1 : post.likeCount + 1,
+            };
+          }
+          return post;
+        });
+
+        setData(updatedData);
         setLikedStatus((prevStatus) => ({
           ...prevStatus,
           [postId]: !isLiked,
-        }));
-
-        setLikeCounts((prevCounts) => ({
-          ...prevCounts,
-          [postId]: isLiked ? prevCounts[postId] - 1 : prevCounts[postId] + 1,
         }));
       } else {
         const errorData = await response.json();
@@ -148,6 +169,7 @@ function Homepage() {
     }
   }, [apiData]);
 
+
   /*fetching comments*/
 
   const handleFetchComments = async (postId) => {
@@ -176,6 +198,22 @@ function Homepage() {
     //   console.error("Error:", error);
     // }
   };
+
+  const handleCommentCountUpdate = (postId, increment) => {
+    // Update comment count on the client side
+    const updatedData = Data.map((post) => {
+      if (post._id === postId) {
+        return {
+          ...post,
+          commentCount: post.commentCount + increment,
+        };
+      }
+      return post;
+    });
+
+    setData(updatedData);
+  };
+
 
   /*adding comments */
 
@@ -292,15 +330,29 @@ function Homepage() {
 
       if (response.ok) {
         console.log("Comment deleted successfully");
-        setComments((prevComments) => ({
-          ...prevComments,
-          [postId]: prevComments[postId].filter(
-            (comment) => comment._id !== commentId
-          ),
-        }));
+        // setComments((prevComments) => ({
+        //   ...prevComments,
+        //   [postId]: prevComments[postId].filter(
+        //     (comment) => comment._id !== commentId
+        //   ),
+        // }));
+        // toast.success("Comment deleted successfully", {
+        //   position: toast.POSITION.BOTTOM_LEFT,
+        // });
         toast.success("Comment deleted successfully", {
           position: toast.POSITION.BOTTOM_LEFT,
         });
+
+        // Decrement the comment count for the current post
+        handleCommentCountUpdate(postId, -1);
+
+        // Update the comments state
+        setComments((prevComments) => ({
+          ...prevComments,
+          [postId]: prevComments[postId].filter((comment) => comment._id !== commentId),
+        }));
+
+        handleFetchComments(postId);
       } else {
         const errorData = await response.json();
         console.error("Error while deleting a comment:", errorData);
@@ -330,7 +382,6 @@ function Homepage() {
           return (
             <Box
               className="main_post_box"
-              // sx={{ maxWidth: 450, maxHeight: 800, height: "100%",paddingBottom:"18px" }}
               key={post._id}
             >
               <Link
@@ -544,6 +595,12 @@ function Homepage() {
             </Box>
           );
         })}
+        {hasMore && (
+        <Button onClick={loadMorePosts} className="LoadMoreButton">
+          Load More
+        </Button>
+      )}
+
     </div>
   );
 }
