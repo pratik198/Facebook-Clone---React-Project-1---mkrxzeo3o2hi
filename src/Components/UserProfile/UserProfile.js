@@ -250,7 +250,7 @@ function UserProfile() {
               </p>
             ))}
         </div>
-        {/* Displaying work experience */}
+        {/* Displaying experience */}
         <div className="about_field">
           <h3>Work Experience</h3>
           {userProfile?.workExperience &&
