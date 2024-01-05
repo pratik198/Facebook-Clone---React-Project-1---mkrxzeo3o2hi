@@ -15,13 +15,14 @@ import { BiSolidLike } from "react-icons/bi";
 import { FaComment } from "react-icons/fa6";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ListItemButton from "@mui/material/ListItemButton";
 
 function Homepage() {
   const [page, setPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
   const [hasMore, setHasMore] = useState(true);
- 
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [likedStatus, setLikedStatus] = useState({});
   const [isLiked, setIsLiked] = useState(false);
   const { setpuId } = useAuth();
@@ -356,6 +357,54 @@ function Homepage() {
     setIsLiked(!isLiked);
   };
 
+  const openDropdown = () => {
+    setDropdownOpen(true);
+  };
+
+  const closeDropdown = () => {
+    setDropdownOpen(false);
+  };
+
+  // dlt post//
+  const handleDeletePost = async (postId) => {
+    const loggedInUserId = localStorage.getItem("userId");
+
+    const postToDelete = Data.find((post) => post._id === postId);
+    if (postToDelete && postToDelete.author._id === loggedInUserId) {
+      try {
+        const response = await fetch(
+          `https://academics.newtonschool.co/api/v1/facebook/post/${postId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${bearerToken}`,
+              projectID: "mkrxzeo3o2hi",
+            },
+          }
+        );
+
+        if (response.ok) {
+          console.log(`Post with ID ${postId} deleted successfully`);
+          const updatedPosts = Data.filter((post) => post._id !== postId);
+          setTimeout(() => {
+        
+            window.location.reload();
+          }, 1000);
+          
+          setData(updatedPosts);
+        } else {
+          console.error(`Failed to delete post with ID ${postId}`);
+        }
+      } catch (error) {
+        console.error("Error deleting post", error);
+      }
+    } else {
+      console.log("You are not authorized to delete this post.");
+    }
+  };
+
+  //dlt post//
+
   return (
     <div className="post-box">
       <ToastContainer />
@@ -394,7 +443,41 @@ function Homepage() {
                   </div>
                 </div>
               </Link>
-
+                      {/* dlt */}
+                      
+                <div
+                  className="dlt-fnc-main"
+                  style={{ position: "relative", left: "61%", top: "5px" }}
+                >
+                  {post.author._id === loggedInUserId && (
+                    <div className="moreIconDiv-main">
+                      <div className="moreIcon-main" onClick={openDropdown}>
+                        <MoreVertIcon />
+                      </div>
+                      {isDropdownOpen && (
+                        <div
+                          className="dropdownContent"
+                          onMouseEnter={openDropdown}
+                          onMouseLeave={closeDropdown}
+                        >
+                          <div className="accountBox">
+                            <div
+                              className="dropMyBookings"
+                              onClick={closeDropdown}
+                            >
+                              <ListItemButton
+                                onClick={() => handleDeletePost(post._id)}
+                              >
+                                <p>Delete</p>
+                              </ListItemButton>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+                      {/* dlt */}
               <CardContent>
                 <Typography
                   variant="body2"

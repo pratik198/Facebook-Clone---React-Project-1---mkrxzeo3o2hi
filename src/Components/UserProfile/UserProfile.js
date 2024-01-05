@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ListItemButton from "@mui/material/ListItemButton";
 function UserProfile() {
   const [userProfile, setUserProfile] = useState({});
@@ -112,9 +112,7 @@ function UserProfile() {
     }
   };
 
-  
   const handleDeletePost = async (postId) => {
-   
     const loggedInUserId = localStorage.getItem("userId");
 
     const postToDelete = Data.find((post) => post._id === postId);
@@ -143,7 +141,6 @@ function UserProfile() {
       }
     } else {
       console.log("You are not authorized to delete this post.");
-  
     }
   };
   // const userPosts = Data.filter(post => post.userId === puId);
@@ -161,7 +158,6 @@ function UserProfile() {
   const closeDropdown = () => {
     setDropdownOpen(false);
   };
-
 
   return (
     <div>
@@ -330,27 +326,32 @@ function UserProfile() {
                   className="dlt-fnc"
                   style={{ position: "relative", left: "61%", top: "5px" }}
                 >
-                   {post.author._id === loggedInUserId && (
-                  <div className="moreIconDiv">
-                  <div className="moreIcon" onClick={openDropdown}>
-                  <MoreVertIcon/>
-                  </div>
-                  {isDropdownOpen && (
-                  <div className="dropdownContent"
-                  onMouseEnter={openDropdown}
-                    onMouseLeave={closeDropdown}
-                    >
-                    <div className="accountBox">  
-                    <div className="dropMyBookings" onClick={closeDropdown}>
-                    <ListItemButton onClick={()=> handleDeletePost(post._id)}>
-                    <p>Delete</p>
-                    </ListItemButton>
-                    
+                  {post.author._id === loggedInUserId && (
+                    <div className="moreIconDiv">
+                      <div className="moreIcon" onClick={openDropdown}>
+                        <MoreVertIcon />
+                      </div>
+                      {isDropdownOpen && (
+                        <div
+                          className="dropdownContent"
+                          onMouseEnter={openDropdown}
+                          onMouseLeave={closeDropdown}
+                        >
+                          <div className="accountBox">
+                            <div
+                              className="dropMyBookings"
+                              onClick={closeDropdown}
+                            >
+                              <ListItemButton
+                                onClick={() => handleDeletePost(post._id)}
+                              >
+                                <p>Delete</p>
+                              </ListItemButton>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                    </div> 
-                  </div>
-                )}
-                  </div>
                   )}
                 </div>
 

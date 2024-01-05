@@ -342,3 +342,29 @@ body {
 .dlt-fnc{
   left: 68%;
 }
+
+.dlt-fnc-main {
+  position: relative;
+  left: 64%;
+  bottom: 43px;
+  width: 10px 
+}
+
+.moreIcon-main{
+  width: 25px;
+  height: 3px;
+  position: relative;
+  bottom: 43px;
+}
+
+.moreIconDiv-main{
+  width: 10px;
+  /* background-color: red; */
+  display: flex;
+  /* position: relative; */
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 135px;
+
+}
