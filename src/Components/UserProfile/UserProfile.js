@@ -8,12 +8,15 @@ import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ListItemButton from "@mui/material/ListItemButton";
 function UserProfile() {
   const [userProfile, setUserProfile] = useState({});
   const [isFollowed, setIsFollowed] = useState(false);
   const bearerToken = localStorage.getItem("token");
   const [Data, setData] = useState([]);
   const { puId } = useAuth();
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const loggedInUserId = localStorage.getItem("userId");
   console.log(bearerToken);
 
@@ -177,6 +180,16 @@ function UserProfile() {
     GetData();
   }, []);
   const userPosts = Data.filter((post) => post.author._id === puId);
+
+  const openDropdown = () => {
+    setDropdownOpen(true);
+  };
+
+  const closeDropdown = () => {
+    setDropdownOpen(false);
+  };
+
+
   return (
     <div>
       <Navbar />
@@ -344,10 +357,27 @@ function UserProfile() {
                   className="dlt-fnc"
                   style={{ position: "relative", left: "61%", top: "5px" }}
                 >
-                  {post.author._id === loggedInUserId && (
-                    <DeleteForeverIcon
-                      onClick={() => handleDeletePost(post._id)}
-                    />
+                   {post.author._id === loggedInUserId && (
+                  <div className="moreIconDiv">
+                  <div className="moreIcon" onClick={openDropdown}>
+                  <MoreVertIcon/>
+                  </div>
+                  {isDropdownOpen && (
+                  <div className="dropdownContent"
+                  onMouseEnter={openDropdown}
+                    onMouseLeave={closeDropdown}
+                    >
+                    <div className="accountBox">  
+                    <div className="dropMyBookings" onClick={closeDropdown}>
+                    <ListItemButton onClick={()=> handleDeletePost(post._id)}>
+                    <p>Delete</p>
+                    </ListItemButton>
+                    
+                    </div>
+                    </div> 
+                  </div>
+                )}
+                  </div>
                   )}
                 </div>
 
