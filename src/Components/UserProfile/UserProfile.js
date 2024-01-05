@@ -112,39 +112,12 @@ function UserProfile() {
     }
   };
 
-  // dlt post//
-  // const handleDeletePost = async (postId) => {
-  //   try {
-  //     const response = await fetch(
-  //       `https://academics.newtonschool.co/api/v1/facebook/post/${postId}`,
-  //       {
-  //         method: "DELETE",
-  //         headers: {
-  //           Authorization: `Bearer ${bearerToken}`,
-  //           projectID: "mkrxzeo3o2hi",
-  //         },
-  //       }
-  //     );
-
-  //     if (response.ok) {
-  //       console.log(`Post with ID ${postId} deleted successfully`);
-  //       const updatedPosts = Data.filter((post) => post._id !== postId);
-  //       setData(updatedPosts);
-  //     } else {
-  //       console.error(`Failed to delete post with ID ${postId}`);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error deleting post", error);
-  //   }
-  // };
+  
   const handleDeletePost = async (postId) => {
-    // Assuming loggedInUserId is the ID of the currently logged-in user
+   
     const loggedInUserId = localStorage.getItem("userId");
 
-    // Find the post in Data array
     const postToDelete = Data.find((post) => post._id === postId);
-
-    // Check if the post belongs to the currently logged-in user
     if (postToDelete && postToDelete.author._id === loggedInUserId) {
       try {
         const response = await fetch(
@@ -170,7 +143,7 @@ function UserProfile() {
       }
     } else {
       console.log("You are not authorized to delete this post.");
-      // Handle unauthorized deletion here (show an error message, etc.)
+  
     }
   };
   // const userPosts = Data.filter(post => post.userId === puId);
