@@ -83,6 +83,7 @@ function UserProfile() {
   function isNullOrUndefinedorFalse(flag) {
     if (flag === null || flag === undefined || flag === false) {
       return true;
+      
     }
     return false;
   }
