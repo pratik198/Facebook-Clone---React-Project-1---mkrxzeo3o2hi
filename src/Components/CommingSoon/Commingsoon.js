@@ -12,8 +12,9 @@ console.log("comming soon");
     return(
         <div className="commingsoon-div">
         <Navbar/>
-        <img src={PageisUnder} alt=".." className="under-con-png"
-        />
+        {/* <img src={PageisUnder} alt=".." className="under-con-png"
+        /> */}
+        <h1>Comming soon</h1>
        
         </div>
     )
