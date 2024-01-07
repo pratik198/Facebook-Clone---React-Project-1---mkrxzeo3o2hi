@@ -65,16 +65,14 @@ function Homepage() {
         const data = await response.json();
         console.log(data);
         if (data.data.length === 0) {
-          // If there are no more posts, set hasMore to false
+        
           setHasMore(false);
         } else {
-          // Append the new posts to the existing ones
-          setData((prevData) => [...prevData, ...data.data]);
-        // setData(data.data);
-     
-
+          setData(data.data);
+          setHasMore(true);
+        
         data.data.forEach(async (post) => {
-          await delay(2000); // Add a delay of 1 second between requests
+          await delay(2000); 
           handleFetchComments(post._id,bearerToken);
         });
       }
@@ -388,7 +386,7 @@ function Homepage() {
           const updatedPosts = Data.filter((post) => post._id !== postId);
           setTimeout(() => {
         
-            window.location.reload();
+            // window.location.reload();
           }, 1000);
           
           setData(updatedPosts);
