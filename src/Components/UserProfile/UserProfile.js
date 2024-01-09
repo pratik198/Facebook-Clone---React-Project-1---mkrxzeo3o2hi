@@ -6,10 +6,9 @@ import { Box, Button } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ListItemButton from "@mui/material/ListItemButton";
+
 function UserProfile() {
   const [userProfile, setUserProfile] = useState({});
   const [isFollowed, setIsFollowed] = useState(false);
@@ -365,6 +364,7 @@ function UserProfile() {
               </Typography>
             </CardContent>
             <CardMedia
+            className="card__img"
               component="img"
               height="194"
               src={

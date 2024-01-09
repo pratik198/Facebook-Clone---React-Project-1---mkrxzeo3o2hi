@@ -111,3 +111,8 @@ li{
     width: 18em;
     border-radius: 10px;
 }
+
+
+.card__img{
+  height: 100%;
+}

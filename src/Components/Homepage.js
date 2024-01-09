@@ -37,15 +37,10 @@ function Homepage() {
   const [editedCommentId, setEditedCommentId] = useState("");
   const loggedInUserId = localStorage.getItem("userId");
 
-
-  useEffect(()=>{
- 
-      GetData();
-      setLikeCounts(false);
-  
-    
-  },[page,postsPerPage])
-
+  useEffect(() => {
+    GetData();
+    setLikeCounts(false);
+  }, [page, postsPerPage]);
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -65,17 +60,16 @@ function Homepage() {
         const data = await response.json();
         console.log(data);
         if (data.data.length === 0) {
-        
           setHasMore(false);
         } else {
           setData(data.data);
           setHasMore(true);
-        
-        data.data.forEach(async (post) => {
-          await delay(2000); 
-          handleFetchComments(post._id,bearerToken);
-        });
-      }
+
+          data.data.forEach(async (post) => {
+            await delay(2000);
+            handleFetchComments(post._id, bearerToken);
+          });
+        }
       } else {
         console.error("Error while fetching data.");
       }
@@ -86,8 +80,6 @@ function Homepage() {
   const loadMorePosts = () => {
     setPage((prevPage) => prevPage + 1);
   };
-
-
 
   /*like post*/
 
@@ -167,7 +159,6 @@ function Homepage() {
     }
   }, [apiData]);
 
-
   /*fetching comments*/
 
   const handleFetchComments = async (postId) => {
@@ -211,7 +202,6 @@ function Homepage() {
 
     setData(updatedData);
   };
-
 
   /*adding comments */
 
@@ -338,7 +328,9 @@ function Homepage() {
         // Update the comments state
         setComments((prevComments) => ({
           ...prevComments,
-          [postId]: prevComments[postId].filter((comment) => comment._id !== commentId),
+          [postId]: prevComments[postId].filter(
+            (comment) => comment._id !== commentId
+          ),
         }));
 
         handleFetchComments(postId);
@@ -385,10 +377,9 @@ function Homepage() {
           console.log(`Post with ID ${postId} deleted successfully`);
           const updatedPosts = Data.filter((post) => post._id !== postId);
           setTimeout(() => {
-        
             // window.location.reload();
           }, 1000);
-          
+
           setData(updatedPosts);
         } else {
           console.error(`Failed to delete post with ID ${postId}`);
@@ -417,10 +408,7 @@ function Homepage() {
           };
 
           return (
-            <Box
-              className="main_post_box"
-              key={post._id}
-            >
+            <Box className="main_post_box" key={post._id} style={{paddingBottom: '11px'}}>
               <Link
                 className="userProfile-img-name"
                 to={`/userprofile/${post?.author?._id}`}
@@ -441,61 +429,55 @@ function Homepage() {
                   </div>
                 </div>
               </Link>
-                      {/* dlt */}
-                      
-                <div
-                  className="dlt-fnc-main"
-                  style={{ position: "relative", left: "61%", top: "5px" }}
-                >
-                  {post.author._id === loggedInUserId && (
-                    <div className="moreIconDiv-main">
-                      <div className="moreIcon-main" onClick={openDropdown}>
-                        <MoreVertIcon />
-                      </div>
-                      {isDropdownOpen && (
-                        <div
-                          className="dropdownContent"
-                          onMouseEnter={openDropdown}
-                          onMouseLeave={closeDropdown}
-                        >
-                          <div className="accountBox">
-                            <div
-                              className="dropMyBookings"
-                              onClick={closeDropdown}
+              {/* dlt */}
+
+              <div
+                className="dlt-fnc-main"
+                style={{ position: "relative", left: "61%", top: "5px" }}
+              >
+                {post.author._id === loggedInUserId && (
+                  <div className="moreIconDiv-main">
+                    <div className="moreIcon-main" onClick={openDropdown}>
+                      <MoreVertIcon />
+                    </div>
+                    {isDropdownOpen && (
+                      <div
+                        className="dropdownContent"
+                        onMouseEnter={openDropdown}
+                        onMouseLeave={closeDropdown}
+                      >
+                        <div className="accountBox">
+                          <div
+                            className="dropMyBookings"
+                            onClick={closeDropdown}
+                          >
+                            <ListItemButton
+                              onClick={() => handleDeletePost(post._id)}
                             >
-                              <ListItemButton
-                                onClick={() => handleDeletePost(post._id)}
-                              >
-                                <p>Delete</p>
-                              </ListItemButton>
-                            </div>
+                              <p>Delete</p>
+                            </ListItemButton>
                           </div>
                         </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-                      {/* dlt */}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+              {/* dlt */}
               <CardContent>
                 <Typography
                   variant="body2"
-                  
-                  style={{ width: "427px",color:"#1e1b1b" }}
+                  style={{ width: "427px", color: "#1e1b1b" }}
                 >
                   {post.content}
                 </Typography>
               </CardContent>
 
-              <div className="cardcontent">
-                <img
-                  src={
-                    post.images && post.images.length > 0
-                      ? post.images[0]
-                      : "defaultImageURL"
-                  }
-                  alt="not available"
-                />
-              </div>
+              {post.images && post.images.length > 0 ? (
+                <div className="cardcontent">
+                  <img src={post.images[0]} alt="not available" />
+                </div>
+              ) : null}
 
               <div className="like-icon">
                 <div className="like-section-count">
@@ -577,7 +559,7 @@ function Homepage() {
                   <Send />
                 </button>
               </div>
-
+              {comments[post._id] && comments[post._id].length > 0 ? (
               <div className="chat-container">
                 {comments[post._id] && (
                   <div className="scroll-container">
@@ -663,15 +645,15 @@ function Homepage() {
                   </div>
                 )}
               </div>
+              ) : null}
             </Box>
           );
         })}
-        {hasMore && (
+      {hasMore && (
         <Button onClick={loadMorePosts} className="LoadMoreButton">
           Load More
         </Button>
       )}
-
     </div>
   );
 }

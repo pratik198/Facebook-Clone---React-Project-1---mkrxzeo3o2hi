@@ -28,7 +28,7 @@ function Loginpage() {
     setPassword('');
     setAPiDown(false);
     setUnAuthorized(false);
-    // try {
+
       console.log("xxxx");
       const response = await fetch(
         "https://academics.newtonschool.co/api/v1/user/login",
@@ -71,11 +71,7 @@ function Loginpage() {
       } else {
         console.log(response.status);
       }
-    // }
-    // } catch (error) {
-    //   console.error("Error:", error);
-     
-    // }
+  
   }
 
   return (

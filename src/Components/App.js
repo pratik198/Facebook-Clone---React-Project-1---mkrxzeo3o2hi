@@ -10,7 +10,6 @@ import SearchComponent from "./../Components/SearchCommponent/Searchitem";
 import UserProfile from "./../Components/UserProfile/UserProfile";
 import MyProfile from "./MyProfile/MyProfile";
 import Commingsoon from './../Components/CommingSoon/Commingsoon';
-// import CreatePage from "./CreatePage";
 
 
 function App() {
