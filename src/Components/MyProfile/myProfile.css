@@ -116,3 +116,30 @@ li{
 .card__img{
   height: 100%;
 }
+
+.cardcontent__1{
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    overflow: hidden;
+    align-items: center;
+  }
+  
+  .cardcontent__1 img{
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-background-position: center;
+    background-position: center;
+    width: 100%;
+    object-fit: cover;
+    height: 362px;
+    border-radius: 0px 0px 10px 10px;
+    width: 98%;
+    height: 401px;
+  }
+.logged-in{
+    background-color: white;
+    width: 29em;
+    border-radius: 10px;
+}
