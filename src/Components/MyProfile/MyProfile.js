@@ -158,11 +158,9 @@ function MyProfile() {
             <strong>Email:</strong> {userProfile?.email}
           </p>
           <p>
-            <strong>Gender:</strong> {userProfile?.gender}
+            <strong>Gender:</strong> Male
           </p>
-          <p>
-            <strong>Phone:</strong> {userProfile?.phone}
-          </p>
+         
         </div>
      </div>
      
