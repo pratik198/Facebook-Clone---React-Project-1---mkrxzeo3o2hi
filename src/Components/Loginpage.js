@@ -81,7 +81,7 @@ function Loginpage() {
         <div className="content">
           <div className="f-logo">
             <img
-              src="https://static.xx.fbcdn.net/rsrc.php/yI/r/4aAhOWlwaXf.svg"
+              src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4lCu2zih0ca.svg"
               alt="Facebook Logo"
               className="logo"
             ></img>

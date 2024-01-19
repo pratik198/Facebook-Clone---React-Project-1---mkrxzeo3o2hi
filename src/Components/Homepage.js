@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ListItemButton from "@mui/material/ListItemButton";
+import EditPost from "./EditPost/EditPost";
 
 function Homepage() {
   const [page, setPage] = useState(1);
@@ -37,6 +38,13 @@ function Homepage() {
   const [editedCommentId, setEditedCommentId] = useState("");
   const loggedInUserId = localStorage.getItem("userId");
 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const handleCloseModal = () => {
+    setOpen(false);
+    
+  };
   useEffect(() => {
     GetData();
     setLikeCounts(false);
@@ -455,6 +463,11 @@ function Homepage() {
                               onClick={() => handleDeletePost(post._id)}
                             >
                               <p>Delete</p>
+                            </ListItemButton>
+                            <ListItemButton
+                            onClick={handleOpen}
+                            >
+                              <p>Edit</p>
                             </ListItemButton>
                           </div>
                         </div>
