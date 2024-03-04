@@ -5,7 +5,6 @@
   row-gap: 17px;
   margin-top: -68px;
   /* position: relative; */
-
 }
 
 .footer {
@@ -217,7 +216,7 @@ body {
   border-radius: 55px;
   width: 18em;
   padding-left: 13px;
- 
+
   background-color: #fff;
   border: 1px black solid;
   outline: none;
@@ -229,11 +228,9 @@ body {
   cursor: pointer;
 }
 
-
 .accountPost-img {
- 
   padding-left: 15px;
- 
+
   position: relative;
   top: 13px;
 }
@@ -246,7 +243,6 @@ body {
 }
 
 .naem-author-date {
-
   right: 109px;
   color: black;
   font-size: 15px;
@@ -267,39 +263,36 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-
   .post-box {
     display: flex;
     align-items: center;
     flex-direction: column;
-  
+
     row-gap: 17px;
     margin-top: 21px;
-   
+  }
 }
-}
-
 
 .Like_-button {
   color: black;
-      margin-top: -8px;
+  margin-top: -8px;
 }
 
 .Like_-button.liked {
   color: blue;
 }
 
-*{
+* {
   -webkit-font-smoothing: antialiased;
 }
 
-.main_post_box{
+.main_post_box {
   background-color: white;
-    box-shadow: 0px -1px 17px -7px rgba(0,0,0,0.75);
-    border-radius: 8px;
+  box-shadow: 0px -1px 17px -7px rgba(0, 0, 0, 0.75);
+  border-radius: 8px;
 }
 
-.cardcontent{
+.cardcontent {
   display: flex;
   justify-content: center;
   overflow: hidden;
@@ -308,7 +301,7 @@ body {
   width: 459px;
 }
 
-.cardcontent img{
+.cardcontent img {
   background-size: cover;
   background-repeat: no-repeat;
   -webkit-background-position: center;
@@ -321,25 +314,23 @@ body {
   height: 401px;
 }
 
-.loadMoreBTN{
+.loadMoreBTN {
   display: flex;
   justify-content: center;
   margin-top: 25px;
   width: 100%;
 }
-.dropdownContent{
+.dropdownContent {
   position: absolute;
-   background-color: white;
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-   height: 30px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  /* height: 30px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
-.dlt-fnc{
+.dlt-fnc {
   left: 68%;
 }
 
@@ -347,17 +338,17 @@ body {
   position: relative;
   left: 64%;
   bottom: 43px;
-  width: 10px 
+  width: 10px;
 }
 
-.moreIcon-main{
+.moreIcon-main {
   width: 25px;
   height: 3px;
   position: relative;
   bottom: 43px;
 }
 
-.moreIconDiv-main{
+.moreIconDiv-main {
   width: 10px;
   /* background-color: red; */
   display: flex;
@@ -366,5 +357,4 @@ body {
   align-items: center;
   position: relative;
   left: 135px;
-
 }

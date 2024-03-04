@@ -28,7 +28,7 @@ function Homepage() {
   const [isLiked, setIsLiked] = useState(false);
   const { setpuId } = useAuth();
   const [likedPosts, setLikedPosts] = useState([]);
-  const [Data, setData] = useState([]);
+  const [Data, setData] = useState([]);   
   const [comments, setComments] = useState({});
   const [likeCounts, setLikeCounts] = useState({});
   const bearerToken = localStorage.getItem("token");
