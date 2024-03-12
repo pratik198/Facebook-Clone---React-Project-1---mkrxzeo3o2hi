@@ -28,7 +28,7 @@ function Homepage() {
   const [isLiked, setIsLiked] = useState(false);
   const { setpuId } = useAuth();
   const [likedPosts, setLikedPosts] = useState([]);
-  const [Data, setData] = useState([]);   
+  const [Data, setData] = useState([]);
   const [comments, setComments] = useState({});
   const [likeCounts, setLikeCounts] = useState({});
   const bearerToken = localStorage.getItem("token");
@@ -37,13 +37,26 @@ function Homepage() {
   const [editedComment, setEditedComment] = useState("");
   const [editedCommentId, setEditedCommentId] = useState("");
   const loggedInUserId = localStorage.getItem("userId");
-
+  const [sortedData, setSortedData] = useState([]); // New state for sorted data
+  const [sortAscending, setSortAscending] = useState(true);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [editingPost, setEditingPost] = useState(null);
+
+  const handleOpenEditModal = (post) => {
+    setEditingPost(post);
+    setOpenEditModal(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setOpenEditModal(false);
+  };
+
+  const [postIdToEdit, setPostIdToEdit] = useState(null);
   const handleCloseModal = () => {
     setOpen(false);
-    
   };
   useEffect(() => {
     GetData();
@@ -89,6 +102,19 @@ function Homepage() {
     setPage((prevPage) => prevPage + 1);
   };
 
+  const sortPosts = () => {
+    console.log("withour sorted data", Data);
+    const sortedPosts = [...Data].sort((a, b) => {
+      if (sortAscending) {
+        return b.likeCount - a.likeCount; // Sort in descending order
+      } else {
+        return a.likeCount - b.likeCount; // Sort in ascending order
+      }
+    });
+    setData(sortedPosts);
+    setSortAscending(!sortAscending);
+    console.log("after sorted data", sortPosts);
+  };
   /*like post*/
 
   const handleLikePost = async (postId) => {
@@ -404,6 +430,9 @@ function Homepage() {
 
   return (
     <div className="post-box">
+      <button onClick={sortPosts} style={{ position: "absolute" }}>
+        Sort high to low
+      </button>
       <ToastContainer />
       {Data &&
         Data.map((post) => {
@@ -416,7 +445,11 @@ function Homepage() {
           };
 
           return (
-            <Box className="main_post_box" key={post._id} style={{paddingBottom: '11px'}}>
+            <Box
+              className="main_post_box"
+              key={post._id}
+              style={{ paddingBottom: "11px" }}
+            >
               <Link
                 className="userProfile-img-name"
                 to={`/userprofile/${post?.author?._id}`}
@@ -465,7 +498,7 @@ function Homepage() {
                               <p>Delete</p>
                             </ListItemButton>
                             <ListItemButton
-                            onClick={handleOpen}
+                              onClick={() => handleOpenEditModal(post)}
                             >
                               <p>Edit</p>
                             </ListItemButton>
@@ -573,91 +606,91 @@ function Homepage() {
                 </button>
               </div>
               {comments[post._id] && comments[post._id].length > 0 ? (
-              <div className="chat-container">
-                {comments[post._id] && (
-                  <div className="scroll-container">
-                    {comments[post._id].map((comment, index) => (
-                      <div key={index} className="comment">
-                        <div
-                          className="add-commnet-section"
-                          style={{ display: "flex" }}
-                        >
-                          <Avatar
-                            style={{
-                              height: "35px",
-                              width: "35px",
-                              marginLeft: "12px",
-                              marginRight: "4px",
-                              cursor: "pointer",
-                            }}
-                            src={UserMap.get(comment.author)?.img}
-                          ></Avatar>
+                <div className="chat-container">
+                  {comments[post._id] && (
+                    <div className="scroll-container">
+                      {comments[post._id].map((comment, index) => (
+                        <div key={index} className="comment">
+                          <div
+                            className="add-commnet-section"
+                            style={{ display: "flex" }}
+                          >
+                            <Avatar
+                              style={{
+                                height: "35px",
+                                width: "35px",
+                                marginLeft: "12px",
+                                marginRight: "4px",
+                                cursor: "pointer",
+                              }}
+                              src={UserMap.get(comment.author)?.img}
+                            ></Avatar>
 
-                          <div className="added-comment">
-                            <p>
-                              {comment.author && (
-                                <strong style={{ fontSize: "12px" }}>
-                                  {UserMap.get(comment.author)?.name}
-                                </strong>
-                              )}
-                            </p>
-                            {isEditingComment(comment._id) ? (
-                              <div className="edit-comment-after-clicked">
-                                <input
-                                  type="text"
-                                  id="inputBoxCommentEdit"
-                                  placeholder="Edit your comment..."
-                                  value={editedComment}
-                                  onChange={(e) =>
-                                    setEditedComment(e.target.value)
-                                  }
-                                  className="comment-edit-input" // Apply the CSS class here
-                                />
-                                <Send
-                                  className="editCommentBtn"
-                                  onClick={() =>
-                                    handleSaveEditedComment(post._id)
-                                  }
-                                >
-                                  <Send />
-                                </Send>
-                              </div>
-                            ) : (
-                              <p style={{ fontSize: "15px" }}>
-                                {comment.content}
+                            <div className="added-comment">
+                              <p>
+                                {comment.author && (
+                                  <strong style={{ fontSize: "12px" }}>
+                                    {UserMap.get(comment.author)?.name}
+                                  </strong>
+                                )}
                               </p>
-                            )}
+                              {isEditingComment(comment._id) ? (
+                                <div className="edit-comment-after-clicked">
+                                  <input
+                                    type="text"
+                                    id="inputBoxCommentEdit"
+                                    placeholder="Edit your comment..."
+                                    value={editedComment}
+                                    onChange={(e) =>
+                                      setEditedComment(e.target.value)
+                                    }
+                                    className="comment-edit-input" // Apply the CSS class here
+                                  />
+                                  <Send
+                                    className="editCommentBtn"
+                                    onClick={() =>
+                                      handleSaveEditedComment(post._id)
+                                    }
+                                  >
+                                    <Send />
+                                  </Send>
+                                </div>
+                              ) : (
+                                <p style={{ fontSize: "15px" }}>
+                                  {comment.content}
+                                </p>
+                              )}
+                            </div>
                           </div>
-                        </div>
 
-                        {comment.author === loggedInUserId && (
-                          <div style={{ display: "flex" }} className="l-r-s">
-                            <p
-                              onClick={() =>
-                                handleEditComment(
-                                  post._id,
-                                  comment._id,
-                                  comment.content
-                                )
-                              }
-                            >
-                              Edit
-                            </p>
-                            <p
-                              onClick={() =>
-                                deleteCommentForPost(post._id, comment._id)
-                              }
-                            >
-                              Delete
-                            </p>
-                            <p>Share</p>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+                          {comment.author === loggedInUserId && (
+                            <div style={{ display: "flex" }} className="l-r-s">
+                              <p
+                                onClick={() =>
+                                  handleEditComment(
+                                    post._id,
+                                    comment._id,
+                                    comment.content
+                                  )
+                                }
+                              >
+                                Edit
+                              </p>
+                              <p
+                                onClick={() =>
+                                  deleteCommentForPost(post._id, comment._id)
+                                }
+                              >
+                                Delete
+                              </p>
+                              <p>Share</p>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ) : null}
             </Box>
           );
@@ -667,6 +700,12 @@ function Homepage() {
           Load More
         </Button>
       )}
+
+      <EditPost
+        post={editingPost}
+        open={openEditModal}
+        handleClose={handleCloseEditModal}
+      />
     </div>
   );
 }

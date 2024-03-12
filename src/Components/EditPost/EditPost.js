@@ -1,101 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react';
-import "../../Styles/WhatIsOnUrMind.css";
+import React, { useState, useEffect, useRef } from "react";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import closePNG from "../../Images/close.png";
 import Button from "@mui/material/Button";
-
-
-function EditPost({post}) {
+import "./EditPost.css";
+function EditPost({ post, open, handleClose }) {
   const [postContent, setPostContent] = useState("");
-  const [postImage, setPostImage] = useState(null);
-  const [errorPost, setErrorPost] = useState("");
-  const [open, setOpen] = useState(false);
-  const [username, setUsername] = useState("");
-  const [postData, setPostData] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [postImage, setPostImage] = useState(null); // State to hold the current image file
+
   const fileInputRef = useRef(null);
 
-  // Fetch posts on component mount
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('https://academics.newtonschool.co/api/v1/facebook/post', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            'projectID': 'YOUR_PROJECT_ID',
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setPostData(data);
-        } else {
-          console.error('Failed to fetch posts');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-
-    fetchPosts();
-  }, []); 
-
-  const handleEditPost = async (postId) => {
-    try {
-      const formData = new FormData();
-      formData.append('content', postContent);
-
-      if (selectedFile) {
-        formData.append('images', selectedFile);
-      }
-
-      const response = await fetch(
-        `https://academics.newtonschool.co/api/v1/facebook/post/${postId}`,
-        {
-          method: 'PATCH',
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            projectID: 'YOUR_PROJECT_ID',
-          },
-          body: formData,
-        }
-      );
-
-      if (response.ok) {
-        console.log('Post updated successfully');
-        setOpen(false);
-      } else {
-        const errorData = await response.json();
-        console.error('Error while updating a post:', errorData);
-      }
-    } catch (error) {
-      console.error('Error:', error);
+    if (post) {
+      setPostContent(post.content);
     }
-  };
-
-  const myAvtarr = {
-    photoURL:
-      "https://images.unsplash.com/photo-1505628346881-b72b27e84530?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FydG9vbiUyMGFuaW1hbHxlbnwwfHwwfHx8MA%3D%3D",
-    displayName: "Pratik",
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-    setUsername(localStorage.getItem("userName"));
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    setPostContent("");
-    setPostImage(null);
-    setSelectedFile(null);
-  };
+  }, [post]);
 
   const handleFileInputChange = (e) => {
     const selectedFile = e.target.files[0];
     setSelectedFile(selectedFile);
+    setPostImage(URL.createObjectURL(selectedFile));
   };
 
   const triggerFileInput = () => {
@@ -104,71 +30,97 @@ function EditPost({post}) {
     }
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setPostImage(file);
-    setSelectedFile(file);
-  };
-
   const handleOpenImage = () => {
     triggerFileInput();
   };
 
+  const handleEditPost = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("content", postContent);
+
+      if (selectedFile) {
+        formData.append("images", selectedFile);
+      }
+
+      const response = await fetch(
+        `https://academics.newtonschool.co/api/v1/facebook/post/${post._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            projectID: "mkrxzeo3o2hi",
+          },
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        console.log("Post updated successfully");
+        handleClose();
+        window.location.reload();
+      } else {
+        const errorData = await response.json();
+        console.error("Error while updating a post:", errorData);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div>
-      <section className="modal_for_create_post">
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+      <Modal
+        style={{
+          position: "absolute",
+          left: "30%",
+        }}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          style={{
+            backgroundColor: "white",
+            width: "56%",
+            height: "23em",
+            position: "relative",
+            marginTop: "109px",
+            boxShadow: "0px 5px 17px -7px rgba(0, 0, 0, 0.75)",
+            borderRadius: "18px",
+          }}
+          className="modal__edit post "
         >
-          <Box>
-            <div className="css-bhp9pd-MuiPaper-root-MuiCard-root">
-              <div className="header_post_modal">
-                <h3 className="test_">Edit post</h3>
-                <img
-                  src={closePNG}
-                  alt=""
-                  onClick={handleClose}
-                  className="clickableImage"
-                />
-              </div>
-              <div className="line__modal"></div>
-              <div className="avatar__modal">
-                <Avatar src={myAvtarr.photoURL} />
-                <strong>{username}</strong>
-                <div className="friend_div">
+          <div>
+            <div className="header__edit__post">
+              <h3>Edit post</h3>
+            </div>
+            <div className="edit__post_content">
+              <Avatar src={post?.avatar} />
+              <strong>{post?.username}</strong>
+              <input
+                type="text"
+                placeholder={`What's on your mind...`}
+                value={postContent}
+                onChange={(e) => setPostContent(e.target.value)}
+                style={{ outline: "none" }}
+              />
+            </div>
+
+            <div className="footer__section" onClick={handleOpenImage}>
+              {/* <div className="updated__image">Add to your post</div> */}
+              <div className="updated__image">
+                {postImage && (
                   <img
-                    src="https://static.xx.fbcdn.net/rsrc.php/v3/yJ/r/zPcex_q0TM1.png"
-                    alt=".."
-                  />
-                  <p>Friends</p>
-                </div>
-              </div>
-              <div className="middle_div">
-                <input
-                  type="text"
-                  id="myInput"
-                  placeholder={`What's on your mind, ${username}?`}
-                  value={postContent}
-                  onChange={(e) => setPostContent(e.target.value)}
-                />
-              </div>
-              <div className="add_tp_ur_post" onClick={handleOpenImage}>
-                <p>Add to your post</p>
-                {selectedFile && (
-                  <img
-                    src={URL.createObjectURL(selectedFile)}
-                    alt="selected_img"
-                    style={{ maxWidth: "100%", maxHeight: "100%" }}
+                    src={postImage}
+                    alt="Selected"
+                    style={{
+                      height: "126px",
+                    }}
                   />
                 )}
-                <img
-                  onClick={triggerFileInput}
-                  src="https://static.xx.fbcdn.net/rsrc.php/v3/y7/r/Ivw7nhRtXyo.png"
-                  alt="select_img"
-                />
+                {!postImage && "Add to your post"}
               </div>
               <input
                 ref={fileInputRef}
@@ -176,20 +128,19 @@ function EditPost({post}) {
                 style={{ display: "none" }}
                 onChange={handleFileInputChange}
               />
-              <Button
-                variant="contained"
-                className="post__button"
-                style={{ textTransform: "none", borderRadius: "8px" }}
-                onClick={() => handleEditPost(postData[0]?._id)} 
-              >
-                Edit Post
-              </Button>
             </div>
-          </Box>
-        </Modal>
-      </section>
+            <Button
+              style={{ position: "relative", left: "39%", top: "19px" }}
+              variant="contained"
+              onClick={handleEditPost}
+            >
+              Edit Post
+            </Button>
+          </div>
+        </Box>
+      </Modal>
     </div>
-  )
+  );
 }
 
 export default EditPost;

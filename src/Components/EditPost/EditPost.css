@@ -1,0 +1,29 @@
+.img__edit_post {
+  height: 21px;
+  position: relative;
+
+  bottom: 25px;
+}
+
+.header__edit__post {
+  display: flex;
+  justify-content: center;
+}
+
+.edit__post_content {
+  display: flex;
+  padding: 27px;
+  gap: 11px;
+}
+
+.updated__image {
+}
+
+.footer__section {
+  border: 2px gray dotted;
+  height: 129px;
+  /* width: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

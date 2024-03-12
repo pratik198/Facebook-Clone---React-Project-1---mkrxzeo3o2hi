@@ -82,7 +82,6 @@ function UserProfile() {
   function isNullOrUndefinedorFalse(flag) {
     if (flag === null || flag === undefined || flag === false) {
       return true;
-      
     }
     return false;
   }
@@ -158,6 +157,7 @@ function UserProfile() {
   const closeDropdown = () => {
     setDropdownOpen(false);
   };
+  //Edit post
 
   return (
     <div>
@@ -364,7 +364,7 @@ function UserProfile() {
               </Typography>
             </CardContent>
             <CardMedia
-            className="card__img"
+              className="card__img"
               component="img"
               height="194"
               src={
