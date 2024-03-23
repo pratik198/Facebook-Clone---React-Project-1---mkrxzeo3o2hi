@@ -12,7 +12,6 @@ function Loginpage() {
   const [apiDown, setAPiDown] = useState(false);
   const navigate = useNavigate();
 
-
   function mailInput(e) {
     const mailSet = e.target.value;
     setEmail(mailSet);
@@ -24,60 +23,64 @@ function Loginpage() {
   }
 
   async function handleLogin() {
-    setEmail('');
-    setPassword('');
+    setEmail("");
+    setPassword("");
     setAPiDown(false);
     setUnAuthorized(false);
 
-      console.log("xxxx");
-      const response = await fetch(
-        "https://academics.newtonschool.co/api/v1/user/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            projectID: "mkrxzeo3o2hi",
-          },
-          body: JSON.stringify({
-            email: email,
-            password: password,
-            appType: "facebook",
-          }),
-        }
-      );
-      if(response.status===401){
-        setUnAuthorized(true);
-      }else if(response.status===500){
-        setAPiDown(true);
-      }else if (response.ok) {
-        console.log("Successfully logged in");
-        const json = await response.json();
-        setBearerToken(json["token"]);
-        console.log(json);
-        localStorage.setItem("token", json.token);
-        localStorage.setItem("userId", json.data._id);
-        localStorage.setItem("userName",json.data.name);
-        // localStorage.
-        console.log(json.name);
-        console.log(json.data._id);
-        localStorage.setItem("userId",json.data._id);
-        if(UserMap.has(json.data._id)===false){
-          console.log("user Value is not found in map");
-        UserMap.set(json.data._id,{name:json.data.name,photo:"https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/995.jpg"})
-        }
-       
-        console.log(UserMap.get("652e8f8c64d7830e72354ff6"));
-        navigate("/main");
-      } else {
-        console.log(response.status);
+    console.log("xxxx");
+    const response = await fetch(
+      "https://academics.newtonschool.co/api/v1/user/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          projectID: "mkrxzeo3o2hi",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          appType: "facebook",
+        }),
       }
-  
+    );
+    if (response.status === 401) {
+      setUnAuthorized(true);
+    } else if (response.status === 500) {
+      setAPiDown(true);
+    } else if (response.ok) {
+      console.log("Successfully logged in");
+      const json = await response.json();
+      setBearerToken(json["token"]);
+      console.log(json);
+      localStorage.setItem("token", json.token);
+      localStorage.setItem("userId", json.data._id);
+      localStorage.setItem("userName", json.data.name);
+      // localStorage.
+      console.log(json.name);
+      console.log(json.data._id);
+      localStorage.setItem("userId", json.data._id);
+      if (UserMap.has(json.data._id) === false) {
+        console.log("user Value is not found in map");
+        UserMap.set(json.data._id, {
+          name: json.data.name,
+          photo:
+            "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/995.jpg",
+        });
+      }
+
+      console.log(UserMap.get("652e8f8c64d7830e72354ff6"));
+      navigate("/main");
+    } else {
+      console.log(response.status);
+    }
   }
 
   return (
     <div className="container">
       {/* Left side */}
       <div className="left-container">
+        <p>This is my React js project</p>
         <div className="content">
           <div className="f-logo">
             <img
@@ -99,8 +102,14 @@ function Loginpage() {
         <div className="card-container">
           <div className="card-details">
             <div className="input-filed">
-              {unAuthorized && <p className="warning">wrong email id password</p>}
-              {apiDown && <p className="warning">It's not you,it's us.Please try again after some time</p>}
+              {unAuthorized && (
+                <p className="warning">wrong email id password</p>
+              )}
+              {apiDown && (
+                <p className="warning">
+                  It's not you,it's us.Please try again after some time
+                </p>
+              )}
               <input
                 type="text"
                 name="text"

@@ -8,7 +8,8 @@ import "./EditPost.css";
 function EditPost({ post, open, handleClose }) {
   const [postContent, setPostContent] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-  const [postImage, setPostImage] = useState(null); // State to hold the current image file
+  const [postImage, setPostImage] = useState(null);
+  const usersname = localStorage.getItem("userName");
 
   const fileInputRef = useRef(null);
 
@@ -17,7 +18,6 @@ function EditPost({ post, open, handleClose }) {
       setPostContent(post.content);
     }
   }, [post]);
-
   const handleFileInputChange = (e) => {
     const selectedFile = e.target.files[0];
     setSelectedFile(selectedFile);
@@ -96,9 +96,16 @@ function EditPost({ post, open, handleClose }) {
             <div className="header__edit__post">
               <h3>Edit post</h3>
             </div>
+            <strong
+              style={{
+                marginLeft: "28px",
+                color: "black",
+              }}
+            >
+              {usersname}
+            </strong>
             <div className="edit__post_content">
               <Avatar src={post?.avatar} />
-              <strong>{post?.username}</strong>
               <input
                 type="text"
                 placeholder={`What's on your mind...`}
