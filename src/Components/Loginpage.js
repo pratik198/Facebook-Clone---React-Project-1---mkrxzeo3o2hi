@@ -89,7 +89,10 @@ function Loginpage() {
         }}
       >
         <p>
-          <strong> This is a React Project of Pratik</strong>
+          <strong style={{ color: "white" }}>
+            {" "}
+            This is a React Project of Pratik
+          </strong>
         </p>
       </div>
       <div className="container">
