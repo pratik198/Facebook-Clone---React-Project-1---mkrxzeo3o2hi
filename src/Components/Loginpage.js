@@ -84,9 +84,13 @@ function Loginpage() {
           backgroundColor: "blue",
           width: "100vw",
           height: "42px",
+          display: "flex",
+          justifyContent: "center",
         }}
       >
-        <p>This is a React Project of Pratik</p>
+        <p>
+          <strong> This is a React Project of Pratik</strong>
+        </p>
       </div>
       <div className="container">
         {/* Left side */}
