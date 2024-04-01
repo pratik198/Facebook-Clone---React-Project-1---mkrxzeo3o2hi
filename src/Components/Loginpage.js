@@ -77,81 +77,93 @@ function Loginpage() {
   }
 
   return (
-    <div className="container">
-      {/* Left side */}
-      <div className="left-container">
-        <p>This is my React js project</p>
-        <div className="content">
-          <div className="f-logo">
-            <img
-              src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4lCu2zih0ca.svg"
-              alt="Facebook Logo"
-              className="logo"
-            ></img>
-          </div>
-          <div className="F-content">
-            <p>
-              Facebook helps you connect and share <br /> with the people in
-              your life.
-            </p>
+    <>
+      <div
+        style={{
+          position: "absolute",
+          backgroundColor: "blue",
+          width: "100vw",
+          height: "42px",
+        }}
+      >
+        <p>This is a React Project of Pratik</p>
+      </div>
+      <div className="container">
+        {/* Left side */}
+        <div className="left-container">
+          {/* <p>This is my React js project</p> */}
+          <div className="content">
+            <div className="f-logo">
+              <img
+                src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4lCu2zih0ca.svg"
+                alt="Facebook Logo"
+                className="logo"
+              ></img>
+            </div>
+            <div className="F-content">
+              <p>
+                Facebook helps you connect and share <br /> with the people in
+                your life.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      {/* Right Side */}
-      <div className="right-container">
-        <div className="card-container">
-          <div className="card-details">
-            <div className="input-filed">
-              {unAuthorized && (
-                <p className="warning">wrong email id password</p>
-              )}
-              {apiDown && (
-                <p className="warning">
-                  It's not you,it's us.Please try again after some time
-                </p>
-              )}
-              <input
-                type="text"
-                name="text"
-                placeholder="Email address or phone number"
-                value={email}
-                onChange={mailInput}
-              ></input>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={password}
-                onChange={passwordInput}
-              ></input>
-            </div>
-            <div className="login-button">
-              <Button
-                variant="contained"
-                className="Button"
-                onClick={handleLogin}
-              >
-                Log In
-              </Button>
-            </div>
-            <div className="Forgot-text">
-              <Link to={"/update"}>
-                <p>Forgotten password?</p>
-              </Link>
-            </div>
-            <div className="line"></div>
+        {/* Right Side */}
+        <div className="right-container">
+          <div className="card-container">
+            <div className="card-details">
+              <div className="input-filed">
+                {unAuthorized && (
+                  <p className="warning">wrong email id password</p>
+                )}
+                {apiDown && (
+                  <p className="warning">
+                    It's not you,it's us.Please try again after some time
+                  </p>
+                )}
+                <input
+                  type="text"
+                  name="text"
+                  placeholder="Email address or phone number"
+                  value={email}
+                  onChange={mailInput}
+                ></input>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={passwordInput}
+                ></input>
+              </div>
+              <div className="login-button">
+                <Button
+                  variant="contained"
+                  className="Button"
+                  onClick={handleLogin}
+                >
+                  Log In
+                </Button>
+              </div>
+              <div className="Forgot-text">
+                <Link to={"/update"}>
+                  <p>Forgotten password?</p>
+                </Link>
+              </div>
+              <div className="line"></div>
 
-            <div className="create-button">
-              <Link to={"/signup"}>
-                <button type="button" className="C-A-Button">
-                  Create new account
-                </button>
-              </Link>
+              <div className="create-button">
+                <Link to={"/signup"}>
+                  <button type="button" className="C-A-Button">
+                    Create new account
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
