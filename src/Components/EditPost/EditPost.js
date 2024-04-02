@@ -74,16 +74,17 @@ function EditPost({ post, open, handleClose }) {
         style={{
           position: "absolute",
           left: "30%",
+          // width: "100%",
         }}
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box
+        <div
           style={{
             backgroundColor: "white",
-            width: "56%",
+            width: "33em",
             height: "23em",
             position: "relative",
             marginTop: "109px",
@@ -144,7 +145,7 @@ function EditPost({ post, open, handleClose }) {
               Edit Post
             </Button>
           </div>
-        </Box>
+        </div>
       </Modal>
     </div>
   );

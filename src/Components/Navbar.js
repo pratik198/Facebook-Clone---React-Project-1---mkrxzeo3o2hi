@@ -138,8 +138,8 @@ export default function PrimarySearchAppBar() {
               alt=""
             />
           </Link>
-          <Search className="miu-search-bar">
-            <SearchIconWrapper>
+          <Search className="miu-search-bar" onClick={handleSearch}>
+            <SearchIconWrapper onClick={handleSearch}>
               <SearchIcon onClick={handleSearch} />
             </SearchIconWrapper>
             <StyledInputBase

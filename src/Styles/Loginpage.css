@@ -150,39 +150,17 @@ input:focus {
   position: relative;
   top: 10px;
 }
-/* 
+
 @media screen and (max-width: 600px) {
-    .container{
-        display: flex;
-        flex-direction: column;
-    }
-    .card-container {
-        position: relative;
-    }
-    .card-details{
-        position: absolute;
-        left: 65px;
-        bottom: 50em;
-        display: flex;
-        flex-direction: column;
-        height: 394px;
-        width: 478px;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
-    }
-    .logo{
-        position: absolute;
-        left: 40px;
-        top: 158px;
-        height: 122px;
-    }
-    .F-content p {
-        position: relative;
-        font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
-        font-size: 28px;
-        line-height: 32px;
-        font-weight: normal;
-        right: 45px;
-    }
-} */
+  .card-details {
+    display: flex;
+    flex-direction: column;
+    height: 368px;
+    width: 478px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    right: 48px;
+  }
+}

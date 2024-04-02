@@ -191,3 +191,30 @@
   /* left: 131px; */
   /* top: 10px; */
 }
+
+@media only screen and (max-width: 600px) {
+  .header_center {
+    display: flex;
+    flex: 1 1;
+    justify-content: center;
+    width: 93px;
+    margin-left: 27px;
+    padding: 0px;
+    justify-content: space-evenly;
+    gap: 47px;
+    cursor: pointer;
+  }
+  .modalBox {
+    position: absolute;
+    height: 44vh;
+    width: 15em;
+    margin: -30px 20px 0px 0px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 1px 1px 8px black;
+    left: 24em;
+    top: 6em;
+    opacity: 1;
+    padding: 10px;
+  }
+}

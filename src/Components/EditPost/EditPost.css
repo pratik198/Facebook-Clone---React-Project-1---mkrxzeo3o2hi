@@ -24,3 +24,31 @@
   justify-content: center;
   align-items: center;
 }
+
+.modal__edit post {
+  background-color: white;
+  width: 56%;
+  height: 23em;
+  position: relative;
+  margin-top: 109px;
+  box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+  border-radius: 18px;
+}
+@media only screen and (max-width: 600px) {
+  .modal__edit post {
+    /* width: 23em; */
+    background-color: white;
+    width: 91%;
+    height: 23em;
+    position: relative;
+    margin-top: 109px;
+    box-shadow: rgba(0, 0, 0, 0.75) 0px 5px 17px -7px;
+    border-radius: 18px;
+  }
+  .edit__post_content {
+    display: flex;
+    padding: 27px;
+    gap: 11px;
+    overflow: hidden;
+  }
+}
