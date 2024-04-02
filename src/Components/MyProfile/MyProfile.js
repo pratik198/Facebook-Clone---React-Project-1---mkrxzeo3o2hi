@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar";
 import Avatar from "@mui/material/Avatar";
 import "./myProfile.css";
-import {Box, Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
@@ -12,12 +12,10 @@ import { useAuth } from "../Context";
 function MyProfile() {
   const loggedInUserId = localStorage.getItem("userId");
   const [userProfile, setUserProfile] = useState({});
-  // const [userProfile, setUserProfile] = useState(null);
   const bearerToken = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [Data, setData] = useState([]);
-  // const { puId } = useAuth();
 
   const fetchData = async () => {
     console.log("inside myProfile");
@@ -50,7 +48,6 @@ function MyProfile() {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        // const userPosts = data.data.filter(post => post.userId === puId);
         setData(data.data);
       } else {
         console.error("Error while fetching data.");
@@ -111,7 +108,6 @@ function MyProfile() {
   };
   return (
     <div>
-      <Navbar />
       <section className="myProfileContent">
         <section className="profileHeader">
           <section className="profileImage">
@@ -129,19 +125,7 @@ function MyProfile() {
               <section>
                 <h3 className="userProfileName">{userProfile?.name}</h3>
               </section>
-              <section>
-                {/* <Button
-                  variant="contained"
-                  className="Button-follow"
-                  style={{
-                    textTransform: "none",
-                    width: "140px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Learn more
-                </Button> */}
-              </section>
+              <section></section>
             </div>
           </section>
         </section>
@@ -160,17 +144,15 @@ function MyProfile() {
           <p>
             <strong>Gender:</strong> Male
           </p>
-         
         </div>
-     </div>
-     
+      </div>
 
-     <div className="user_post">
+      <div className="user_post">
         {userPosts.map((post, index) => (
-          <div className="logged-in"
+          <div
+            className="logged-in"
             key={index}
             sx={{
-
               maxWidth: 450,
               maxHeight: 800,
               height: "50em",
@@ -220,7 +202,6 @@ function MyProfile() {
                     </div>
                   )}
                 </div>
-
               </div>
             </div>
             <CardContent>
@@ -229,15 +210,13 @@ function MyProfile() {
               </Typography>
             </CardContent>
             {post.images && post.images.length > 0 ? (
-                <div className="cardcontent__1">
-                  <img src={post.images[0]} alt="not available" />
-                </div>
-              ) : null}
+              <div className="cardcontent__1">
+                <img src={post.images[0]} alt="not available" />
+              </div>
+            ) : null}
           </div>
         ))}
       </div>
-
-  
     </div>
   );
 }

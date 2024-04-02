@@ -1,17 +1,12 @@
-.commingsoon-div{
-    display: flex;
-    justify-content: center;
-    height: 71vh;
-    width: 100vw;
-    position: relative;
-    top: 11em;
-    right: 38em;
+.commingsoon-div {
+  display: flex;
+  justify-content: center;
+  height: 61vh;
+  align-items: center;
 }
 
-
-.under-con-png{
-    position: relative;
-    left: 4em;
-    bottom: -2em;
-    height: 11em;
+.under-con-png {
+  height: 11em;
+  position: relative;
+  top: 20%;
 }

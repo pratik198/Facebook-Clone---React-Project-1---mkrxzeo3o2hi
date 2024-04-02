@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import "../Styles/Updatepassword.css";
 import { getBearerToken, setBearerToken } from "./Datastore";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Updatepassword() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -24,37 +26,18 @@ function Updatepassword() {
   const handleNewPasswordChange = (e) => {
     setNewPassword(e.target.value);
   };
-  async function makeAPICall() {
-    console.log("update called");
-    const loginresponse = await fetch(
-      "https://academics.newtonschool.co/api/v1/user/login",
-      {
-        method: "POST",
-        headers: {
-          projectId: "f104bi07c490",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: currentPassword,
-          appType: "facebook",
-        }),
-      }
-    );
-    const loginjson = await loginresponse.json();
-    console.log(loginjson);
-    setBearerToken(loginjson["token"]);
-    console.log("bearer token after successful login " + getBearerToken());
-    const token = getBearerToken();
-    console.log("token in starting in update " + token);
+
+  const handleUpdatePassword = async () => {
+    const userId = localStorage.getItem("userId");
+
     const response = await fetch(
       "https://academics.newtonschool.co/api/v1/user/updateMyPassword",
       {
         method: "PATCH",
         headers: {
-          projectId: "mkrxzeo3o2hi",
           "Content-Type": "application/json",
-          Authorization: token,
+          projectID: "mkrxzeo3o2hi",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({
           name: name,
@@ -65,22 +48,25 @@ function Updatepassword() {
         }),
       }
     );
-    const json = await response.json();
-    console.log(json);
-    console.log("token after update call " + json["token"]);
-  }
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      console.log("Password updated successfully");
+      navigate("/main");
+    } else {
+      console.log("Password update failed:", data.message);
+      setError(data.message);
+    }
+  };
+
   return (
     <div className="new-container">
-      <Link to={"/"}>
-      <img
-        src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4lCu2zih0ca.svg"
-        alt="Facebook Logo"
-        className="fb__logo"
-      /></Link>
       <div className="input-section">
         <h1>Update password</h1>
         <div className="name-email-password-btn">
           <div>
+            {error && <p className="error-message">{error}</p>}
             <input
               className="your-name"
               type="text"
@@ -113,7 +99,11 @@ function Updatepassword() {
               />
             </div>
             <div className="update-btn">
-              <button type="submit" className="update-password-btn" onClick={makeAPICall}>
+              <button
+                type="submit"
+                className="update-password-btn"
+                onClick={handleUpdatePassword}
+              >
                 Update
               </button>
             </div>
@@ -123,4 +113,5 @@ function Updatepassword() {
     </div>
   );
 }
+
 export default Updatepassword;

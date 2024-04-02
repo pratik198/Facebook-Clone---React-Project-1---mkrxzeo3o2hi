@@ -16,13 +16,10 @@
   gap: 11px;
 }
 
-.updated__image {
-}
-
 .footer__section {
   border: 2px gray dotted;
   height: 129px;
-  /* width: 100%; */
+
   display: flex;
   justify-content: center;
   align-items: center;

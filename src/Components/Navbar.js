@@ -12,13 +12,17 @@ import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../Styles/Navbar.css";
 import HomeIcon from "@mui/icons-material/Home";
 import FlagIcon from "@mui/icons-material/Flag";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import { useAuth } from "./Context";
-import { Logout, StorefrontOutlined, SupervisedUserCircle} from "@mui/icons-material";
+import {
+  Logout,
+  StorefrontOutlined,
+  SupervisedUserCircle,
+} from "@mui/icons-material";
 import HelpIcon from "@mui/icons-material/Help";
 import SettingsIcon from "@mui/icons-material/Settings";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -64,7 +68,7 @@ export default function PrimarySearchAppBar() {
   const username = localStorage.getItem("userName");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchPerformed, setSearchPerformed] = useState(false);
-  const {setApiSearchData}=useAuth();
+  const { setApiSearchData } = useAuth();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleProfileMenuOpen = (event) => {
@@ -83,7 +87,7 @@ export default function PrimarySearchAppBar() {
     displayName: "Pratik",
   };
   const handleSearch = async () => {
-    console.log("inside the search function")
+    console.log("inside the search function");
     const searchUrl2 = `https://academics.newtonschool.co/api/v1/facebook/post?search={"author.name":"${searchQuery}"}`;
     if (searchQuery.trim() === "") {
       // If searchTerm is empty or contains only whitespace, do not make the API call
@@ -98,7 +102,7 @@ export default function PrimarySearchAppBar() {
         },
       });
       const searchData = await response.json();
-      console.log(searchData)
+      console.log(searchData);
       setApiSearchData(searchData["data"]);
       setSearchPerformed(true);
     } catch (error) {
@@ -109,9 +113,23 @@ export default function PrimarySearchAppBar() {
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
   };
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar className="mui-nav-bar" style={{ backgroundColor: "white" }}>
+    <div
+      style={{
+        position: "sticky",
+        top: "0",
+        zIndex: 1,
+        width: "100%",
+      }}
+    >
+      <div
+        className="mui-nav-bar"
+        style={{
+          backgroundColor: "white",
+          boxShadow: "0px -1px 17px -7px rgba(0, 0, 0, 0.75)",
+        }}
+      >
         <Toolbar>
           <Link to={"/main"}>
             <img
@@ -122,7 +140,7 @@ export default function PrimarySearchAppBar() {
           </Link>
           <Search className="miu-search-bar">
             <SearchIconWrapper>
-            <SearchIcon onClick={handleSearch} />
+              <SearchIcon onClick={handleSearch} />
             </SearchIconWrapper>
             <StyledInputBase
               className="seachInput"
@@ -155,7 +173,7 @@ export default function PrimarySearchAppBar() {
             </Link>
           </div>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <div className="right___side">
             <IconButton
               size="large"
               aria-label="show 4 new mails"
@@ -172,21 +190,22 @@ export default function PrimarySearchAppBar() {
               aria-label="show 17 new notifications"
               color="#0866FF"
             >
-              <Link to={"/commingsoon"}>
+              {/* <Link to={"/commingsoon"}>
                 <Badge color="error">
                   <NotificationsIcon />
                 </Badge>
-              </Link>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="#0866FF"
-            >
-              <Avatar src={myAvtarr.photoURL} onClick={handleOpen} />
+              </Link> */}
+              <div
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="#0866FF"
+                style={{ position: "absolute" }}
+              >
+                <Avatar src={myAvtarr.photoURL} onClick={handleOpen} />
+              </div>
             </IconButton>
 
             <section className="modalSection">
@@ -206,29 +225,25 @@ export default function PrimarySearchAppBar() {
                       <Link to={"/profile"}>
                         <h3 className="author-name-modal">{username}</h3>
                       </Link>
-                     
                     </Box>
                   </Link>
                   <div className="options-modal">
                     <div className="icons-modal">
                       <SettingsIcon />
                       <p>Settings & privacy</p>
-                    
                     </div>
                     <div className="icons-modal">
                       <HelpIcon />
                       <p>Help and support</p>
-                     
                     </div>
                     <div className="icons-modal">
                       <DarkModeIcon />
                       <p>Display & accessibility</p>
-                      
                     </div>
-                    <div className="icons-modal">
+                    <Link to="/update" className="icons-modal">
                       <FeedbackIcon />
-                      <p>Give feedback</p>
-                    </div>
+                      <p>Update password</p>
+                    </Link>
                     <Link to="/" className="black-link">
                       <div className="icons-modal" onClick={habdleLoginLogout}>
                         <Logout />
@@ -246,9 +261,9 @@ export default function PrimarySearchAppBar() {
                 </Box>
               </Modal>
             </section>
-          </Box>
+          </div>
         </Toolbar>
-      </AppBar>
-    </Box>
+      </div>
+    </div>
   );
 }

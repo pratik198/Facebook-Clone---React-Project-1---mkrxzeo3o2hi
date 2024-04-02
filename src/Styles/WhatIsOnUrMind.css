@@ -1,6 +1,7 @@
 .wht-is-on-your-mind {
   position: relative;
-  top: 0px;
+  /* top: 0px; */
+  bottom: 54px;
   margin-top: 174px;
   height: 30em;
   width: 41%;
@@ -117,9 +118,9 @@
   gap: 9px;
   margin-top: 21px;
 }
-
+/* 
 @media only screen and (max-width: 1200px) {
-  /* Styles here */
+ 
   .parent-reel-section {
     display: flex;
     height: 201px;
@@ -127,9 +128,9 @@
     gap: 9px;
     margin-top: 21px;
   }
-}
+} */
 
-@media only screen and (max-width: 768px) {
+/* @media only screen and (max-width: 768px) {
   .wht-is-on-your-mind {
     height: 7em;
     position: relative;
@@ -163,7 +164,7 @@
   .parent-reel-section {
     height: 150px;
   }
-}
+} */
 
 .wht_on_ur_mind {
   padding: 3px;

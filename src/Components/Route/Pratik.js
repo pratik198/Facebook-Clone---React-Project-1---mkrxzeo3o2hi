@@ -1,9 +1,16 @@
+import React from "react";
 import { Outlet, Navigate } from "react-router";
-function Route (){
-    const token = localStorage.getItem('token');
-    return (token ? <Outlet/> : <Navigate to = {"/"}/> )
-        
-    }
+import Navbar from "../Navbar";
 
+function ProtectedRoute() {
+  const token = localStorage.getItem("token");
 
-export default Route;
+  return (
+    <>
+      {token && <Navbar />}
+      {token ? <Outlet /> : <Navigate to="/" />}
+    </>
+  );
+}
+
+export default ProtectedRoute;

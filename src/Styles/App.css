@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -34,5 +34,12 @@
   }
   to {
     transform: rotate(360deg);
+  }
+} */
+
+@media only screen and (max-width: 600px) {
+  .App {
+    width: 307%;
+    position: absolute;
   }
 }

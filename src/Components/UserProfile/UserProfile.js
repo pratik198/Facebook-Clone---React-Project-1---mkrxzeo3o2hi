@@ -21,7 +21,7 @@ function UserProfile() {
 
   const fetchData = async () => {
     console.log("user id", puId);
-    // console.log("user id", userId);
+
     try {
       const response = await fetch(
         `https://academics.newtonschool.co/api/v1/facebook/user/${puId}`,
@@ -101,7 +101,7 @@ function UserProfile() {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        // const userPosts = data.data.filter(post => post.userId === puId);
+
         setData(data.data);
       } else {
         console.error("Error while fetching data.");
@@ -142,7 +142,7 @@ function UserProfile() {
       console.log("You are not authorized to delete this post.");
     }
   };
-  // const userPosts = Data.filter(post => post.userId === puId);
+
   useEffect(() => {
     fetchData();
     window.scrollTo(0, 0);
@@ -161,7 +161,6 @@ function UserProfile() {
 
   return (
     <div>
-      <Navbar />
       <section className="myProfileContent">
         <section className="profileHeader">
           <section className="profileImage">
@@ -200,7 +199,6 @@ function UserProfile() {
             </div>
           </section>
         </section>
-        {/* <div className="line_info"></div> */}
       </section>
 
       <div className="user_user_info">

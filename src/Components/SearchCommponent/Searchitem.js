@@ -1,4 +1,3 @@
-
 import React from "react";
 import "./searchitem.css";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
@@ -16,14 +15,17 @@ function SearchComponent() {
 
   return (
     <div>
-      <Navbar />
-
       <div className="post-box-search-after-search">
         {apiSearch &&
           apiSearch.map((post) => (
             <Card
               key={post._id}
-              sx={{ maxWidth: 450, maxHeight: 800, height: "30em", marginBottom: 2 }}
+              sx={{
+                maxWidth: 450,
+                maxHeight: 800,
+                height: "30em",
+                marginBottom: 2,
+              }}
             >
               <Link
                 className="userProfile-img-name"
@@ -34,7 +36,10 @@ function SearchComponent() {
                 }}
               >
                 <div className="accountPost-img">
-                  <Avatar alt={post.author.name} src={post.author.profileImage} />
+                  <Avatar
+                    alt={post.author.name}
+                    src={post.author.profileImage}
+                  />
                   <div className="author-name-name">
                     <h4 className="naem-author">{post.author.name}</h4>
                   </div>
@@ -42,14 +47,13 @@ function SearchComponent() {
               </Link>
               <CardContent>
                 <Typography variant="body2" color="text.secondary">
-                  {post?.content} 
+                  {post?.content}
                 </Typography>
               </CardContent>
               <CardMedia
                 component="img"
                 height="194"
                 image={post?.channel?.image || post.images[0]}
-                // image={post.images && post.images.length > 0 ? post.images[0] : "defaultImageURL"}
                 alt="Paella dish"
               />
               <div className="like-icon">

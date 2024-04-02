@@ -1,19 +1,18 @@
-
 .right-sidebar {
-       position: relative;
-       width: 32%;
-       height: 100vh;
-       position: absolute;
-       left: 63em;
-       position: fixed;
-       margin-top: 75px;
+  position: relative;
+  width: 34%;
+  height: 800vh;
+  position: absolute;
+  left: 74%;
+  position: fixed;
+  margin-top: 38px;
 }
 .widgets {
-    height: 100vh;
+  height: 800vh;
 }
 
-@media only screen and (max-width : 900px) {
+/* @media only screen and (max-width : 900px) {
     .right-sidebar {
      display: none;
  }
-}
+} */

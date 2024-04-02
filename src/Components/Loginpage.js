@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { setBearerToken, UserMap } from "./Datastore";
-
+import bcrypt from "bcryptjs";
 function Loginpage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -56,10 +56,21 @@ function Loginpage() {
       localStorage.setItem("token", json.token);
       localStorage.setItem("userId", json.data._id);
       localStorage.setItem("userName", json.data.name);
-      // localStorage.
-      console.log(json.name);
-      console.log(json.data._id);
       localStorage.setItem("userId", json.data._id);
+      // localStorage.setItem("currentPassword", json.data.password);
+      localStorage.setItem(
+        "currentPasswordHashed",
+        passwordHashFunction(password)
+      );
+      localStorage.setItem("emailID", json.data.email);
+      // Log the current password from local storage
+      console.log(
+        "Current Password in Local Storage:",
+        localStorage.getItem("currentPassword"),
+        localStorage.getItem("emailID"),
+        localStorage.getItem("userId"),
+        localStorage.getItem("userName")
+      );
       if (UserMap.has(json.data._id) === false) {
         console.log("user Value is not found in map");
         UserMap.set(json.data._id, {
@@ -75,6 +86,13 @@ function Loginpage() {
       console.log(response.status);
     }
   }
+
+  const saltRounds = 10;
+  const passwordHashFunction = (password) => {
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hash = bcrypt.hashSync(password, salt);
+    return hash;
+  };
   ///new changes
   return (
     <>
@@ -82,7 +100,7 @@ function Loginpage() {
         style={{
           position: "absolute",
           backgroundColor: "blue",
-          width: "100vw",
+          width: "107%",
           height: "42px",
           display: "flex",
           justifyContent: "center",
@@ -152,12 +170,12 @@ function Loginpage() {
                   Log In
                 </Button>
               </div>
-              <div className="Forgot-text">
+              {/* <div className="Forgot-text">
                 <Link to={"/update"}>
                   <p>Forgotten password?</p>
                 </Link>
-              </div>
-              <div className="line"></div>
+              </div> */}
+              <div className="line__"></div>
 
               <div className="create-button">
                 <Link to={"/signup"}>

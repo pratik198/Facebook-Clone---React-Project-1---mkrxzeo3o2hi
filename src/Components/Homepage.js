@@ -430,9 +430,9 @@ function Homepage() {
 
   return (
     <div className="post-box">
-      <button onClick={sortPosts} style={{ position: "absolute" }}>
+      {/* <button onClick={sortPosts} style={{ position: "absolute" }}>
         Sort high to low
-      </button>
+      </button> */}
       <ToastContainer />
       {Data &&
         Data.map((post) => {

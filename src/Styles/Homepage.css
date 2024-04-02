@@ -3,7 +3,7 @@
   align-items: center;
   flex-direction: column;
   row-gap: 17px;
-  margin-top: -68px;
+  margin-top: -114px;
   /* position: relative; */
 }
 
@@ -269,7 +269,7 @@ body {
     flex-direction: column;
 
     row-gap: 17px;
-    margin-top: 21px;
+    /* margin-top: 21px; */
   }
 }
 
