@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../Styles/Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import {} from "react-router-dom";
@@ -9,9 +9,16 @@ function Signup() {
   const [name, setName] = useState("");
   const [errorMasseage, setErrorMessage] = useState("");
   const [inCorrectDetails, setIncorrectDetails] = useState(null);
-  const [setIsSignUpSuccess] = useState(false);
+  // const [setIsSignUpSuccess] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Clear email field when component mounts
+    setEmail("");
+  }, []);
   const handleEmailChange = (e) => {
     console.log("cyz");
     setEmail(e.target.value);
@@ -22,17 +29,50 @@ function Signup() {
     setPassword(e.target.value);
   };
 
-  const handleNameChange = (e) => {
-    console.log("pratik");
-    setName(e.target.value);
+  // const handleNameChange = (e) => {
+  //   console.log("pratik");
+  //   setName(e.target.value);
+  // };
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+  };
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+  };
+  useEffect(() => {
+    // Clear email and password fields when component mounts
+    setEmail("");
+    setPassword("");
+  }, []);
+
+  const validateForm = () => {
+    if (!firstName || !lastName || !email || !password) {
+      // setIncorrectDetails(true);
+      setErrorMessage("All fields are required to sign up");
+      return false;
+    }
+
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+      setIncorrectDetails(true);
+      setErrorMessage("Invalid email format.");
+      return false;
+    }
+
+    if (password.length < 6) {
+      setIncorrectDetails(true);
+      setErrorMessage("Password should be at least 6 characters long.");
+      return false;
+    }
+
+    return true;
   };
 
   async function handlesignup(e) {
-    console.log("handelsignup");
-    console.log(name);
-    console.log(email);
-    console.log(password);
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     try {
       const response = await fetch(
         "https://academics.newtonschool.co/api/v1/user/signup",
@@ -43,7 +83,7 @@ function Signup() {
             projectID: "mkrxzeo3o2hi",
           },
           body: JSON.stringify({
-            name: name,
+            name: `${firstName} ${lastName}`,
             email: email,
             password: password,
             appType: "facebook",
@@ -62,7 +102,7 @@ function Signup() {
       }
     } catch (error) {
       // console.error("Error:", error);
-      // setErrorMessage("An error occurred. Please try again.");
+      setErrorMessage("An error occurred. Please try again.");
     }
   }
 
@@ -80,9 +120,16 @@ function Signup() {
         <p>It's quick and easy.</p>
         <div className="hr3" />
         <div className="form-sign-up">
-       
           <form onSubmit={handlesignup}>
-          {errorMasseage && <p>{errorMasseage}</p>}
+            {errorMasseage && (
+              <p
+                style={{
+                  color: "red",
+                }}
+              >
+                {errorMasseage}
+              </p>
+            )}
             {inCorrectDetails && (
               <p className="error-input-data">Please provide valid details!</p>
             )}
@@ -91,13 +138,15 @@ function Signup() {
                 className="register__name"
                 type="text"
                 placeholder="First Name"
-                value={name}
-                onChange={handleNameChange}
+                value={firstName}
+                onChange={handleFirstNameChange}
               />
               <input
                 className="register__name"
                 type="text"
                 placeholder="Last Name"
+                value={lastName}
+                onChange={handleLastNameChange}
               />
             </div>
             <div className="center-input">
