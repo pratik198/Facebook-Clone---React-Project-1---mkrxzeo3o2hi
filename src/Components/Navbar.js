@@ -88,7 +88,7 @@ export default function PrimarySearchAppBar() {
   };
   const handleSearch = async () => {
     console.log("inside the search function");
-    const searchUrl2 = `https://academics.newtonschool.co/api/v1/facebook/post?search={"author.name":"${searchQuery}"}`;
+    const searchUrl2 = `https://academics.newtonschool.co/api/v1/facebook/post?search={"content":"${searchQuery}","author.name":"${searchQuery}"}`;
     if (searchQuery.trim() === "") {
       // If searchTerm is empty or contains only whitespace, do not make the API call
       setApiSearchData([]);
@@ -138,7 +138,7 @@ export default function PrimarySearchAppBar() {
               alt=""
             />
           </Link>
-          <Search className="miu-search-bar" onClick={handleSearch}>
+          <Search className="miu-search-bar">
             <SearchIconWrapper onClick={handleSearch}>
               <SearchIcon onClick={handleSearch} />
             </SearchIconWrapper>
