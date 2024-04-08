@@ -197,11 +197,11 @@
     display: flex;
     flex: 1 1;
     justify-content: center;
-    width: 93px;
+    width: 63px;
     margin-left: 27px;
     padding: 0px;
     justify-content: space-evenly;
-    gap: 47px;
+    gap: 36px;
     cursor: pointer;
   }
   .modalBox {

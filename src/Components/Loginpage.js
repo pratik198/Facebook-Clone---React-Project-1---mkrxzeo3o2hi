@@ -23,6 +23,11 @@ function Loginpage() {
   }
 
   async function handleLogin() {
+    if (!email || !password) {
+      alert("Please enter required credentials");
+      return;
+    }
+
     setEmail("");
     setPassword("");
     setAPiDown(false);
@@ -107,7 +112,7 @@ function Loginpage() {
         }}
       >
         <p>
-          <strong style={{ color: "white" }}>
+          <strong style={{ color: "white", visibility: "hidden" }}>
             {" "}
             This is a React Project of Pratik
           </strong>

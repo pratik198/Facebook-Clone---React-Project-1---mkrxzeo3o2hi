@@ -33,11 +33,11 @@ function Homepage() {
   const [likeCounts, setLikeCounts] = useState({});
   const bearerToken = localStorage.getItem("token");
   const [apiData] = useState(null);
-  const [commentInput, setCommentInput] = useState("");
+  const [commentInput, setCommentInput] = useState({});
   const [editedComment, setEditedComment] = useState("");
   const [editedCommentId, setEditedCommentId] = useState("");
   const loggedInUserId = localStorage.getItem("userId");
-  const [sortedData, setSortedData] = useState([]); // New state for sorted data
+  const [sortedData, setSortedData] = useState([]);
   const [sortAscending, setSortAscending] = useState(true);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -251,7 +251,8 @@ function Homepage() {
             projectID: "mkrxzeo3o2hi",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ content: commentInput }),
+          // body: JSON.stringify({ content: commentInput }),
+          body: JSON.stringify({ content: commentInput[postId] }),
         }
       );
 
@@ -276,7 +277,11 @@ function Homepage() {
           [postId]: [...prevComments[postId], data.data.content],
         }));
 
-        setCommentInput("");
+        // setCommentInput("");
+        setCommentInput((prevInputs) => ({
+          ...prevInputs,
+          [postId]: "",
+        }));
         handleFetchComments(postId);
         toast.success("Comment added successfully", {
           position: toast.POSITION.BOTTOM_LEFT,
@@ -290,10 +295,15 @@ function Homepage() {
     }
   };
 
-  const handleComment = (e) => {
-    setCommentInput(e.target.value);
+  // const handleComment = (e) => {
+  //   setCommentInput(e.target.value);
+  // };
+  const handleComment = (postId, value) => {
+    setCommentInput((prevInputs) => ({
+      ...prevInputs,
+      [postId]: value,
+    }));
   };
-
   /**edit comments */
 
   const updateCommentForPost = async (postId, commentId, updatedComment) => {
@@ -596,10 +606,10 @@ function Homepage() {
 
                 <input
                   type="text"
-                  id="inputBoxComment"
+                  id={`inputBoxComment-${post._id}`}
                   placeholder="Write a comment..."
-                  value={commentInput}
-                  onChange={handleComment}
+                  value={commentInput[post._id] || ""}
+                  onChange={(e) => handleComment(post._id, e.target.value)}
                 />
                 <button onClick={() => createCommentForPost(post._id)}>
                   <Send />
