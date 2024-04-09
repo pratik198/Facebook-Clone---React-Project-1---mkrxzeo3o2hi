@@ -154,8 +154,8 @@ function MyProfile() {
             key={index}
             sx={{
               maxWidth: 450,
-              maxHeight: 800,
-              height: "50em",
+              // maxHeight: 800,
+              // height: "50em",
               backgroundColor: "white",
               boxShadow:
                 "0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1)",

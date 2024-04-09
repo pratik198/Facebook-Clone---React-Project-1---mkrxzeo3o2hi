@@ -128,3 +128,16 @@ li {
   width: 29em;
   border-radius: 10px;
 }
+
+@media screen and (max-width: 600px) {
+  .user_post {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 197vh;
+    left: 26%;
+    position: absolute;
+    top: 97%;
+    width: 52%;
+  }
+}
