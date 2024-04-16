@@ -512,4 +512,17 @@
     font-weight: 600;
     font-size: 12px;
   }
+  .css-bhp9pd-MuiPaper-root-MuiCard-root {
+    background-color: #ffffff;
+    color: rgba(0, 0, 0, 0.87);
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    overflow: hidden;
+    position: absolute;
+    top: 8em;
+    left: 0px;
+    height: 25em;
+    width: 319px;
+    box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+  }
 }

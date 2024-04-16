@@ -229,4 +229,17 @@
     background-color: rgba(255, 255, 255, 0.15);
     width: 75%;
   }
+  .modalBox {
+    position: absolute;
+    width: 13em;
+    margin: -30px 20px 0px 0px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 1px 1px 8px black;
+    left: 6em;
+    top: 6em;
+    opacity: 1;
+    padding: 10px;
+    height: 57%;
+  }
 }
