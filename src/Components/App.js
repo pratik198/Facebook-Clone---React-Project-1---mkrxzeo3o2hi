@@ -11,6 +11,9 @@ import UserProfile from "./../Components/UserProfile/UserProfile";
 import MyProfile from "./MyProfile/MyProfile";
 import Commingsoon from "./../Components/CommingSoon/Commingsoon";
 import Navbar from "./Navbar";
+import Commingsoon2 from "./CommingSoon/Commingsoon2";
+import Commingsoon3 from "./CommingSoon/Commingsoon3";
+import Commingsoon4 from "./CommingSoon/Commingsoon4";
 function App() {
   return (
     <div className="App">
@@ -26,6 +29,9 @@ function App() {
             <Route path="/main" element={<Main />} />
             <Route path="/search" element={<SearchComponent />} />
             <Route path="/commingsoon" element={<Commingsoon />} />
+            <Route path="/commingsoon2" element={<Commingsoon />} />
+            <Route path="/commingsoon3" element={<Commingsoon />} />
+            <Route path="/commingsoon4" element={<Commingsoon />} />
             <Route path="/search" element={<SearchComponent />} />
           </Route>
         </Routes>

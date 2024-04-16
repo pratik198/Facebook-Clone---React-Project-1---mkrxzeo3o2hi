@@ -139,11 +139,11 @@ body {
   margin-bottom: 9px;
   position: relative;
 }
-.scroll-container {
+/* .scroll-container {
   overflow-y: scroll;
   height: 135px;
   margin-top: 14px;
-}
+} */
 .l-r-s {
   font-family: system-ui;
   display: flex;
@@ -260,6 +260,13 @@ body {
   right: 82px;
   top: 8px;
   font-weight: 100;
+}
+
+.scroll-container {
+  overflow-y: scroll;
+  /* height: 135px; */
+  max-height: 135px;
+  margin-top: 14px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -411,11 +418,11 @@ body {
     height: 282px;
     width: 100%;
   }
-  .scroll-container {
+  /* .scroll-container {
     overflow-y: scroll;
     height: 90px;
     margin-top: 14px;
-  }
+  } */
   .Toastify__toast-body {
     display: none;
   }

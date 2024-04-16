@@ -28,3 +28,30 @@
     flex-direction: column;
   }
 }
+@media only screen and (max-width: 600px) {
+  .post-box-search-after-search {
+    width: 18em;
+    position: relative;
+    left: 62px;
+    top: 1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    /* height: 376em; */
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .post-box-search-after-search {
+    width: 18em;
+    position: relative;
+    left: 19px;
+    top: 1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    /* height: 376em; */
+  }
+}

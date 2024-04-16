@@ -71,6 +71,10 @@ export default function PrimarySearchAppBar() {
   const { setApiSearchData } = useAuth();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [activeLink, setActiveLink] = useState("/main"); // Initialize with the home link
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+  };
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -155,23 +159,104 @@ export default function PrimarySearchAppBar() {
               }}
             />
           </Search>
+
+          {/* 
           <div className="header_center">
-            <Link to={"/main"} className="header_option header_option--active">
+            <Link
+              to={"/main"}
+              className={`header_option ${
+                activeLink === "/main" ? "header_option--active" : ""
+              }`}
+              onClick={() => handleLinkClick("/main")}
+            >
               <HomeIcon fontSize="large" />
             </Link>
-            <Link to={"/commingsoon"} className="header_option">
+            <Link
+              to={"/commingsoon"}
+              className={`header_option ${
+                activeLink === "/commingsoon" ? "header_option--active" : ""
+              }`}
+              onClick={() => handleLinkClick("/commingsoon")}
+            >
               <FlagIcon fontSize="large" />
             </Link>
-            <Link to={"/commingsoon"} className="header_option">
+            <Link
+              to={"/commingsoon"}
+              className={`header_option ${
+                activeLink === "/commingsoon" ? "header_option--active" : ""
+              }`}
+              onClick={() => handleLinkClick("/commingsoon")}
+            >
               <SubscriptionsIcon fontSize="large" />
             </Link>
-            <Link to={"/commingsoon"} className="header_option">
+            <Link
+              to={"/commingsoon"}
+              className={`header_option ${
+                activeLink === "/commingsoon" ? "header_option--active" : ""
+              }`}
+              onClick={() => handleLinkClick("/commingsoon")}
+            >
               <StorefrontOutlined fontSize="large" />
             </Link>
-            <Link to={"/commingsoon"} className="header_option">
+            <Link
+              to={"/commingsoon"}
+              className={`header_option ${
+                activeLink === "/commingsoon" ? "header_option--active" : ""
+              }`}
+              onClick={() => handleLinkClick("/commingsoon")}
+            >
+              <SupervisedUserCircle fontSize="large" />
+            </Link>
+          </div> */}
+
+          <div className="header_center">
+            <Link
+              to={"/main"}
+              className={`header_option ${
+                activeLink === "/main" ? "header_option--active" : ""
+              }`}
+              onClick={() => handleLinkClick("/main")}
+            >
+              <HomeIcon fontSize="large" />
+            </Link>
+            <Link
+              to={"/commingsoon"}
+              className={`header_option ${
+                activeLink === "/commingsoon" ? "header_option--active" : ""
+              }`}
+              onClick={() => handleLinkClick("/commingsoon")}
+            >
+              <FlagIcon fontSize="large" />
+            </Link>
+            <Link
+              to={"/commingsoon2"} // Assuming this is another route
+              className={`header_option ${
+                activeLink === "/commingsoon2" ? "header_option--active" : ""
+              }`}
+              onClick={() => handleLinkClick("/commingsoon2")}
+            >
+              <SubscriptionsIcon fontSize="large" />
+            </Link>
+            <Link
+              to={"/commingsoon3"} // Assuming this is another route
+              className={`header_option ${
+                activeLink === "/commingsoon3" ? "header_option--active" : ""
+              }`}
+              onClick={() => handleLinkClick("/commingsoon3")}
+            >
+              <StorefrontOutlined fontSize="large" />
+            </Link>
+            <Link
+              to={"/commingsoon4"} // Assuming this is another route
+              className={`header_option ${
+                activeLink === "/commingsoon4" ? "header_option--active" : ""
+              }`}
+              onClick={() => handleLinkClick("/commingsoon4")}
+            >
               <SupervisedUserCircle fontSize="large" />
             </Link>
           </div>
+
           <Box sx={{ flexGrow: 1 }} />
           <div className="right___side">
             <span className="spannn_main">

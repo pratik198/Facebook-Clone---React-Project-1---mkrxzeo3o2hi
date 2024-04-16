@@ -91,17 +91,16 @@
 }
 
 .modalBox {
-  position: relative;
-  height: 65vh;
+  position: absolute;
   width: 20em;
   margin: -30px 20px 0px 0px;
   background-color: white;
   border-radius: 8px;
   box-shadow: 1px 1px 8px black;
-  left: 63em;
   top: 6em;
   opacity: 1;
   padding: 10px;
+  right: 4px;
 }
 
 .boxUser {
@@ -193,29 +192,52 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .header_center {
-    display: flex;
-    flex: 1 1;
-    justify-content: center;
-    width: 63px;
-    margin-left: 10%;
-    padding: 0px;
-    justify-content: space-evenly;
-    gap: 16px;
-    cursor: pointer;
-  }
-  .modalBox {
-    position: absolute;
-    height: 44vh;
-    width: 15em;
-    margin: -30px 20px 0px 0px;
+  .mui-nav-bar {
+    position: sticky;
+    top: 0;
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 1px 1px 8px black;
-    left: 24em;
-    top: 6em;
-    opacity: 1;
-    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.75) 0px -1px 17px -7px;
+    height: 102px;
+  }
+
+  .header_center {
+    position: absolute;
+    display: flex;
+    top: 57px;
+    right: 72%;
+    /* gap: 54px; */
+    justify-content: flex-start;
+  }
+  .miu-search-bar {
+    background-color: #eff2f5;
+    color: black;
+    width: 69%;
+    margin-left: 18px;
+  }
+  .spannn_main {
+    display: none;
+  }
+  .wht-is-on-your-mind {
+    position: relative;
+    /* top: 0px; */
+    bottom: 54px;
+    margin-top: 174px;
+    height: 30em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .header_center {
+    /* display: none; */
+    position: absolute;
+    right: 62%;
+    display: flex;
+    /* justify-content: space-evenly; */
+    gap: 25px;
   }
 }
 
@@ -240,7 +262,8 @@
     top: 6em;
     opacity: 1;
     padding: 10px;
-    height: 57%;
+    /* height: 57%; */
+    height: 19em;
   }
   .icons-modal p {
     position: relative;
@@ -256,5 +279,11 @@
     left: 58px;
     color: black;
     font-size: 15px;
+  }
+  .miu-search-bar {
+    background-color: #eff2f5;
+    color: black;
+    width: 69%;
+    margin-left: 0px;
   }
 }

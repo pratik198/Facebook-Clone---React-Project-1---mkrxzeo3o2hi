@@ -76,14 +76,13 @@ li {
 .user_post {
   width: 39%;
   position: absolute;
-  left: 51%;
-  top: 83%;
+  left: 52%;
+  top: 95%;
   height: 197vh;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
-
 .users__post_div {
   background-color: white;
   height: 28em;
@@ -162,7 +161,7 @@ li {
     background-image: linear-gradient(to bottom, #83858d 5%, transparent 62%);
   }
   .userProfileName {
-    font-size: 22px;
+    font-size: 14px;
   }
   .user_user_info {
     position: absolute;

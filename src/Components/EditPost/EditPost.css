@@ -61,12 +61,18 @@
     margin-top: 109px !important;
     box-shadow: rgba(0, 0, 0, 0.75) 0px 5px 17px -7px;
     border-radius: 18px;
-    right: 30px !important;
+    right: 91px !important;
   }
   .edit__post_content {
     display: flex;
     padding: 2px !important;
     gap: 11px !important;
     overflow: hidden;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .modal__edit {
+    right: 27px !important;
   }
 }
