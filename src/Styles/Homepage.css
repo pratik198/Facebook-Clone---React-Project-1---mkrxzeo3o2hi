@@ -411,4 +411,38 @@ body {
     height: 282px;
     width: 100%;
   }
+  .scroll-container {
+    overflow-y: scroll;
+    height: 90px;
+    margin-top: 14px;
+  }
+  .Toastify__toast-body {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .boxUser {
+    border: 2px solid black;
+    box-shadow: 0px 0px 3px black;
+    margin: 10px 20px 0px 20px;
+    height: 54px;
+    border: none;
+    border-radius: 5px;
+  }
+  .boxUser h3 {
+    position: relative;
+    bottom: 40px;
+    left: 58px;
+    color: black;
+    font-size: 15px;
+  }
+  .commentInputDiv {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    margin-top: 21px;
+    right: 0 !important;
+  }
 }

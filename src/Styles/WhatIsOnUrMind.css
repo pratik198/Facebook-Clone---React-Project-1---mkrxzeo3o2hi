@@ -519,10 +519,24 @@
     border-radius: 4px;
     overflow: hidden;
     position: absolute;
-    top: 8em;
-    left: 0px;
+    top: 2em;
+    left: 19px;
     height: 25em;
-    width: 319px;
+    width: 287px;
     box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+  }
+  #myInput {
+    font-size: 13px;
+    /* padding: 10px; */
+    caret-color: black;
+    position: relative;
+  }
+  .middle_div {
+    /* background-color: red; */
+    position: relative;
+    top: 23px;
+    height: 118px;
+    /* left: 10px; */
+    width: 100%;
   }
 }

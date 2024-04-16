@@ -133,10 +133,10 @@ function Homepage() {
       );
 
       if (response.ok) {
-        toast.success(isLiked ? "Post Unliked!" : "Post Liked!", {
-          position: toast.POSITION.BOTTOM_LEFT,
-          iconTheme: { primary: "#0566ff" },
-        });
+        // toast.success(isLiked ? "Post Unliked!" : "Post Liked!", {
+        //   position: toast.POSITION.BOTTOM_LEFT,
+        //   iconTheme: { primary: "#0566ff" },
+        // });
         const updatedData = Data.map((post) => {
           if (post._id === postId) {
             return {
@@ -283,9 +283,9 @@ function Homepage() {
           [postId]: "",
         }));
         handleFetchComments(postId);
-        toast.success("Comment added successfully", {
-          position: toast.POSITION.BOTTOM_LEFT,
-        });
+        // toast.success("Comment added successfully", {
+        //   position: toast.POSITION.BOTTOM_LEFT,
+        // });
       } else {
         const errorData = await response.json();
         console.error("Error while creating a comment:", errorData);
@@ -323,9 +323,9 @@ function Homepage() {
 
       if (response.ok) {
         console.log("Comment updated successfully");
-        toast.success("Comment edited successfully", {
-          position: toast.POSITION.BOTTOM_LEFT,
-        });
+        // toast.success("Comment edited successfully", {
+        //   position: toast.POSITION.BOTTOM_LEFT,
+        // });
       } else {
         const errorData = await response.json();
         console.error("Error while updating a comment:", errorData);
@@ -362,9 +362,9 @@ function Homepage() {
 
       if (response.ok) {
         console.log("Comment deleted successfully");
-        toast.success("Comment deleted successfully", {
-          position: toast.POSITION.BOTTOM_LEFT,
-        });
+        // toast.success("Comment deleted successfully", {
+        //   position: toast.POSITION.BOTTOM_LEFT,
+        // });
 
         // Decrement the comment count for the current post
         handleCommentCountUpdate(postId, -1);
@@ -443,7 +443,7 @@ function Homepage() {
       {/* <button onClick={sortPosts} style={{ position: "absolute" }}>
         Sort high to low
       </button> */}
-      <ToastContainer />
+
       {Data &&
         Data.map((post) => {
           const buttonStyle = {

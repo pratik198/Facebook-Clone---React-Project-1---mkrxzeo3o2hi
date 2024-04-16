@@ -242,4 +242,19 @@
     padding: 10px;
     height: 57%;
   }
+  .icons-modal p {
+    position: relative;
+    bottom: 12px;
+    left: 11px;
+    font-weight: 400;
+    font-family: 15px Arial, Helvetica, sans-serif;
+    font-size: 11px;
+  }
+  .boxUser h3 {
+    position: relative;
+    bottom: 40px;
+    left: 58px;
+    color: black;
+    font-size: 15px;
+  }
 }
