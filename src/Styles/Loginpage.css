@@ -152,7 +152,7 @@ input:focus {
 }
 
 @media screen and (max-width: 600px) {
-  .card-details {
+  /* .card-details {
     display: flex;
     flex-direction: column;
     height: 368px;
@@ -163,5 +163,57 @@ input:focus {
     position: absolute;
     right: 48px;
     top: 67%;
+  } */
+}
+@media screen and (max-width: 320px) {
+  .container {
+    display: flex;
+    width: 100%;
+  }
+  .F-content p {
+    font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+    font-size: 28px;
+    line-height: 32px;
+    font-weight: normal;
+    display: none;
+  }
+  .logo {
+    position: absolute;
+    left: 38px;
+    top: 77px;
+    height: 80px;
+  }
+  .card-details {
+    display: flex;
+    flex-direction: column;
+    height: 239px;
+    width: 289px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    right: 13px;
+    top: 32%;
+  }
+
+  .headerrrr_login {
+    position: absolute;
+    background-color: blue;
+    width: 100%;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .login-button {
+    position: relative;
+    right: 10px;
+  }
+  .warning {
+    color: red;
+    margin-left: 57px;
+    font-weight: bolder;
+    position: relative;
+    top: 10px;
   }
 }

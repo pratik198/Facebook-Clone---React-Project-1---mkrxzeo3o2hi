@@ -102,10 +102,11 @@ function Loginpage() {
   return (
     <>
       <div
+        className="headerrrr_login"
         style={{
           position: "absolute",
           backgroundColor: "blue",
-          width: "107%",
+          width: "100%",
           height: "42px",
           display: "flex",
           justifyContent: "center",

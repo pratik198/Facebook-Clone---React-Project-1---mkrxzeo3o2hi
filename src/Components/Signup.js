@@ -133,7 +133,7 @@ function Signup() {
             {inCorrectDetails && (
               <p className="error-input-data">Please provide valid details!</p>
             )}
-            <div className="row">
+            <div className="row row2">
               <input
                 className="register__name"
                 type="text"
@@ -168,7 +168,7 @@ function Signup() {
             <div className="dob">
               <h5 className="register__date1">Date Of Birth</h5>
             </div>
-            <div className="row">
+            <div className="row3">
               <select className="register__date2">
                 <option value="Day">Day</option>
 

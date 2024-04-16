@@ -1,30 +1,7 @@
-@media only screen and (max-width: 600px) {
-  .App {
-    width: 157%;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .containner__ {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .containner__ {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .right-sidebar,
-  .left-sidebar {
+@media only screen and (max-width: 320px) {
+  .right-sidebar {
     display: none;
   }
-}
-
-@media only screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-  .right-sidebar,
   .left-sidebar {
     display: none;
   }

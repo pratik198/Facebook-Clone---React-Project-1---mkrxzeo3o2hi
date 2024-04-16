@@ -441,3 +441,75 @@
     box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
   }
 }
+
+@media only screen and (max-width: 320px) {
+  .parent-reel-section {
+    /* display: none; */
+  }
+  .reel-box {
+    position: relative;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 99px;
+    height: 153px;
+    box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+    border-radius: 10px;
+    margin-right: 0 !important;
+    transition: transform 100ms ease-in;
+    cursor: pointer;
+  }
+  .header_center {
+    display: none;
+  }
+  .css-81m0rg {
+    position: relative;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.15);
+    width: 75%;
+  }
+  .wht-is-on-your-mind {
+    position: relative;
+    /* top: 0px; */
+    bottom: 40px;
+    margin-top: 174px;
+    height: 23em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .wht_on_ur_mind {
+    padding: 3px;
+    background-color: white;
+    width: 19em;
+    height: 6em;
+    margin-top: 13px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0px -1px 17px -7px rgba(0, 0, 0, 0.75);
+  }
+  .parent-reel-section {
+    display: flex;
+    height: 166px;
+    background-color: #e9ebee;
+    gap: 9px;
+    margin-top: 21px;
+  }
+  .box__name p {
+    position: relative;
+    right: 0;
+    font-size: 15px;
+    color: gray;
+  }
+  .icon_box p {
+    color: #6e6666;
+    font-weight: 600;
+    font-size: 12px;
+  }
+}

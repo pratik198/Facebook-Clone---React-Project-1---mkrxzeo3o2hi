@@ -174,17 +174,19 @@ export default function PrimarySearchAppBar() {
           </div>
           <Box sx={{ flexGrow: 1 }} />
           <div className="right___side">
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="#0866FF"
-            >
-              <Link to={"/commingsoon"}>
-                <Badge color="error">
-                  <MailIcon />
-                </Badge>
-              </Link>
-            </IconButton>
+            <span className="spannn_main">
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="#0866FF"
+              >
+                <Link to={"/commingsoon"}>
+                  <Badge color="error">
+                    <MailIcon />
+                  </Badge>
+                </Link>
+              </IconButton>
+            </span>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
