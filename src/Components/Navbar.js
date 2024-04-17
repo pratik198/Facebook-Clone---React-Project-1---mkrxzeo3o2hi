@@ -315,18 +315,18 @@ export default function PrimarySearchAppBar() {
                     </Box>
                   </Link>
                   <div className="options-modal">
-                    <div className="icons-modal">
+                    <Link to="/commingsoon" className="icons-modal">
                       <SettingsIcon />
                       <p>Settings & privacy</p>
-                    </div>
-                    <div className="icons-modal">
+                    </Link>
+                    <Link to="/commingsoon" className="icons-modal">
                       <HelpIcon />
                       <p>Help and support</p>
-                    </div>
-                    <div className="icons-modal">
+                    </Link>
+                    <Link to="/commingsoon" className="icons-modal">
                       <DarkModeIcon />
                       <p>Display & accessibility</p>
-                    </div>
+                    </Link>
                     <Link to="/update" className="icons-modal">
                       <FeedbackIcon />
                       <p>Update password</p>
