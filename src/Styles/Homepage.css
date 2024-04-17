@@ -278,6 +278,17 @@ body {
     row-gap: 17px;
     /* margin-top: 21px; */
   }
+  .comment-edit-input {
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 55px;
+    /* left: -35px; */
+    outline: none;
+    padding-left: 13px;
+    position: relative;
+    top: -9px;
+    width: 14em;
+  }
 }
 
 .Like_-button {
