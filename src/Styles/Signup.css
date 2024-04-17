@@ -247,6 +247,9 @@ h5 {
 .error-input-data {
   color: red;
 }
+.row3 {
+  display: flex;
+}
 
 @media screen and (max-width: 320px) {
   .register__logo {
