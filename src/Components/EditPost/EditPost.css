@@ -58,10 +58,10 @@
     width: 16em !important;
     height: 23em !important;
     position: absolute !important;
-    margin-top: 109px !important;
+    margin-top: 138px !important;
     box-shadow: rgba(0, 0, 0, 0.75) 0px 5px 17px -7px;
     border-radius: 18px;
-    right: 91px !important;
+    right: 35px !important;
   }
   .edit__post_content {
     display: flex;
@@ -72,7 +72,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .modal__edit {
+  /* .modal__edit {
     right: 83px !important;
-  }
+  } */
 }
