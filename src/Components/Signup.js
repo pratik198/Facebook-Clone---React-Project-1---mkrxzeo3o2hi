@@ -168,7 +168,12 @@ function Signup() {
             <div className="dob">
               <h5 className="register__date1">Date Of Birth</h5>
             </div>
-            <div className="row3">
+            <div
+              className="row3"
+              style={{
+                display: "flex",
+              }}
+            >
               <select className="register__date2">
                 <option value="Day">Day</option>
 

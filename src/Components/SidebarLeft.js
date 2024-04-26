@@ -16,20 +16,21 @@ const myAvtar = {
 };
 
 function SidebarLeft() {
- 
   const username = localStorage.getItem("userName");
 
   return (
     <div className="SidebarLeft">
       <Link to={"/profile"} className="sidebar-icon">
-      <Link to={"/profile"}>
-        <div className="abc">
-          <Avatar src={myAvtar.photoURL} className="a" />
-        </div></Link>
         <Link to={"/profile"}>
-        <h4>{username}</h4></Link>
+          <div className="abc">
+            <Avatar src={myAvtar.photoURL} className="a" />
+          </div>
+        </Link>
+        <Link to={"/profile"}>
+          <h4>{username}</h4>
+        </Link>
       </Link>
-     {/* <Link to={"/commingsoon"}> */}
+      {/* <Link to={"/commingsoon"}> */}
       <Link to={"/commingsoon"} className="sidebarRow">
         <EmojiFlagsIcon />
         <p className="right-sec">Pages</p>
