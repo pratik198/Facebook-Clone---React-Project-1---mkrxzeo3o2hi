@@ -59,9 +59,9 @@ function Loginpage() {
       setBearerToken(json["token"]);
       console.log(json);
       localStorage.setItem("token", json.token);
-      localStorage.setItem("userId", json.data._id);
+      localStorage.setItem("userId", json.data.user._id);
       localStorage.setItem("userName", json.data.user.name);
-      localStorage.setItem("userId", json.data._id);
+      // localStorage.setItem("userId", json.data._id);
       // localStorage.setItem("currentPassword", json.data.password);
       localStorage.setItem(
         "currentPasswordHashed",
